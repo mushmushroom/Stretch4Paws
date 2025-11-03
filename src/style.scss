@@ -1,0 +1,226 @@
+@use 'sass:color';
+// variables
+$white: #FFFFFF;
+$bg-main: #FAE0DB;
+$bg-secondary: #E8E8E8;
+$pink-dark: #FEBAAE;
+$emerald: #7CC6C6;
+$violet: #CBB1F8;
+$text-dark: #1F2937;
+$text-light: #474D56;
+
+// font
+@import url('https://fonts.googleapis.com/css2?family=Basic&family=Inter:opsz,wght@14..32,100..900&family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Young+Serif&display=swap');
+
+
+// reset styles
+
+h1,
+p {
+  margin: 0;
+}
+
+// global styles
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (max-width: 360px) {
+  html {
+    font-size: 50%;
+    /* Now 1rem = 8px */
+  }
+}
+
+body {
+  background-color: $bg-main;
+  font-family: "Lexend", sans-serif;
+  font-size: 1.6rem;
+  color: $text-dark;
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 3rem 2rem;
+}
+
+.section {
+  box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  background-color: $white;
+  padding: 1.9rem 2rem 1.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-weight: 400;
+  font-size: 1.5rem;
+  border-radius: 1.6rem;
+  padding: 1rem 1.5rem 1.1rem;
+  border: none;
+  color: $white;
+  cursor: pointer;
+  background-color: $emerald;
+  transition: background-color 0.3s ease;
+
+  @media (any-hover:hover) {
+    &:hover {
+      background-color: color.adjust($emerald, $lightness: -10%)
+    }
+  }
+}
+
+// global-section
+.global-section {
+  max-width: 670px;
+  width: 100%;
+
+  &__top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+}
+
+// app-info 
+.app-info {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+
+  &__icon {
+    background-color: $pink-dark;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4.3rem;
+    width: 4.3rem;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.9rem;
+  }
+
+  &__descr {
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+}
+
+// restart-btn
+.restart-btn {
+  background-color: $violet;
+
+  @media (any-hover:hover) {
+    &:hover {
+      background-color: color.adjust($violet, $lightness: -10%)
+    }
+  }
+}
+
+// .global-progress-bar
+.global-progress-bar {
+  width: 100%;
+
+  &__container {
+    width: 100%;
+    height: 11px;
+    background-color: $bg-secondary;
+    position: relative;
+    border-radius: 1.5rem;
+  }
+
+  &__fill {
+    background-color: $emerald;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 1.5rem;
+    transition: width 1s linear;
+    width: 50%;
+
+
+  }
+
+  &__text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    font-size: 1.1rem;
+    color: $text-light;
+    margin-bottom: 0.5rem;
+  }
+
+}
+
+// stretch-info
+.stretch-info {
+  max-width: 504px;
+  width: 100%;
+  text-align: center;
+
+  &__name {
+    font-size: 2.4rem;
+    margin-bottom: 5px;
+  }
+
+  &__description {
+    font-size: 1.6rem;
+  }
+
+  &__img-placeholder {
+    max-width: 180px;
+    width: 100%;
+    height: 200px;
+    background-color: $bg-secondary;
+    color: $text-dark;
+  }
+}
+
+// stretch-timer
+.stretch-timer {
+  max-width: 314px;
+  width: 100%;
+
+  &__container {
+    margin-bottom: 15px;
+  }
+
+  &__timer {
+    font-weight: 700;
+    font-size: 3.4rem;
+  }
+
+  &__text {
+    color: $text-light;
+    font-size: 1.3rem;
+  }
+}
