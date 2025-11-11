@@ -1,16 +1,23 @@
 // import './App.css'
-import GlobalSection from './components/GlobalSection';
-import StretchInfo from './components/StretchInfo';
-import StretchTimer from './components/StretchTimer';
+
+import { StretchProvider } from './context/StretchContext';
 import './style.scss';
+import StretchDetails from './components/StretchDetails';
+import GlobalSection from './components/GlobalSection';
+import ThemeToggle from './components/ThemeToggle';
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   return (
-    <main className="main">
-      <GlobalSection />
-      <StretchInfo />
-      <StretchTimer />
-    </main>
+    <ThemeProvider>
+      <StretchProvider>
+        <main className="main">
+          <GlobalSection />
+          <StretchDetails />
+        </main>
+        <ThemeToggle />
+      </StretchProvider>
+    </ThemeProvider>
   );
 }
 

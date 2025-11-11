@@ -4,7 +4,7 @@ export default function AppInfo() {
   return (
     <div className="app-info">
       <div className="app-info__icon">
-        <FaPaw color="FFF" size={18} />
+        <FaPaw color="#FFFFFF" size={18} />
       </div>
       <div>
         <h1 className="app-info__title">Stretch4Paws</h1>
