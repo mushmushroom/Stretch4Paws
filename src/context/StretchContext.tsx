@@ -1,12 +1,22 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
 import { stretches as stretchData, type Stretch } from '../data/stretches';
 
 type StretchContextType = {
   stretches: Stretch[];
+  currentStretch: Stretch;
   isActive: boolean;
   isCompleted: boolean;
   totalDuration: number;
-  timeLeft: number;
+  stretchTimeLeft: number;
+  totalTimeLeft: number;
   currentStretchIndex: number;
   handleCompleteBlock: () => void;
   pause: () => void;
@@ -18,42 +28,59 @@ const StretchContext = createContext<StretchContextType | undefined>(undefined);
 interface StretchProviderProps {
   children: ReactNode;
 }
+
+const TRANSITION_DELAY = 1; //in seconds
+
 export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) => {
   const stretches = stretchData;
 
   const totalDuration = useMemo(() => {
-    return stretches.reduce((sum, stretch) => sum + stretch.duration, 0) + stretches.length / 2;
+    return (
+      stretches.reduce((sum, stretch) => sum + stretch.duration, 0) +
+      (stretches.length - 1) * TRANSITION_DELAY
+    );
   }, [stretches]);
 
   const [isActive, setIsActive] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(totalDuration);
+  const [totalTimeLeft, setTotalTimeLeft] = useState(totalDuration);
   const [currentStretchIndex, setCurrentStretchIndex] = useState(0);
+  const currentStretch = stretches[currentStretchIndex];
+  const [stretchTimeLeft, setStretchTimeLeft] = useState(currentStretch.duration);
 
   useEffect(() => {
     if (!isActive) return;
 
     const interval = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
+      setTotalTimeLeft((prev) => Math.max(prev - 1, 0));
+      setStretchTimeLeft((prev) => Math.max(prev - 1, 0));
     }, 1000);
 
     return () => clearInterval(interval);
   }, [isActive]);
 
-  function handleCompleteBlock() {
-    if (currentStretchIndex < stretches.length - 1) {
-      setCurrentStretchIndex((prev) => prev + 1);
-    } else {
-      setIsActive(false);
-      setIsCompleted(true);
+  const handleCompleteBlock = useCallback(() => {
+    {
+      if (currentStretchIndex < stretches.length - 1) {
+        const next = currentStretchIndex + 1;
+        setCurrentStretchIndex(next);
+        setStretchTimeLeft(stretches[next].duration);
+      } else {
+        setIsActive(false);
+        setIsCompleted(true);
+      }
     }
-  }
+  }, [currentStretchIndex, stretches]);
+
+  useEffect(() => {
+    if (stretchTimeLeft === 0 && isActive) {
+      // handleCompleteBlock();
+      const timer = setTimeout(() => {
+        handleCompleteBlock();
+      }, TRANSITION_DELAY * 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [stretchTimeLeft, isActive, handleCompleteBlock]);
 
   function pause() {
     setIsActive(false);
@@ -65,9 +92,10 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
 
   function restart() {
     setCurrentStretchIndex(0);
-    setTimeLeft(totalDuration);
+    setTotalTimeLeft(totalDuration);
     setIsActive(false);
     setIsCompleted(false);
+    setStretchTimeLeft(stretches[0].duration);
   }
 
   return (
@@ -75,9 +103,11 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
       value={{
         stretches,
         totalDuration,
+        currentStretch,
         isActive,
         isCompleted,
-        timeLeft,
+        totalTimeLeft,
+        stretchTimeLeft,
         currentStretchIndex,
         handleCompleteBlock,
         pause,

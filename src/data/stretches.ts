@@ -61,13 +61,4 @@ export const stretches: Stretch[] = [
     startFrame: 1308, // 54.5 sec
     endFrame: 1608, // 67 sec
   },
-  // {
-  //   id: 7,
-  //   name: 'Knee Press',
-  //   description:
-  //     'This one stretches out the glutes. With your right ankle on your left knee, gently press against the right knee a few times. Be sure and give the left side some love, too.',
-  //   duration: 25,
-  //   startFrame: 1608, // 67 sec
-  //   endFrame: 240,
-  // },
 ];
