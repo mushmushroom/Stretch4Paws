@@ -6,7 +6,6 @@ export default function StretchTimer() {
   const { stretchTimeLeft, currentStretch, start, pause, isActive, handleCompleteBlock } =
     useStretchContext();
 
-
   const minutes = Math.floor((stretchTimeLeft % 3600) / 60);
   const seconds = stretchTimeLeft % 60;
 
@@ -18,8 +17,8 @@ export default function StretchTimer() {
           counterClockwise
           value={progress}
           styles={buildStyles({
-            pathColor: 'var(--color-emerald)',
-            trailColor: 'var(--color-bg-secondary)',
+            pathColor: 'var(--color-bg-accent)',
+            trailColor: 'var(--color-bg-timer)',
             strokeLinecap: 'round',
             pathTransition: progress === 0 ? 'none' : 'stroke-dashoffset 1s linear 0s',
           })}
