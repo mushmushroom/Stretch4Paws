@@ -22,6 +22,8 @@ export default function StretchTimer() {
             strokeLinecap: 'round',
             pathTransition: progress === 0 ? 'none' : 'stroke-dashoffset 1s linear 0s',
           })}
+          aria-live="polite"
+          aria-label={`Time remaining: ${minutes} minutes ${seconds} seconds`}
         >
           <span className="stretch-timer__timer">
             {minutes}:{seconds.toString().padStart(2, '0')}
@@ -30,8 +32,12 @@ export default function StretchTimer() {
         </CircularProgressbarWithChildren>
       </div>
 
-      <button className="btn" onClick={isActive ? pause : start}>
-        <FaPlay />
+      <button
+        className="btn"
+        onClick={isActive ? pause : start}
+        aria-label={isActive ? 'Pause stretch timer' : 'Start stretch timer'}
+      >
+        <FaPlay aria-hidden="true" />
         <span>{isActive ? 'Pause' : 'Start'}</span>
       </button>
     </section>
