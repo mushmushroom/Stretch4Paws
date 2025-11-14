@@ -3,8 +3,7 @@ import { FaPlay } from 'react-icons/fa';
 import { useStretchContext } from '../context/StretchContext';
 
 export default function StretchTimer() {
-  const { stretchTimeLeft, currentStretch, start, pause, isActive, handleCompleteBlock } =
-    useStretchContext();
+  const { stretchTimeLeft, currentStretch, start, pause, isActive } = useStretchContext();
 
   const minutes = Math.floor((stretchTimeLeft % 3600) / 60);
   const seconds = stretchTimeLeft % 60;
