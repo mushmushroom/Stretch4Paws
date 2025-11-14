@@ -21,7 +21,7 @@ type StretchContextType = {
   handleCompleteBlock: () => void;
   pause: () => void;
   start: () => void;
-  restart: () => void;
+  reset: () => void;
 };
 const StretchContext = createContext<StretchContextType | undefined>(undefined);
 
@@ -90,7 +90,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
     setIsActive(true);
   }
 
-  function restart() {
+  function reset() {
     setCurrentStretchIndex(0);
     setTotalTimeLeft(totalDuration);
     setIsActive(false);
@@ -112,7 +112,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
         handleCompleteBlock,
         pause,
         start,
-        restart,
+        reset,
       }}
     >
       {' '}
