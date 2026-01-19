@@ -18,6 +18,17 @@ export default function StretchInfo() {
     const anim = lottieRef.current.animationItem;
     if (!anim) return;
 
+    // RESET - hard reset animation
+    if (phase === 'idle') {
+      pausedFrameRef.current = null;
+      lastSegmentRef.current = null;
+
+      anim.stop();
+      anim.goToAndStop(0, true);
+
+      return;
+    }
+
     // PAUSE — freeze frame
     if (phase === 'paused') {
       pausedFrameRef.current = anim.currentFrame;

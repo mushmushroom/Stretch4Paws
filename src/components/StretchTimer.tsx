@@ -33,15 +33,11 @@ export default function StretchTimer() {
 
       <button
         className="btn"
-        onClick={phase === 'stretch' || phase === 'transition' ? pause : start}
-        aria-label={
-          phase === 'stretch' || phase === 'transition'
-            ? 'Pause stretch timer'
-            : 'Start stretch timer'
-        }
+        onClick={phase === 'stretch' ? pause : start}
+        aria-label={phase === 'stretch' ? 'Pause stretch timer' : 'Start stretch timer'}
       >
         <FaPlay aria-hidden="true" />
-        <span>{phase === 'stretch' || phase === 'transition' ? 'Pause' : 'Start'}</span>
+        <span>{phase === 'stretch' ? 'Pause' : 'Start'}</span>
       </button>
     </section>
   );
