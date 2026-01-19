@@ -1,130 +1,163 @@
 import {
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react';
 import { stretches as stretchData, type Stretch } from '../data/stretches';
 
+type Phase = 'idle' | 'stretch' | 'paused' | 'completed';
+
 type StretchContextType = {
   stretches: Stretch[];
   currentStretch: Stretch;
-  isActive: boolean;
-  isCompleted: boolean;
+  phase: Phase;
   totalDuration: number;
   stretchTimeLeft: number;
   totalTimeLeft: number;
   currentStretchIndex: number;
-  handleCompleteBlock: () => void;
-  pause: () => void;
   start: () => void;
+  pause: () => void;
   reset: () => void;
 };
+
 const StretchContext = createContext<StretchContextType | undefined>(undefined);
+
+const TRANSITION_DELAY = 1; // seconds
 
 interface StretchProviderProps {
   children: ReactNode;
 }
 
-const TRANSITION_DELAY = 1; //in seconds
-
 export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) => {
   const stretches = stretchData;
 
+  /* -----------------------------
+     Derived data
+  ----------------------------- */
+
   const totalDuration = useMemo(() => {
     return (
-      stretches.reduce((sum, stretch) => sum + stretch.duration, 0) +
-      (stretches.length - 1) * TRANSITION_DELAY
+      stretches.reduce((sum, s) => sum + s.duration, 0) + (stretches.length - 1) * TRANSITION_DELAY
     );
   }, [stretches]);
 
-  const [isActive, setIsActive] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [totalTimeLeft, setTotalTimeLeft] = useState(totalDuration);
+  /* -----------------------------
+     Core state
+  ----------------------------- */
+
+  const [phase, setPhase] = useState<Phase>('idle');
   const [currentStretchIndex, setCurrentStretchIndex] = useState(0);
-  const currentStretch = stretches[currentStretchIndex];
-  const [stretchTimeLeft, setStretchTimeLeft] = useState(currentStretch.duration);
+  const currentStretch = stretches[currentStretchIndex] ?? null;
+
+  const [stretchTimeLeft, setStretchTimeLeft] = useState(
+    currentStretch ? currentStretch.duration : 0
+  );
+  const [totalTimeLeft, setTotalTimeLeft] = useState(totalDuration);
+  const transitionTimeoutRef = useRef<number | null>(null);
+
+  /* -----------------------------
+     Stretch timer (runs only in stretch)
+  ----------------------------- */
 
   useEffect(() => {
-    if (!isActive) return;
+    if (phase !== 'stretch') return;
 
     const interval = setInterval(() => {
-      setTotalTimeLeft((prev) => Math.max(prev - 1, 0));
-      setStretchTimeLeft((prev) => Math.max(prev - 1, 0));
+      setStretchTimeLeft((t) => Math.max(t - 1, 0));
+      setTotalTimeLeft((t) => Math.max(t - 1, 0));
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isActive]);
+  }, [phase]);
 
-  const handleCompleteBlock = useCallback(() => {
-    {
-      if (currentStretchIndex < stretches.length - 1) {
+  /* -----------------------------
+     Handle stretch  > next
+     Reset stretch timer on index change
+  ----------------------------- */
+
+  useEffect(() => {
+    if (phase !== 'stretch' || stretchTimeLeft !== 0) return;
+
+    transitionTimeoutRef.current = setTimeout(() => {
+      if (currentStretchIndex >= stretches.length - 1) {
+        // Last stretch completed
+        setPhase('completed');
+      } else {
+        // Move to next stretch
         const next = currentStretchIndex + 1;
         setCurrentStretchIndex(next);
         setStretchTimeLeft(stretches[next].duration);
-      } else {
-        setIsActive(false);
-        setIsCompleted(true);
+        setPhase('stretch');
       }
-    }
-  }, [currentStretchIndex, stretches]);
+    }, TRANSITION_DELAY * 1000);
 
-  useEffect(() => {
-    if (stretchTimeLeft === 0 && isActive) {
-      // handleCompleteBlock();
-      const timer = setTimeout(() => {
-        handleCompleteBlock();
-      }, TRANSITION_DELAY * 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [stretchTimeLeft, isActive, handleCompleteBlock]);
+    return () => {
+      if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
+    };
+  }, [phase, stretchTimeLeft, currentStretchIndex, stretches.length]);
 
-  function pause() {
-    setIsActive(false);
-  }
+  /* -----------------------------
+     Controls
+  ----------------------------- */
 
   function start() {
-    setIsActive(true);
+    if (phase === 'completed' || phase === 'idle') {
+      setCurrentStretchIndex(0);
+      setStretchTimeLeft(stretches[0].duration);
+      setTotalTimeLeft(totalDuration);
+    }
+    setPhase('stretch');
+  }
+
+  function pause() {
+    if (transitionTimeoutRef.current) {
+      clearTimeout(transitionTimeoutRef.current);
+    }
+    setPhase('paused');
   }
 
   function reset() {
+    if (transitionTimeoutRef.current) {
+      clearTimeout(transitionTimeoutRef.current);
+    }
     setCurrentStretchIndex(0);
-    setTotalTimeLeft(totalDuration);
-    setIsActive(false);
-    setIsCompleted(false);
     setStretchTimeLeft(stretches[0].duration);
+    setTotalTimeLeft(totalDuration);
+    setPhase('idle');
   }
+
+  /* -----------------------------
+     Context value
+  ----------------------------- */
 
   return (
     <StretchContext.Provider
       value={{
         stretches,
-        totalDuration,
         currentStretch,
-        isActive,
-        isCompleted,
-        totalTimeLeft,
+        phase,
+        totalDuration,
         stretchTimeLeft,
+        totalTimeLeft,
         currentStretchIndex,
-        handleCompleteBlock,
-        pause,
         start,
+        pause,
         reset,
       }}
     >
-      {' '}
       {children}
     </StretchContext.Provider>
   );
 };
 
 export function useStretchContext() {
-  const context = useContext(StretchContext);
-  if (context === undefined) {
-    throw new Error('useStretchContext must be used within a StretchProvider');
+  const ctx = useContext(StretchContext);
+  if (!ctx) {
+    throw new Error('useStretchContext must be used within StretchProvider');
   }
-  return context;
+  return ctx;
 }

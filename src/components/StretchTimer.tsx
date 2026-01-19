@@ -3,7 +3,7 @@ import { FaPlay } from 'react-icons/fa';
 import { useStretchContext } from '../context/StretchContext';
 
 export default function StretchTimer() {
-  const { stretchTimeLeft, currentStretch, start, pause, isActive } = useStretchContext();
+  const { stretchTimeLeft, currentStretch, start, pause, phase } = useStretchContext();
 
   const minutes = Math.floor((stretchTimeLeft % 3600) / 60);
   const seconds = stretchTimeLeft % 60;
@@ -33,11 +33,15 @@ export default function StretchTimer() {
 
       <button
         className="btn"
-        onClick={isActive ? pause : start}
-        aria-label={isActive ? 'Pause stretch timer' : 'Start stretch timer'}
+        onClick={phase === 'stretch' || phase === 'transition' ? pause : start}
+        aria-label={
+          phase === 'stretch' || phase === 'transition'
+            ? 'Pause stretch timer'
+            : 'Start stretch timer'
+        }
       >
         <FaPlay aria-hidden="true" />
-        <span>{isActive ? 'Pause' : 'Start'}</span>
+        <span>{phase === 'stretch' || phase === 'transition' ? 'Pause' : 'Start'}</span>
       </button>
     </section>
   );
