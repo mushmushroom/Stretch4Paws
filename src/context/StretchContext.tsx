@@ -1,30 +1,12 @@
 import {
-  createContext,
-  useContext,
   useEffect,
   useMemo,
   useRef,
   useState,
   type ReactNode,
 } from 'react';
-import { stretches as stretchData, type Stretch } from '../data/stretches';
-
-type Phase = 'idle' | 'stretch' | 'paused' | 'completed';
-
-type StretchContextType = {
-  stretches: Stretch[];
-  currentStretch: Stretch;
-  phase: Phase;
-  totalDuration: number;
-  stretchTimeLeft: number;
-  totalTimeLeft: number;
-  currentStretchIndex: number;
-  start: () => void;
-  pause: () => void;
-  reset: () => void;
-};
-
-const StretchContext = createContext<StretchContextType | undefined>(undefined);
+import { stretches as stretchData } from '../data/stretches';
+import { StretchContext } from './StretchContextDef';
 
 const TRANSITION_DELAY = 1; // seconds
 
@@ -49,7 +31,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
      Core state
   ----------------------------- */
 
-  const [phase, setPhase] = useState<Phase>('idle');
+  const [phase, setPhase] = useState<'idle' | 'stretch' | 'paused' | 'completed'>('idle');
   const [currentStretchIndex, setCurrentStretchIndex] = useState(0);
   const currentStretch = stretches[currentStretchIndex] ?? null;
 
@@ -153,11 +135,3 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
     </StretchContext.Provider>
   );
 };
-
-export function useStretchContext() {
-  const ctx = useContext(StretchContext);
-  if (!ctx) {
-    throw new Error('useStretchContext must be used within StretchProvider');
-  }
-  return ctx;
-}

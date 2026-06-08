@@ -1,4 +1,4 @@
-import { useStretchContext } from '../context/StretchContext';
+import { useStretchContext } from '../context/useStretchContext';
 import AppInfo from './AppInfo';
 import GlobalProgressBar from './GlobalProgressBar';
 import ResetButton from './ResetButton';

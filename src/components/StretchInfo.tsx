@@ -1,14 +1,14 @@
 import Lottie from 'lottie-react';
-import { useStretchContext } from '../context/StretchContext';
+import { useStretchContext } from '../context/useStretchContext';
 import stretch4paws from '../data/animations.json';
 import { useEffect, useRef } from 'react';
 
 export default function StretchInfo() {
   const { stretches, currentStretchIndex, phase, currentStretch } = useStretchContext();
-
-  if (!currentStretch) return null;
+  
   const stretch = stretches[currentStretchIndex];
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const lottieRef = useRef<any>(null);
   const pausedFrameRef = useRef<number | null>(null);
   const lastSegmentRef = useRef<string | null>(null);
@@ -64,6 +64,9 @@ export default function StretchInfo() {
       lastSegmentRef.current = key;
     }
   }, [phase, stretch, currentStretchIndex]);
+
+  if (!currentStretch) return null;
+  
 
   return (
     <section className="section stretch-info">

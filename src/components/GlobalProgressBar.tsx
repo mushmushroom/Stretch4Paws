@@ -1,4 +1,4 @@
-import { useStretchContext } from "../context/StretchContext";
+import { useStretchContext } from '../context/useStretchContext';
 
 export default function GlobalProgressBar() {
 

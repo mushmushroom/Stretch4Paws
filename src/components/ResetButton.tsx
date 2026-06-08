@@ -1,5 +1,5 @@
 import { IoRefresh } from 'react-icons/io5';
-import { useStretchContext } from '../context/StretchContext';
+import { useStretchContext } from '../context/useStretchContext';
 
 export default function ResetButton() {
   const { reset } = useStretchContext();
