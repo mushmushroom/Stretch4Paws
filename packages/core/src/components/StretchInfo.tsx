@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 
 export default function StretchInfo() {
   const { stretches, currentStretchIndex, phase, currentStretch } = useStretchContext();
-  
+
   const stretch = stretches[currentStretchIndex];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,7 +66,6 @@ export default function StretchInfo() {
   }, [phase, stretch, currentStretchIndex]);
 
   if (!currentStretch) return null;
-  
 
   return (
     <section className="section stretch-info">
