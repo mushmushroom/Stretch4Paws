@@ -1,6 +1,7 @@
 import { useStretchContext } from '../context/useStretchContext';
 import AppInfo from './AppInfo';
 import GlobalProgressBar from './GlobalProgressBar';
+import Logo from './Logo';
 import ResetButton from './ResetButton';
 
 export default function GlobalSection() {
@@ -8,7 +9,8 @@ export default function GlobalSection() {
   return (
     <section className="section global-section">
       <div className="global-section__top">
-        <AppInfo />
+        {/* <AppInfo /> */}
+        <Logo text={true} />
         {totalTimeLeft < totalDuration && <ResetButton />}
       </div>
       <GlobalProgressBar />

@@ -21,8 +21,9 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@stretch4paws/core": ["../core/src"],
-      "@stretch4paws/core/*": ["../core/src/*"]
+      "@stretch4paws/core/*": ["../core/src/*"],
+      "@/*": ["./*"]
     }
   },
-  "include": ["src", "../core/src"]
+  "include": ["src", "lib", "../core/src"]
 }

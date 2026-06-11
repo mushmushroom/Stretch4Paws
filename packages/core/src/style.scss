@@ -3,28 +3,28 @@
 // theme colors
 
 :root {
-  --color-bg-sec: #FFFFFF;
-  --color-bg-main: #FAE0DB;
-  --color-bg-timer: #E8E8E8;
-  --color-main-dark: #FEBAAE;
-  --color-bg-accent: #7CC6C6;
-  --color-bg-accent-sec: #CBB1F8;
-  --color-text-dark: #1F2937;
-  --color-text-light: #474D56;
+  --color-bg-sec: #ffffff;
+  --color-bg-main: #fae0db;
+  --color-bg-timer: #e8e8e8;
+  --color-main-dark: #febaae;
+  --color-bg-accent: #6fc3ba;
+  --color-bg-accent-sec: #cbb1f8;
+  --color-text-dark: #1f2937;
+  --color-text-light: #474d56;
+  --global-container-width: 1200px;
 }
 
 [data-theme='dark'] {
   // --color-bg-sec: #4f3750;
-  --color-bg-sec: #322A3E;
-  --color-bg-main: #231B2E;
+  --color-bg-sec: #322a3e;
+  --color-bg-main: #231b2e;
   --color-bg-timer: #746b7e;
-  --color-main-dark: #F8A9A4;
-  --color-bg-accent: #6DCBCB;
-  --color-bg-accent-sec: #B8A2F2;
-  --color-text-dark: #FAFAFC;
-  --color-text-light: #B6AEC7;
+  --color-main-dark: #f8a9a4;
+  --color-bg-accent: #6dcbcb;
+  --color-bg-accent-sec: #b8a2f2;
+  --color-text-dark: #fafafc;
+  --color-text-light: #b6aec7;
 }
-
 
 // variables
 $bg-sec: var(--color-bg-sec);
@@ -35,20 +35,34 @@ $bg-accent: var(--color-bg-accent);
 $bg-accent-sec: var(--color-bg-accent-sec);
 $text-dark: var(--color-text-dark);
 $text-light: var(--color-text-light);
-
+$global-container-width: var(--global-container-width);
+$nunito: 'Nunito', sans-serif;
 // font
-@import url('https://fonts.googleapis.com/css2?family=Basic&family=Inter:opsz,wght@14..32,100..900&family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Young+Serif&display=swap');
-
+// @import url('https://fonts.googleapis.com/css2?family=Basic&family=Inter:opsz,wght@14..32,100..900&family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Young+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 // reset styles
 
 h1,
 h2,
+h3,
 p {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 // global styles
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
@@ -68,7 +82,8 @@ html {
 
 body {
   background-color: $bg-main;
-  font-family: "Lexend", sans-serif;
+  // font-family: "Lexend", sans-serif;
+  font-family: $nunito;
   font-size: 1.6rem;
   color: $text-dark;
   font-weight: 300;
@@ -100,7 +115,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 5px;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 15px;
   border-radius: 1.6rem;
   padding: 1rem 1.5rem 1.1rem;
@@ -110,17 +125,25 @@ body {
   background-color: $bg-accent;
   transition: opacity 0.3s ease;
 
-  @media (any-hover:hover) {
+  &--outline {
+    background-color: transparent;
+    color: $bg-accent;
+    border: 2px solid $bg-accent;
+  }
+
+  &--purple {
+    background-color: $bg-accent-sec;
+  }
+
+  @media (any-hover: hover) {
     &:hover {
       opacity: 0.7;
-
     }
   }
 }
 
 .animation-img {
   max-width: 230px;
-
 }
 
 // global-section
@@ -139,8 +162,8 @@ body {
   }
 }
 
-// app-info 
-.app-info {
+// logo
+.logo {
   display: flex;
   align-items: center;
   gap: 1.3rem;
@@ -192,8 +215,6 @@ body {
     left: 0;
     border-radius: 1.5rem;
     transition: width 1s linear;
-
-
   }
 
   &__text {
@@ -205,7 +226,6 @@ body {
     color: $text-light;
     margin-bottom: 0.5rem;
   }
-
 }
 
 // stretch-info
@@ -227,7 +247,6 @@ body {
   }
 
   &__img {
-
     margin-top: 20px;
   }
 }
@@ -266,7 +285,6 @@ body {
   }
 }
 
-
 // .theme-toggle
 .theme-toggle-btn {
   cursor: pointer;
@@ -280,5 +298,203 @@ body {
   gap: 2rem;
   background-color: $bg-accent-sec;
   color: $bg-sec;
+}
 
+// login page
+.login {
+  &__forgot {
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-light;
+    align-self: flex-start;
+
+    @media (any-hover: hover) {
+      &:hover {
+        color: $text-dark;
+      }
+    }
+  }
+}
+
+// register page
+.register {
+  &__info-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  &__info-title {
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: -0.3px;
+  }
+
+  &__info-descr {
+    color: $text-light;
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
+// form-wrapper
+.form-wrapper {
+  background-color: $bg-sec;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: -0.4px;
+  }
+
+  &__descr {
+    color: $text-light;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__alternative {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: $text-light;
+    font-weight: 700;
+    font-size: 12px;
+
+    hr {
+      flex: 1;
+      border: 1px solid $bg-accent;
+      opacity: 0.6;
+      border-radius: 12px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 12px;
+
+    .btn {
+      flex: 1;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+
+    a {
+      color: $bg-accent;
+      font-weight: 600;
+    }
+  }
+}
+
+// form-input
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  &__label {
+    display: block;
+    font-weight: 700;
+    font-size: 13px;
+    color: $text-light;
+  }
+
+  &__field {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    flex: 1;
+    font-weight: 500;
+    color: $text-light;
+    border: 2px solid rgb(238, 232, 242);
+    border-radius: 14px;
+    padding: 13px 16px;
+    font-family: $nunito;
+
+    &::placeholder {
+      opacity: 0.6;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--input-accent, #{$bg-accent});
+    }
+
+    // &.error { border-color: red; }
+  }
+
+  &__toggle {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: $nunito;
+    font-size: 13px;
+    font-weight: 700;
+    color: $text-light;
+    padding: 0;
+    text-transform: uppercase;
+
+    @media (any-hover: hover) {
+      &:hover {
+        color: $text-dark;
+      }
+    }
+  }
+
+  // &__error { font-size: 12px; color: red; }
+}
+
+// auth-container
+.auth-container {
+  display: flex;
+  min-height: 100vh;
+  flex: 1;
+  max-width: $global-container-width;
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+
+  &__section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 35px;
+    border-radius: 20px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
 }
