@@ -19,7 +19,9 @@ export default function LoginPage() {
         <form className="form-wrapper__form">
           <FormInput label="Email" type="email" placeholder="johndoe@example.com" />
           <FormInput label="Password" type="password" placeholder="••••••••" />
-          <Link to={AppRoutes.RESET_PASSWORD} className="login__forgot">Forgot password?</Link>
+          <Link to={AppRoutes.RESET_PASSWORD} className="login__forgot">
+            Forgot password?
+          </Link>
 
           <button className="btn">Log in</button>
         </form>
@@ -32,6 +34,7 @@ export default function LoginPage() {
 
         <div className="form-wrapper__actions">
           <button className="btn btn--outline">Continue with Google</button>
+          <button className="btn btn--outline">Magic link</button>
         </div>
 
         <div className="form-wrapper__footer">

@@ -1,19 +1,19 @@
-import { InputHTMLAttributes, useState } from 'react';
-// import { UseFormRegisterReturn } from 'react-hook-form';
+import { type InputHTMLAttributes, useState } from 'react';
+import { type FieldError, type UseFormRegisterReturn } from 'react-hook-form';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   accentColor?: string;
-  // error?: string;
-  // registration?: UseFormRegisterReturn;
+  error?: FieldError;
+  registration?: UseFormRegisterReturn;
 }
 
 export default function FormInput({
   label,
   accentColor,
   type,
-  // error,
-  // registration,
+  error,
+  registration,
   ...inputProps
 }: FormInputProps) {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,8 +26,10 @@ export default function FormInput({
         <input
           className="form-input__input"
           type={isPassword ? (showPassword ? 'text' : 'password') : type}
-          style={accentColor ? ({ '--input-accent': accentColor } as React.CSSProperties) : undefined}
-          // {...registration}
+          style={
+            accentColor ? ({ '--input-accent': accentColor } as React.CSSProperties) : undefined
+          }
+          {...registration}
           {...inputProps}
         />
         {isPassword && (
@@ -40,7 +42,7 @@ export default function FormInput({
           </button>
         )}
       </div>
-      {/* {error && <span className="form-input__error">{error}</span>} */}
+      {error && <span className="form-input__error">{error.message}</span>}
     </div>
   );
 }

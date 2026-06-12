@@ -1,7 +1,6 @@
 @use 'sass:color';
 
 // theme colors
-
 :root {
   --color-bg-sec: #ffffff;
   --color-bg-main: #fae0db;
@@ -9,9 +8,14 @@
   --color-main-dark: #febaae;
   --color-bg-accent: #6fc3ba;
   --color-bg-accent-sec: #cbb1f8;
-  --color-text-dark: #1f2937;
+  --color-text-dark: #2e2740;
   --color-text-light: #474d56;
   --global-container-width: 1200px;
+  --weak-password: #e74c3c;
+  --medium-password: #f39c12;
+  --strong-password: #2ecc71;
+  --color-error: #e74c3c;
+  --color-success: #a68ae8;
 }
 
 [data-theme='dark'] {
@@ -37,8 +41,13 @@ $text-dark: var(--color-text-dark);
 $text-light: var(--color-text-light);
 $global-container-width: var(--global-container-width);
 $nunito: 'Nunito', sans-serif;
+$weak-password: var(--weak-password);
+$medium-password: var(--medium-password);
+$strong-password: var(--strong-password);
+$error: var(--color-error);
+$success: var(--color-success);
+
 // font
-// @import url('https://fonts.googleapis.com/css2?family=Basic&family=Inter:opsz,wght@14..32,100..900&family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Young+Serif&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 // reset styles
@@ -348,6 +357,33 @@ body {
   flex-direction: column;
   gap: 30px;
 
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__password-requirements {
+    font-size: 12px;
+    color: $text-light;
+  }
+
+  &__error {
+    color: $error;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  &__success-message {
+    color: $success;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__password-strength {
+    margin-bottom: 10px;
+  }
+
   &__header {
     display: flex;
     flex-direction: column;
@@ -448,7 +484,15 @@ body {
       border-color: var(--input-accent, #{$bg-accent});
     }
 
-    // &.error { border-color: red; }
+    &.error {
+      border-color: red;
+    }
+  }
+
+  &__error {
+    color: $error;
+    font-size: 12px;
+    padding-left: 10px;
   }
 
   &__toggle {
@@ -470,8 +514,6 @@ body {
       }
     }
   }
-
-  // &__error { font-size: 12px; color: red; }
 }
 
 // auth-container
@@ -483,6 +525,13 @@ body {
   width: 100%;
   margin: 0 auto;
   align-items: center;
+  padding: 0 15px;
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    background-color: $bg-sec;
+    padding: 0;
+  }
 
   &__section {
     flex: 1;
@@ -490,11 +539,48 @@ body {
     flex-direction: column;
     padding: 40px 35px;
     border-radius: 20px;
+
+    @media (max-width: 768px) {
+      border-radius: 0;
+      padding: 40px 15px;
+    }
   }
 
   &__info {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 30px;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+// password-strength
+.password-strength {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__item {
+    width: 100%;
+    height: 10px;
+    background-color: $bg-timer;
+    border-radius: 2px;
+    border-radius: 30px;
+    transition: background-color 0.4s;
+
+    &--weak {
+      background-color: $weak-password;
+    }
+
+    &--medium {
+      background-color: $medium-password;
+    }
+    &--strong {
+      background-color: $strong-password;
+    }
   }
 }
