@@ -5,7 +5,7 @@ import { ZxcvbnFactory } from '@zxcvbn-ts/core';
 import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common';
 import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
 
-import { type RegisterInputs, registerSchema } from '../data/register.schema';
+import { type RegisterInputs, registerSchema } from '../lib/schemas/register.schema';
 import { supabase } from '../lib/db';
 import { useGoogleAuth } from './useGoogleAuth';
 

@@ -1,47 +1,16 @@
-import Lottie from 'lottie-react';
-import { useRef } from 'react';
 import { Link } from 'react-router';
-
 import { AppRoutes } from '../../lib/constants';
-import stretch4paws from '../../data/animations.json';
-import Logo from '../Logo';
 import FormInput from '../ui/FormInput';
 import useRegister from '../../hooks/useRegister';
 import SignInGoogleButton from './SignInGoogleButton';
+import AuthInfo from './AuthInfo';
 
 export default function RegisterPage() {
-  const { register, errors, handleSubmit, onSubmit, successMessage, passwordScore } = useRegister();
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const lottieRef = useRef<any>(null);
-
-  function handleMascotLoaded() {
-    const anim = lottieRef.current?.animationItem;
-    if (!anim) return;
-    anim.playSegments([0, 72], true);
-    anim.loop = true;
-  }
+  const { register, errors, handleSubmit, onSubmit, successMessage, passwordScore, signInWithGoogle } = useRegister();
 
   return (
     <div className="auth-container">
-      <div className="auth-container__section auth-container__info">
-        <Logo text={false} />
-        <div className="animation-img">
-          <Lottie
-            lottieRef={lottieRef}
-            animationData={stretch4paws}
-            autoplay={false}
-            loop={false}
-            onDOMLoaded={handleMascotLoaded}
-          />
-        </div>
-        <div className="register__info-text">
-          <h3 className="register__info-title">Tiny stretches, happy humans.</h3>
-          <p className="register__info-descr">
-            Build a desk-stretch habit your body (and your inner pup) will thank you for.
-          </p>
-        </div>
-      </div>
+      <AuthInfo />
 
       <div className="form-wrapper auth-container__section">
         <div className="form-wrapper__header">
@@ -115,7 +84,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="form-wrapper__actions">
-          <SignInGoogleButton />
+          <SignInGoogleButton onClick={signInWithGoogle} />
         </div>
 
         <div className="form-wrapper__footer">
