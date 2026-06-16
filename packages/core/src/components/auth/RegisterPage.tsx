@@ -14,8 +14,8 @@ export default function RegisterPage() {
 
       <div className="form-wrapper auth-container__section">
         <div className="form-wrapper__header">
-          <h1 className="form-wrapper__title">Create your account</h1>
-          <p className="form-wrapper__descr">Start tracking your stretch streak today.</p>
+          <h1 className="form-wrapper__title">Join the pack</h1>
+          <p className="form-wrapper__descr">Create an account to track every stretch.</p>
         </div>
 
         <form className="form-wrapper__form" onSubmit={handleSubmit(onSubmit)}>

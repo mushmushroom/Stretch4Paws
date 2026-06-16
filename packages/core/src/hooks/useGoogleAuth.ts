@@ -1,7 +1,7 @@
 import { type UseFormSetError } from 'react-hook-form';
 
 import { supabase } from '../lib/db';
-import { AppRoutes } from '../lib/constants';
+import { AppRoutes, PUBLIC_URL } from '../lib/constants';
 
 export function useGoogleAuth(setError: UseFormSetError<any>) {
   async function signInWithGoogle() {
@@ -9,7 +9,7 @@ export function useGoogleAuth(setError: UseFormSetError<any>) {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: AppRoutes.HOME,
+          redirectTo: `${PUBLIC_URL}${AppRoutes.HOME}`,
         },
       });
 

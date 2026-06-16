@@ -1,25 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ZxcvbnFactory } from '@zxcvbn-ts/core';
-import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common';
-import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
 
 import { type RegisterInputs, registerSchema } from '../lib/schemas/register.schema';
 import { supabase } from '../lib/db';
 import { useGoogleAuth } from './useGoogleAuth';
+import { zxcvbn } from '../lib/zxcvbn';
 
-const options = {
-  translations: zxcvbnEnPackage.translations,
-  graphs: zxcvbnCommonPackage.adjacencyGraphs,
-  dictionary: {
-    ...zxcvbnCommonPackage.dictionary,
-    ...zxcvbnEnPackage.dictionary,
-  },
-};
+
 
 export default function useRegister() {
-  const zxcvbn = new ZxcvbnFactory(options);
 
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const {
