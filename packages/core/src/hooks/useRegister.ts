@@ -18,7 +18,7 @@ export default function useRegister() {
     watch,
     setError,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RegisterInputs>({ resolver: zodResolver(registerSchema), mode: 'onChange' });
 
   const { signInWithGoogle } = useGoogleAuth(setError);
@@ -57,5 +57,6 @@ export default function useRegister() {
     successMessage,
     passwordScore,
     signInWithGoogle,
+    isSubmitting,
   };
 }

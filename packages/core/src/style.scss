@@ -15,7 +15,7 @@
   --medium-password: #f39c12;
   --strong-password: #2ecc71;
   --color-error: #e74c3c;
-  --color-success: #a68ae8;
+  --color-success: #5da79f;
 }
 
 [data-theme='dark'] {
@@ -367,19 +367,6 @@ body {
     color: $text-light;
   }
 
-  &__error {
-    color: $error;
-    font-size: 12px;
-    text-align: center;
-  }
-
-  &__success-message {
-    color: $success;
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-align: center;
-  }
-
   &__password-strength {
     margin-bottom: 10px;
   }
@@ -582,5 +569,44 @@ body {
     &--strong {
       background-color: $strong-password;
     }
+  }
+}
+
+// feedback messages
+%feedback-message {
+  border-radius: 1.6rem;
+  padding: 12px 14px 12px 30px;
+  font-weight: 700;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+  }
+}
+
+.error-message {
+  @extend %feedback-message;
+  border: 1px solid $error;
+  color: $error;
+
+  &:before {
+    background-color: $error;
+  }
+}
+
+.success-message {
+  @extend %feedback-message;
+  border: 1px solid $success;
+  color: $success;
+
+  &:before {
+    background-color: $success;
   }
 }

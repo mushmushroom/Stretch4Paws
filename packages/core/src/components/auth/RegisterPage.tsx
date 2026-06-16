@@ -3,21 +3,28 @@ import { AppRoutes } from '../../lib/constants';
 import FormInput from '../ui/FormInput';
 import useRegister from '../../hooks/useRegister';
 import SignInGoogleButton from './SignInGoogleButton';
-import AuthInfo from './AuthInfo';
+import AuthWrapper from './AuthWrapper';
+import PasswordStrengthIndicator from './PasswordStrengthIndicator';
+import OrDivider from './OrDivider';
+import PasswordRequirements from './PasswordRequirements';
+import ErrorMessage from './ErrorMessage';
+import SuccessMessage from './SuccessMessage';
 
 export default function RegisterPage() {
-  const { register, errors, handleSubmit, onSubmit, successMessage, passwordScore, signInWithGoogle } = useRegister();
+  const {
+    register,
+    errors,
+    handleSubmit,
+    onSubmit,
+    successMessage,
+    passwordScore,
+    signInWithGoogle,
+    isSubmitting,
+  } = useRegister();
 
   return (
-    <div className="auth-container">
-      <AuthInfo />
-
-      <div className="form-wrapper auth-container__section">
-        <div className="form-wrapper__header">
-          <h1 className="form-wrapper__title">Join the pack</h1>
-          <p className="form-wrapper__descr">Create an account to track every stretch.</p>
-        </div>
-
+    <AuthWrapper title="Join the pack" description="Create an account to track every stretch.">
+      <>
         <form className="form-wrapper__form" onSubmit={handleSubmit(onSubmit)}>
           <FormInput
             label="Name"
@@ -42,26 +49,8 @@ export default function RegisterPage() {
             registration={register('password')}
             error={errors.password}
           />
-          <div>
-            <p className="form-wrapper__password-requirements">
-              Password must be at least 8 characters long and include uppercase letters, lowercase
-              letters, numbers, and special characters.
-            </p>
-          </div>
-          <div className="form-wrapper__password-strength password-strength">
-            <span
-              className={`password-strength__item ${passwordScore !== null && passwordScore > 0 ? 'password-strength__item--weak' : ''}`}
-              aria-label="Weak password"
-            ></span>
-            <span
-              className={`password-strength__item ${passwordScore >= 3 ? 'password-strength__item--medium' : ''}`}
-              aria-label="Medium password"
-            ></span>
-            <span
-              className={`password-strength__item ${passwordScore === 4 ? 'password-strength__item--strong' : ''}`}
-              aria-label="Strong password"
-            ></span>
-          </div>
+          <PasswordRequirements />
+          <PasswordStrengthIndicator passwordScore={passwordScore} />
           <FormInput
             label="Confirm password"
             type="password"
@@ -70,18 +59,14 @@ export default function RegisterPage() {
             registration={register('confirmPassword')}
             error={errors.confirmPassword}
           />
-          {errors.root && <p className="form-wrapper__error">{errors.root.message}</p>}
-          {successMessage && <p className="form-wrapper__success-message">{successMessage}</p>}
-          <button className="btn" type="submit">
+          {errors.root && <ErrorMessage message={errors.root.message} />}
+          {successMessage && <SuccessMessage message={successMessage} />}
+          <button className="btn" type="submit" disabled={isSubmitting}>
             Create account
           </button>
         </form>
 
-        <div className="form-wrapper__alternative">
-          <hr />
-          <span>OR</span>
-          <hr />
-        </div>
+        <OrDivider />
 
         <div className="form-wrapper__actions">
           <SignInGoogleButton onClick={signInWithGoogle} />
@@ -91,7 +76,7 @@ export default function RegisterPage() {
           <span>Already stretching?</span>
           <Link to={AppRoutes.LOGIN}>Log in</Link>
         </div>
-      </div>
-    </div>
+      </>
+    </AuthWrapper>
   );
 }
