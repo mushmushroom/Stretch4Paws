@@ -1,4 +1,4 @@
-import { useStretchContext } from '../context/useStretchContext';
+import { useStretchContext } from '../context/stretchContext/useStretchContext';
 import AppInfo from './AppInfo';
 import GlobalProgressBar from './GlobalProgressBar';
 import Logo from './Logo';

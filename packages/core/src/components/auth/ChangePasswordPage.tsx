@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import useChangePassword from '../../hooks/useChangePassword';
 import PasswordRequirements from './PasswordRequirements';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
-import AuthWrapper from './AuthWrapper';
+import AuthWrapper from '../pageWrappers/AuthWrapper';
 import ErrorMessage from './ErrorMessage';
 import SuccessMessage from './SuccessMessage';
 

@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import { AppRoutes } from '../../lib/constants';
 import FormInput from '../ui/FormInput';
 import useResetPassword from '../../hooks/useResetPassword';
-import AuthWrapper from './AuthWrapper';
+import AuthWrapper from '../pageWrappers/AuthWrapper';
 import SuccessMessage from './SuccessMessage';
 import ErrorMessage from './ErrorMessage';
 

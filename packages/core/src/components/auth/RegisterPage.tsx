@@ -3,7 +3,7 @@ import { AppRoutes } from '../../lib/constants';
 import FormInput from '../ui/FormInput';
 import useRegister from '../../hooks/useRegister';
 import SignInGoogleButton from './SignInGoogleButton';
-import AuthWrapper from './AuthWrapper';
+import AuthWrapper from '../pageWrappers/AuthWrapper';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
 import OrDivider from './OrDivider';
 import PasswordRequirements from './PasswordRequirements';

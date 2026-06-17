@@ -7,7 +7,7 @@ import { useState } from 'react';
 import OrDivider from './OrDivider';
 import SuccessMessage from './SuccessMessage';
 import ErrorMessage from './ErrorMessage';
-import AuthWrapper from './AuthWrapper';
+import AuthWrapper from '../pageWrappers/AuthWrapper';
 
 export default function LoginPage() {
   const [loginMode, setLoginMode] = useState<'password' | 'magic-link'>('password');

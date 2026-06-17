@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthInfo from './AuthInfo';
+import AuthInfo from '../auth/AuthInfo';
 
 interface AuthWrapperProps {
   title?: string;

@@ -6,6 +6,7 @@ export const AppRoutes = {
   REGISTER: '/register',
   RESET_PASSWORD: '/reset-password',
   CHANGE_PASSWORD: '/change-password',
-  STRETCH: '/stretch',
+  STRETCHES: '/stretches',
   DASHBOARD: '/dashboard',
+  DESKTOP_APP: '/desktop-app',
 } as const;
