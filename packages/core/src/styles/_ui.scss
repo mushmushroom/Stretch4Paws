@@ -1,0 +1,128 @@
+@use 'variables' as *;
+@use 'placeholders' as *;
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 1.6rem;
+  padding: 1rem 1.5rem 1.1rem;
+  border: none;
+  color: $bg-sec;
+  cursor: pointer;
+  background-color: $bg-accent;
+  transition: opacity 0.3s ease;
+
+  &--outline {
+    background-color: transparent;
+    color: $bg-accent;
+    border: 2px solid $bg-accent;
+  }
+
+  &--purple {
+    background-color: $bg-accent-sec;
+  }
+
+  &--outline-basic {
+    border: 1px solid $text-light;
+    background-color: transparent;
+    color: $text-light;
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+
+  &__icon {
+    background-color: $main-dark;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4.3rem;
+    width: 4.3rem;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.9rem;
+  }
+
+  &__descr {
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+}
+
+.app-info {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+
+  &__icon {
+    background-color: $main-dark;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4.3rem;
+    width: 4.3rem;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.6rem;
+  }
+
+  &__descr {
+    @extend %text-muted;
+    font-size: 1.2rem;
+  }
+}
+
+.theme-toggle-btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 1.2rem 1.4rem;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  gap: 2rem;
+  background-color: $bg-accent-sec;
+  color: $bg-sec;
+}
+
+.error-message {
+  @extend %feedback-message;
+  border: 1px solid $error;
+  color: $error;
+
+  &:before {
+    background-color: $error;
+  }
+}
+
+.success-message {
+  @extend %feedback-message;
+  border: 1px solid $success;
+  color: $success;
+
+  &:before {
+    background-color: $success;
+  }
+}

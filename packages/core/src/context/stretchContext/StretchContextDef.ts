@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { Stretch } from '../data/stretches';
+import type { Stretch } from '../../data/stretches';
 
 export type Phase = 'idle' | 'stretch' | 'paused' | 'completed';
 

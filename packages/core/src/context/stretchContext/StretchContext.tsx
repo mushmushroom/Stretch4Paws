@@ -1,11 +1,5 @@
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type ReactNode,
-} from 'react';
-import { stretches as stretchData } from '../data/stretches';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { stretches as stretchData } from '../../data/stretches';
 import { StretchContext } from './StretchContextDef';
 
 const TRANSITION_DELAY = 1; // seconds
@@ -36,7 +30,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
   const currentStretch = stretches[currentStretchIndex] ?? null;
 
   const [stretchTimeLeft, setStretchTimeLeft] = useState(
-    currentStretch ? currentStretch.duration : 0
+    currentStretch ? currentStretch.duration : 0,
   );
   const [totalTimeLeft, setTotalTimeLeft] = useState(totalDuration);
   const transitionTimeoutRef = useRef<number | null>(null);

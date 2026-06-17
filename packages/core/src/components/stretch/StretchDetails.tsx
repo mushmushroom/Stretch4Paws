@@ -1,4 +1,4 @@
-import { useStretchContext } from '../context/useStretchContext';
+import { useStretchContext } from '../../context/stretchContext/useStretchContext';
 import StretchCompleted from './StretchCompleted';
 import StretchInfo from './StretchInfo';
 import StretchTimer from './StretchTimer';

@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@stretch4paws/core": "workspace:*"
+    "@stretch4paws/core": "workspace:*",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router": "^7.17.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

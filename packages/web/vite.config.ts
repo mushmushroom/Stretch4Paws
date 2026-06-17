@@ -7,8 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@stretch4paws/core': path.resolve(__dirname, '../core/src'),
-      react: path.resolve(__dirname, '../../node_modules/react'),
-      'react-dom': path.resolve(__dirname, '../../node_modules/react-dom'),
+      '@': path.resolve(__dirname, '.'),
     },
   },
-})
+});

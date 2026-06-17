@@ -1,0 +1,269 @@
+@use 'variables' as *;
+@use 'placeholders' as *;
+
+.auth-container {
+  display: flex;
+  min-height: 100vh;
+  flex: 1;
+  max-width: $global-container-width;
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+  padding: 0 15px;
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    background-color: $bg-sec;
+    padding: 0;
+  }
+
+  &__section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 35px;
+    border-radius: 20px;
+
+    @media (max-width: 768px) {
+      border-radius: 0;
+      padding: 40px 15px;
+    }
+  }
+
+  &__info {
+    @extend %flex-col-center;
+    gap: 30px;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+.auth-info {
+  &__text {
+    @extend %flex-col-center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  &__title {
+    @extend %title-h3;
+    letter-spacing: -0.3px;
+  }
+
+  &__descr {
+    @extend %text-muted;
+  }
+}
+
+.login {
+  &__forgot {
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-light;
+    align-self: flex-start;
+
+    @media (any-hover: hover) {
+      &:hover {
+        color: $text-dark;
+      }
+    }
+  }
+}
+
+.register {
+  &__info-text {
+    @extend %flex-col-center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  &__info-title {
+    @extend %title-h3;
+    letter-spacing: -0.3px;
+  }
+
+  &__info-descr {
+    @extend %text-muted;
+  }
+}
+
+.form-wrapper {
+  background-color: $bg-sec;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__password-requirements {
+    font-size: 12px;
+    color: $text-light;
+  }
+
+  &__password-strength {
+    margin-bottom: 10px;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: -0.4px;
+  }
+
+  &__descr {
+    @extend %text-muted;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__alternative {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: $text-light;
+    font-weight: 700;
+    font-size: 12px;
+
+    hr {
+      flex: 1;
+      border: 1px solid $bg-accent;
+      opacity: 0.6;
+      border-radius: 12px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 12px;
+
+    .btn {
+      flex: 1;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+
+    a {
+      color: $bg-accent;
+      font-weight: 600;
+    }
+  }
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  &__label {
+    display: block;
+    font-weight: 700;
+    font-size: 13px;
+    color: $text-light;
+  }
+
+  &__field {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    flex: 1;
+    font-weight: 500;
+    color: $text-light;
+    border: 2px solid rgb(238, 232, 242);
+    border-radius: 14px;
+    padding: 13px 16px;
+    font-family: $nunito;
+
+    &::placeholder {
+      opacity: 0.6;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--input-accent, #{$bg-accent});
+    }
+
+    &.error {
+      border-color: red;
+    }
+  }
+
+  &__error {
+    color: $error;
+    font-size: 12px;
+    padding-left: 10px;
+  }
+
+  &__toggle {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: $nunito;
+    font-size: 13px;
+    font-weight: 700;
+    color: $text-light;
+    padding: 0;
+    text-transform: uppercase;
+
+    @media (any-hover: hover) {
+      &:hover {
+        color: $text-dark;
+      }
+    }
+  }
+}
+
+.password-strength {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__item {
+    width: 100%;
+    height: 10px;
+    background-color: $bg-timer;
+    border-radius: 30px;
+    transition: background-color 0.4s;
+
+    &--weak {
+      background-color: $weak-password;
+    }
+
+    &--medium {
+      background-color: $medium-password;
+    }
+
+    &--strong {
+      background-color: $strong-password;
+    }
+  }
+}

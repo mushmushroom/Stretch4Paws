@@ -1,7 +1,6 @@
-import { useStretchContext } from '../context/useStretchContext';
+import { useStretchContext } from '../../context/stretchContext/useStretchContext';
 
 export default function GlobalProgressBar() {
-
   const { stretches, currentStretchIndex, totalDuration, totalTimeLeft } = useStretchContext();
   const progress = ((totalDuration - totalTimeLeft) / totalDuration) * 100;
 
