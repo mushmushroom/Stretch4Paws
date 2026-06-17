@@ -1,7 +1,7 @@
 import './style.scss';
-import StretchDetails from './components/StretchDetails';
-import GlobalSection from './components/GlobalSection';
-import ThemeToggle from './components/ThemeToggle';
+import StretchDetails from './components/stretch/StretchDetails';
+import GlobalSection from './components/stretch/GlobalSection';
+import ThemeToggle from './components/common/ThemeToggle';
 
 function App() {
   return (

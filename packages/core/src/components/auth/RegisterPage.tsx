@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { AppRoutes } from '../../lib/constants';
-import FormInput from '../ui/FormInput';
+import FormInput from '../common/FormInput';
 import useRegister from '../../hooks/useRegister';
 import SignInGoogleButton from './SignInGoogleButton';
 import AuthWrapper from '../pageWrappers/AuthWrapper';

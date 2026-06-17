@@ -1,6 +1,6 @@
 import Lottie from 'lottie-react';
-import { useStretchContext } from '../context/stretchContext/useStretchContext';
-import stretch4paws from '../data/animations.json';
+import { useStretchContext } from '../../context/stretchContext/useStretchContext';
+import stretch4paws from '../../data/animations.json';
 import { useEffect, useRef } from 'react';
 
 export default function StretchInfo() {

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { AppRoutes } from '../lib/constants';
+import { AppRoutes } from '../../lib/constants';
 import Logo from './Logo';
-import { useAuth } from '../context/authContext/useAuth';
+import { useAuth } from '../../context/authContext/useAuth';
 import LogoutButton from './LogoutButton';
 
 export default function Header() {
@@ -16,7 +16,7 @@ export default function Header() {
   return (
     <header className="header">
       <Link to={AppRoutes.HOME}>
-        <Logo />
+        <Logo text={true} />
       </Link>
 
       <button
@@ -35,15 +35,21 @@ export default function Header() {
       <nav className={`header__menu${menuOpen ? ' header__menu--open' : ''}`}>
         <ul className="header__list">
           <li className="header__item">
-            <Link to={AppRoutes.STRETCHES} onClick={closeMenu}>Stretches</Link>
+            <Link to={AppRoutes.STRETCHES} onClick={closeMenu}>
+              Stretches
+            </Link>
           </li>
           <li className="header__item">
-            <Link to={AppRoutes.DESKTOP_APP} onClick={closeMenu}>Get the app</Link>
+            <Link to={AppRoutes.DESKTOP_APP} onClick={closeMenu}>
+              Get the app
+            </Link>
           </li>
           {!user && (
             <>
               <li className="header__item">
-                <Link to={AppRoutes.LOGIN} onClick={closeMenu}>Login</Link>
+                <Link to={AppRoutes.LOGIN} onClick={closeMenu}>
+                  Login
+                </Link>
               </li>
               <li className="header__item">
                 <Link className="btn btn--accent" to={AppRoutes.REGISTER} onClick={closeMenu}>

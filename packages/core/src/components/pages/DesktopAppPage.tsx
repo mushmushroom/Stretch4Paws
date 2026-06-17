@@ -1,4 +1,4 @@
-import PublicWrapper from './pageWrappers/PublicWrapper';
+import PublicWrapper from '../pageWrappers/PublicWrapper';
 
 export default function DesktopAppPage() {
   return (

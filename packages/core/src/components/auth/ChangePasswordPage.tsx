@@ -1,4 +1,4 @@
-import FormInput from '../ui/FormInput';
+import FormInput from '../common/FormInput';
 import { AppRoutes } from '../../lib/constants';
 import { Link } from 'react-router';
 import useChangePassword from '../../hooks/useChangePassword';

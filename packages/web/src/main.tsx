@@ -10,11 +10,11 @@ import { AppRoutes } from '@stretch4paws/core/lib/constants';
 import ChangePasswordPage from '@stretch4paws/core/components/auth/ChangePasswordPage';
 import GuestRoute from '@stretch4paws/core/components/pageWrappers/GuestRoute';
 import { AuthProvider } from '@stretch4paws/core/context/authContext/AuthContext';
-import DashboardPage from '@stretch4paws/core/components/DashboardPage';
-import HomePage from '@stretch4paws/core/components/HomePage';
+import DashboardPage from '@stretch4paws/core/components/pages/DashboardPage';
+import HomePage from '@stretch4paws/core/components/pages/HomePage';
 import ProtectedRoute from '@stretch4paws/core/components/pageWrappers/ProtectedRoute';
-import DesktopAppPage from '@stretch4paws/core/components/DesktopAppPage';
-import StretchesPage from '@stretch4paws/core/components/StretchesPage';
+import DesktopAppPage from '@stretch4paws/core/components/pages/DesktopAppPage';
+import StretchesPage from '@stretch4paws/core/components/pages/StretchesPage';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../Header';
+import Header from '../common/Header';
 import { useAuth } from '../../context/authContext/useAuth';
 
 export default function PublicWrapper({ children }: { children: React.ReactNode }) {
@@ -10,6 +10,7 @@ export default function PublicWrapper({ children }: { children: React.ReactNode 
     <div className="public-wrapper">
       <Header />
       <main>{children}</main>
+      <footer>Footer</footer>
     </div>
   );
 }

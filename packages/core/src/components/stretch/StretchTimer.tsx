@@ -1,6 +1,6 @@
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import { FaPlay } from 'react-icons/fa';
-import { useStretchContext } from '../context/stretchContext/useStretchContext';
+import { useStretchContext } from '../../context/stretchContext/useStretchContext';
 
 export default function StretchTimer() {
   const { stretchTimeLeft, currentStretch, start, pause, phase } = useStretchContext();

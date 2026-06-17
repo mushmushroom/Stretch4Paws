@@ -1,0 +1,45 @@
+// theme colors
+:root {
+  --color-bg-sec: #ffffff;
+  --color-bg-main: #fae0db;
+  --color-bg-timer: #e8e8e8;
+  --color-main-dark: #f2998a;
+  --color-bg-accent: #6fc3ba;
+  --color-bg-accent-sec: #cbb1f8;
+  --color-text-dark: #2e2740;
+  --color-text-light: #474d56;
+  --global-container-width: 1200px;
+  --weak-password: #e74c3c;
+  --medium-password: #f39c12;
+  --strong-password: #2ecc71;
+  --color-error: #e74c3c;
+  --color-success: #5da79f;
+}
+
+[data-theme='dark'] {
+  // --color-bg-sec: #4f3750;
+  --color-bg-sec: #322a3e;
+  --color-bg-main: #231b2e;
+  --color-bg-timer: #746b7e;
+  --color-main-dark: #f8a9a4;
+  --color-bg-accent: #6dcbcb;
+  --color-bg-accent-sec: #b8a2f2;
+  --color-text-dark: #fafafc;
+  --color-text-light: #b6aec7;
+}
+
+$bg-sec: var(--color-bg-sec);
+$bg-main: var(--color-bg-main);
+$bg-timer: var(--color-bg-timer);
+$main-dark: var(--color-main-dark);
+$bg-accent: var(--color-bg-accent);
+$bg-accent-sec: var(--color-bg-accent-sec);
+$text-dark: var(--color-text-dark);
+$text-light: var(--color-text-light);
+$global-container-width: var(--global-container-width);
+$nunito: 'Nunito', sans-serif;
+$weak-password: var(--weak-password);
+$medium-password: var(--medium-password);
+$strong-password: var(--strong-password);
+$error: var(--color-error);
+$success: var(--color-success);
