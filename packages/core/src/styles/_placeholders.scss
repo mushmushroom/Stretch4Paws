@@ -18,6 +18,12 @@
   font-size: 1.5rem;
 }
 
+%text-muted-sm {
+  color: $text-light;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
 %title-block {
   display: flex;
   flex-direction: column;
@@ -44,6 +50,25 @@
 %title-h3 {
   font-size: 2.4rem;
   font-weight: 700;
+}
+
+%nav-list {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $text-light;
+}
+
+%nav-item {
+  transition: opacity 0.4s;
+
+  @media (any-hover: hover) {
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 }
 
 %feedback-message {

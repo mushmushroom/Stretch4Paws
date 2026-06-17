@@ -1,5 +1,7 @@
 import React from 'react';
 import AuthInfo from '../auth/AuthInfo';
+import { AppRoutes } from '../../lib/constants';
+import { Link } from 'react-router';
 
 interface AuthWrapperProps {
   title?: string;
@@ -20,6 +22,9 @@ export default function AuthWrapper({ children, title, description }: AuthWrappe
         )}
 
         {children}
+        <div className="form-wrapper__footer">
+          <Link to={AppRoutes.HOME}>Return to home page</Link>
+        </div>
       </main>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../common/Header';
 import { useAuth } from '../../context/authContext/useAuth';
+import Footer from '../common/Footer';
 
 export default function PublicWrapper({ children }: { children: React.ReactNode }) {
   const { isLoading } = useAuth();
@@ -10,7 +11,7 @@ export default function PublicWrapper({ children }: { children: React.ReactNode 
     <div className="public-wrapper">
       <Header />
       <main>{children}</main>
-      <footer>Footer</footer>
+      <Footer />
     </div>
   );
 }

@@ -92,12 +92,7 @@
   }
 
   &__list {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: $text-light;
+    @extend %nav-list;
 
     @media (max-width: 768px) {
       & {
@@ -110,13 +105,7 @@
   }
 
   &__item {
-    transition: opacity 0.4s;
-
-    @media (any-hover: hover) {
-      &:hover {
-        opacity: 0.5;
-      }
-    }
+    @extend %nav-item;
   }
 }
 
@@ -194,5 +183,126 @@
 
   &__btn {
     pointer-events: none;
+  }
+}
+
+.how {
+  padding: 4.8rem 4rem;
+  background-color: $bg-sec;
+  border-radius: 3.4rem;
+
+  &__title-block {
+    @extend %title-block;
+    text-align: center;
+    margin-bottom: 3.4rem;
+  }
+
+  &__title {
+    @extend %title-h2;
+  }
+
+  &__descr {
+    @extend %text-muted;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    counter-reset: how-counter;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__item {
+    counter-increment: how-counter;
+    background: rgb(252, 246, 249);
+    border-radius: 2.2rem;
+    padding: 2.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    &::before {
+      content: counter(how-counter);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.6rem;
+      height: 3.6rem;
+      border-radius: 1rem;
+      background: rgb(234, 247, 245);
+      color: $success;
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__item-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+  }
+
+  &__item-descr {
+    @extend %text-muted-sm;
+  }
+}
+
+.app-banner {
+  padding: 4rem 0;
+
+  &__wrapper {
+    border-radius: 26px;
+    background-color: $text-dark;
+    padding: 40px 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 32px 28px;
+    }
+  }
+
+  &__title-block {
+    @extend %title-block;
+  }
+  &__title {
+    @extend %title-h2;
+    color: $bg-sec;
+  }
+
+  &__descr {
+    @extend %text-muted;
+    color: $bg-accent-sec;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 3.4rem 0;
+  margin-top: auto;
+
+  &__list {
+    @extend %nav-list;
+  }
+
+  &__item {
+    @extend %nav-item;
+  }
+
+  &__copy {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: rgb(195, 187, 206);
   }
 }
