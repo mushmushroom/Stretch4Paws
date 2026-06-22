@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router';
 import AuthInfo from '../auth/AuthInfo';
 import { AppRoutes } from '../../lib/constants';
-import { Link } from 'react-router';
+import ThemeToggle from '../common/ThemeToggle';
 
 interface AuthWrapperProps {
   title?: string;
@@ -26,6 +27,7 @@ export default function AuthWrapper({ children, title, description }: AuthWrappe
           <Link to={AppRoutes.HOME}>Return to home page</Link>
         </div>
       </main>
+      <ThemeToggle />
     </div>
   );
 }

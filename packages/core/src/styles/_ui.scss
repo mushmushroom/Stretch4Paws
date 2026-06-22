@@ -7,8 +7,8 @@
   align-items: center;
   gap: 5px;
   font-weight: 700;
-  font-size: 15px;
-  border-radius: 1.6rem;
+  font-size: 1.5rem;
+  border-radius: $radius-md;
   padding: 1rem 1.5rem 1.1rem;
   border: none;
   color: $bg-sec;
@@ -46,7 +46,7 @@
 
   &__icon {
     background-color: $main-dark;
-    border-radius: 50%;
+    border-radius: $radius-full;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,7 +73,7 @@
 
   &__icon {
     background-color: $main-dark;
-    border-radius: 50%;
+    border-radius: $radius-full;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,7 +96,7 @@
 .theme-toggle-btn {
   cursor: pointer;
   border: none;
-  border-radius: 10px;
+  border-radius: $radius-xs;
   padding: 1.2rem 1.4rem;
   position: fixed;
   bottom: 10px;

@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { stretches as stretchData } from '../../data/stretches';
 import { StretchContext } from './StretchContextDef';
+import useSound from 'use-sound';
+import stretch_completed from '../../data/stretch_completed.mp3';
+import all_completed from '../../data/all_completed.mp3';
 
 const TRANSITION_DELAY = 1; // seconds
 
@@ -39,6 +42,9 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
      Stretch timer (runs only in stretch)
   ----------------------------- */
 
+  const [playStretchCompleted] = useSound(stretch_completed);
+  const [playAllCompleted] = useSound(all_completed);
+
   useEffect(() => {
     if (phase !== 'stretch') return;
 
@@ -58,9 +64,12 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
   useEffect(() => {
     if (phase !== 'stretch' || stretchTimeLeft !== 0) return;
 
+    playStretchCompleted();
+
     transitionTimeoutRef.current = setTimeout(() => {
       if (currentStretchIndex >= stretches.length - 1) {
         // Last stretch completed
+        playAllCompleted();
         setPhase('completed');
       } else {
         // Move to next stretch
@@ -74,7 +83,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
     return () => {
       if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
     };
-  }, [phase, stretchTimeLeft, currentStretchIndex, stretches.length]);
+  }, [phase, stretchTimeLeft, currentStretchIndex, stretches.length, playStretchCompleted]);
 
   /* -----------------------------
      Controls

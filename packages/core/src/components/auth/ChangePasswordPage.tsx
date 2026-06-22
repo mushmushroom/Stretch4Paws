@@ -1,11 +1,12 @@
-import FormInput from '../common/FormInput';
-import { AppRoutes } from '../../lib/constants';
 import { Link } from 'react-router';
+
 import useChangePassword from '../../hooks/useChangePassword';
+import { AppRoutes } from '../../lib/constants';
+import AuthWrapper from '../pageWrappers/AuthWrapper';
+import FormInput from '../common/FormInput';
+import ErrorMessage from './ErrorMessage';
 import PasswordRequirements from './PasswordRequirements';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
-import AuthWrapper from '../pageWrappers/AuthWrapper';
-import ErrorMessage from './ErrorMessage';
 import SuccessMessage from './SuccessMessage';
 
 export default function ChangePasswordPage() {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import App from '../../App';
 import PublicWrapper from '../pageWrappers/PublicWrapper';
+import StretchesSection from '../stretch/StretchesSection';
 import { useStretchContext } from '../../context/stretchContext/useStretchContext';
 
 export default function StretchesPage() {
@@ -12,7 +12,7 @@ export default function StretchesPage() {
 
   return (
     <PublicWrapper>
-      <App />
+      <StretchesSection />
     </PublicWrapper>
   );
 }

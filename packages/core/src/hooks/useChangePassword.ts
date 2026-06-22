@@ -1,6 +1,7 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 import { supabase } from '../lib/db';
 import { AppRoutes } from '../lib/constants';
@@ -9,7 +10,6 @@ import {
   type ChangePasswordInputs,
 } from '../lib/schemas/changePassword.schema';
 import { zxcvbn } from '../lib/zxcvbn';
-import { useNavigate } from 'react-router';
 
 type ResetPasswordStatus = 'checking' | 'verified' | 'error';
 

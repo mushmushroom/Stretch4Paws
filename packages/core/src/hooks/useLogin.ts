@@ -1,16 +1,16 @@
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
 import { loginPasswordSchema, type LoginPasswordInputs } from '../lib/schemas/loginPassword.schema';
-import { AppRoutes } from '../lib/constants';
-import { supabase } from '../lib/db';
-import { useGoogleAuth } from './useGoogleAuth';
 import {
   loginMagicLinkSchema,
   type LoginMagicLinkInputs,
 } from '../lib/schemas/loginMagicLink.schema';
-import { useState } from 'react';
+import { AppRoutes } from '../lib/constants';
+import { supabase } from '../lib/db';
+import { useGoogleAuth } from './useGoogleAuth';
 
 export default function useLogin() {
   const [successMagicLinkMessage, setSuccessMagicLinkMessage] = useState<string | null>(null);

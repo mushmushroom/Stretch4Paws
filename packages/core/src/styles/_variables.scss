@@ -1,3 +1,26 @@
+// border radius scale
+:root {
+  --radius-full: 50%;     // circles & dots
+  --radius-pill: 3rem;    // pill-shaped bars
+  --radius-2xl: 3.4rem;   // large section containers
+  --radius-xl: 2.2rem;    // section item cards
+  --radius-banner: 2.6rem; // app banner
+  --radius-lg: 2rem;      // cards & auth panels
+  --radius-md: 1.6rem;    // buttons, feedback, progress bars
+  --radius-sm: 1.2rem;    // inputs, dividers, burger spans
+  --radius-xs: 1rem;      // small controls & badges
+}
+
+$radius-full: var(--radius-full);
+$radius-pill: var(--radius-pill);
+$radius-2xl: var(--radius-2xl);
+$radius-xl: var(--radius-xl);
+$radius-banner: var(--radius-banner);
+$radius-lg: var(--radius-lg);
+$radius-md: var(--radius-md);
+$radius-sm: var(--radius-sm);
+$radius-xs: var(--radius-xs);
+
 // theme colors
 :root {
   --color-bg-sec: #ffffff;
