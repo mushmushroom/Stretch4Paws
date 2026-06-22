@@ -8,7 +8,7 @@
 
 %card {
   background-color: $bg-sec;
-  border-radius: 20px;
+  border-radius: $radius-lg;
   box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.1);
 }
 
@@ -72,7 +72,7 @@
 }
 
 %feedback-message {
-  border-radius: 1.6rem;
+  border-radius: $radius-md;
   padding: 12px 14px 12px 30px;
   font-weight: 700;
   position: relative;
@@ -85,6 +85,6 @@
     left: 10px;
     width: 10px;
     height: 10px;
-    border-radius: 100%;
+    border-radius: $radius-full;
   }
 }

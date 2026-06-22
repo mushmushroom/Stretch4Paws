@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../common/Header';
 import { useAuth } from '../../context/authContext/useAuth';
 import Footer from '../common/Footer';
+import ThemeToggle from '../common/ThemeToggle';
 
 export default function PublicWrapper({ children }: { children: React.ReactNode }) {
   const { isLoading } = useAuth();
@@ -12,6 +13,7 @@ export default function PublicWrapper({ children }: { children: React.ReactNode 
       <Header />
       <main>{children}</main>
       <Footer />
+      <ThemeToggle />
     </div>
   );
 }

@@ -21,12 +21,12 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 40px 35px;
-    border-radius: 20px;
+    padding: 4rem 3.5rem;
+    border-radius: $radius-lg;
 
     @media (max-width: 768px) {
       border-radius: 0;
-      padding: 40px 15px;
+      padding: 4rem 15px;
     }
   }
 
@@ -78,7 +78,7 @@
   &__info-text {
     @extend %flex-col-center;
     justify-content: center;
-    gap: 10px;
+    gap: 1rem;
     max-width: 280px;
     text-align: center;
   }
@@ -97,7 +97,7 @@
   background-color: $bg-sec;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 3rem;
 
   &__icon {
     width: 20px;
@@ -105,12 +105,12 @@
   }
 
   &__password-requirements {
-    font-size: 12px;
+    font-size: 1.2rem;
     color: $text-light;
   }
 
   &__password-strength {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 
   &__header {
@@ -121,7 +121,7 @@
 
   &__title {
     font-weight: 700;
-    font-size: 30px;
+    font-size: 3rem;
     letter-spacing: -0.4px;
   }
 
@@ -132,7 +132,7 @@
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 1.5rem;
   }
 
   &__alternative {
@@ -141,13 +141,13 @@
     gap: 12px;
     color: $text-light;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 1.2rem;
 
     hr {
       flex: 1;
       border: 1px solid $bg-accent;
       opacity: 0.6;
-      border-radius: 12px;
+      border-radius: $radius-sm;
     }
   }
 
@@ -180,7 +180,7 @@
   &__label {
     display: block;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 1.3rem;
     color: $text-light;
   }
 
@@ -195,13 +195,13 @@
     font-weight: 500;
     color: $text-light;
     border: 2px solid rgb(238, 232, 242);
-    border-radius: 14px;
+    border-radius: $radius-md;
     padding: 13px 16px;
     font-family: $nunito;
 
     &::placeholder {
       opacity: 0.6;
-      font-size: 13px;
+      font-size: 1.3rem;
       font-weight: 600;
     }
 
@@ -217,7 +217,7 @@
 
   &__error {
     color: $error;
-    font-size: 12px;
+    font-size: 1.2rem;
     padding-left: 10px;
   }
 
@@ -228,7 +228,7 @@
     border: none;
     cursor: pointer;
     font-family: $nunito;
-    font-size: 13px;
+    font-size: 1.3rem;
     font-weight: 700;
     color: $text-light;
     padding: 0;
@@ -251,7 +251,7 @@
     width: 100%;
     height: 10px;
     background-color: $bg-timer;
-    border-radius: 30px;
+    border-radius: $radius-pill;
     transition: background-color 0.4s;
 
     &--weak {

@@ -24,7 +24,7 @@
     height: 11px;
     background-color: $bg-timer;
     position: relative;
-    border-radius: 1.5rem;
+    border-radius: $radius-md;
   }
 
   &__fill {
@@ -33,7 +33,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 1.5rem;
+    border-radius: $radius-md;
     transition: width 1s linear;
   }
 
