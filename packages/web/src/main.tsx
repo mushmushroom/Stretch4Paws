@@ -13,6 +13,7 @@ import ProtectedRoute from '@stretch4paws/core/components/pageWrappers/Protected
 import DesktopAppPage from '@stretch4paws/core/components/pages/DesktopAppPage';
 import StretchesPage from '@stretch4paws/core/components/pages/StretchesPage';
 import Providers from '@stretch4paws/core/components/common/Providers';
+import StatisticsPage from '@stretch4paws/core/components/dashboard/StatisticsPage';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -60,11 +61,34 @@ createRoot(document.getElementById('root')!).render(
               </ProtectedRoute>
             }
           />
+          <Route
+            path={AppRoutes.DASHBOARD_STATISTICS}
+            element={
+              <ProtectedRoute>
+                <StatisticsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.DASHBOARD_GOAL}
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.DASHBOARD_PROFILE}
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path={AppRoutes.STRETCHES} element={<StretchesPage />} />
           <Route path={AppRoutes.DESKTOP_APP} element={<DesktopAppPage />} />
         </Routes>
       </BrowserRouter>
     </Providers>
-
   </StrictMode>,
 );

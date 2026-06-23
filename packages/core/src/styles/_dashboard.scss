@@ -1,0 +1,164 @@
+@use 'variables' as *;
+@use 'placeholders' as *;
+
+// TODO reuse container width and move to variables
+$aside-width: 260px;
+$container-width: 1200px;
+$page-padding: 15px;
+
+.dashboard-wrapper {
+  display: grid;
+  grid-template-columns: $aside-width 1fr;
+  max-width: $container-width;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  overflow: visible;
+  gap: 20px;
+
+  &__aside {
+    background-color: $bg-sec;
+    padding: 3rem 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    // stretches bg to the left edge of the viewport
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 100%;
+      width: 100vw;
+      height: 100%;
+      background-color: $bg-sec;
+    }
+  }
+
+  &__main {
+    padding: 3rem $page-padding;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+
+    &__aside {
+      box-shadow: none;
+    }
+  }
+}
+
+.dashboard-aside {
+  &__top {
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+  }
+
+  &__bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    // width: 100%;
+  }
+
+  &__banner {
+    padding: 30px;
+    border-radius: $radius-banner;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: $bg-accent-sec-light;
+  }
+
+  &__banner-title {
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  &__banner-text {
+    @extend %text-muted-sm;
+  }
+
+  &__logout {
+    width: 100%;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__item {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: $text-light;
+    position: relative;
+
+    a {
+      display: block;
+      padding: 1.5rem 3rem 1.5rem 4rem;
+      transition: opacity 0.4s;
+
+      @media (any-hover: hover) {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 15px;
+      width: 10px;
+      height: 10px;
+      background-color: $bg-timer;
+      border-radius: $radius-full;
+      transition: background-color 0.2s;
+    }
+
+    &:has(.active) {
+      color: $text-accent;
+      background-color: $bg-accent-light;
+      border-radius: $radius-md;
+
+      &:before {
+        background-color: $bg-accent;
+      }
+    }
+  }
+}
+
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+}
+
+.dashboard-header {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  &__title {
+    font-weight: 700;
+    font-size: 2.8rem;
+    letter-spacing: -0.4px;
+  }
+  &__text {
+    @extend %text-muted;
+  }
+}

@@ -8,5 +8,8 @@ export const AppRoutes = {
   CHANGE_PASSWORD: '/change-password',
   STRETCHES: '/stretches',
   DASHBOARD: '/dashboard',
+  DASHBOARD_STATISTICS: '/dashboard/statistics',
+  DASHBOARD_GOAL: '/dashboard/goal',
+  DASHBOARD_PROFILE: '/dashboard/profile',
   DESKTOP_APP: '/desktop-app',
 } as const;

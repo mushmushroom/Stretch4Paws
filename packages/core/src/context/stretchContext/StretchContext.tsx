@@ -4,6 +4,8 @@ import { StretchContext } from './StretchContextDef';
 import useSound from 'use-sound';
 import stretch_completed from '../../data/stretch_completed.mp3';
 import all_completed from '../../data/all_completed.mp3';
+import { supabase } from '../../lib/db';
+import { useAuth } from '../authContext/useAuth';
 
 const TRANSITION_DELAY = 1; // seconds
 
@@ -38,6 +40,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
   const [totalTimeLeft, setTotalTimeLeft] = useState(totalDuration);
   const transitionTimeoutRef = useRef<number | null>(null);
 
+  const { user } = useAuth();
   /* -----------------------------
      Stretch timer (runs only in stretch)
   ----------------------------- */
@@ -71,6 +74,19 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
         // Last stretch completed
         playAllCompleted();
         setPhase('completed');
+
+        if (user) {
+          console.log('Completed, inserting session for user:', user.id);
+          supabase.from('sessions').insert({
+            user_id: user.id,
+            // duration: totalDuration,
+          }).then(({ error }) => {
+            if (error) console.error('Session insert failed:', error);
+            else console.log('Session inserted successfully');
+          });
+        } else {
+          console.warn('Session not inserted: no user');
+        }
       } else {
         // Move to next stretch
         const next = currentStretchIndex + 1;

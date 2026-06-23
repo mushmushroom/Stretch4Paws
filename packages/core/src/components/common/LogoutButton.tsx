@@ -1,12 +1,15 @@
 import { supabase } from '../../lib/db';
 
-export default function LogoutButton() {
+interface LogoutButtonProps {
+  className?: string;
+}
+
+export default function LogoutButton({ className = 'btn btn--outline-basic' }: LogoutButtonProps) {
   async function signOut() {
-    const { error } = await supabase.auth.signOut({ scope: 'local' });
-    if (error) return;
+    await supabase.auth.signOut({ scope: 'local' });
   }
   return (
-    <button className="btn btn--outline-basic" onClick={signOut}>
+    <button className={className} onClick={signOut}>
       Logout
     </button>
   );
