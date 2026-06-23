@@ -10,5 +10,5 @@ export interface SessionRow {
 
 export interface GoalRow {
   user_id: string;
-  sessions_per_week: number;
+  sessions_per_day: number;
 }

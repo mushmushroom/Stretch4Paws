@@ -11,18 +11,24 @@ export interface Goal {
 }
 
 export default function useGoal(): Goal {
-  const { user } = useAuth();
+  const { user, isLoading: authLoading } = useAuth();
   const [goal, setGoal] = useState(DEFAULT_GOAL);
   const [goalLoading, setGoalLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) return;
+    if (authLoading) return;
 
+    if (!user) {
+      setGoalLoading(false);
+      return;
+    }
+
+    setGoalLoading(true);
     fetchGoal(user.id).then(({ data }) => {
-      if (data) setGoal(data.sessions_per_week);
+      if (data) setGoal(data.sessions_per_day);
       setGoalLoading(false);
     });
-  }, [user]);
+  }, [user, authLoading]);
 
   async function updateGoal(value: number) {
     if (!user) return;

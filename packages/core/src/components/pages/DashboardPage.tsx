@@ -20,9 +20,12 @@ export default function DashboardPage() {
             title={`Good morning, ${profile?.name?.split(' ')[0]}!`}
             text={`${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} · let's loosen up those shoulders.`}
           />
-          <Link className="btn" to={AppRoutes.STRETCHES}>
-            Start stretching
-          </Link>
+          <div className="dashboard-page__labels">
+            {streak > 1 && <div className="dashboard-page__label">{streak}-day streak</div>}
+            <Link className="btn" to={AppRoutes.STRETCHES}>
+              Start stretching
+            </Link>
+          </div>
         </div>
 
         <div>
@@ -38,10 +41,10 @@ export default function DashboardPage() {
                 title: isLoading ? '—' : String(thisWeek),
                 text: 'Completed this week',
               },
-              {
-                title: isLoading ? '—' : `${streak} d`,
-                text: 'Current streak',
-              },
+              // {
+              //   title: isLoading ? '—' : `${streak} d`,
+              //   text: 'Current streak',
+              // },
             ]}
           />
         </div>

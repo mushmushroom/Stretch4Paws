@@ -14,6 +14,7 @@ import DesktopAppPage from '@stretch4paws/core/components/pages/DesktopAppPage';
 import StretchesPage from '@stretch4paws/core/components/pages/StretchesPage';
 import Providers from '@stretch4paws/core/components/common/Providers';
 import StatisticsPage from '@stretch4paws/core/components/dashboard/StatisticsPage';
+import GoalsPage from '@stretch4paws/core/components/dashboard/GoalsPage';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -73,7 +74,7 @@ createRoot(document.getElementById('root')!).render(
             path={AppRoutes.DASHBOARD_GOAL}
             element={
               <ProtectedRoute>
-                <DashboardPage />
+                <GoalsPage />
               </ProtectedRoute>
             }
           />
