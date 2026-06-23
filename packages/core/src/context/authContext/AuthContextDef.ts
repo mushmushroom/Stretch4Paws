@@ -1,12 +1,10 @@
 import type { User } from '@supabase/supabase-js';
 import { createContext } from 'react';
+import type { Profile } from '@stretch4paws/db';
 
-export type Profile = {
-  id: string;
-  name: string | null;
-};
+export type { Profile };
 
-export type AuthContextType = {
+export interface AuthContextType  {
   user: User | null;
   profile: Profile | null;
   isLoading: boolean;

@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { supabase } from '../lib/db';
+import { resetPasswordForEmail } from '@stretch4paws/db';
 import { resetPasswordSchema, type ResetPasswordInputs } from '../lib/schemas/resetPassword.schema';
 import { AppRoutes, PUBLIC_URL } from '../lib/constants';
 
@@ -22,9 +22,10 @@ export default function useResetPassword() {
 
   async function onSubmit(formData: ResetPasswordInputs) {
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(formData.email, {
-        redirectTo: `${PUBLIC_URL}${AppRoutes.CHANGE_PASSWORD}`,
-      });
+      const { error } = await resetPasswordForEmail(
+        formData.email,
+        `${PUBLIC_URL}${AppRoutes.CHANGE_PASSWORD}`,
+      );
 
       if (error) {
         setError('root', { type: 'manual', message: error.message });

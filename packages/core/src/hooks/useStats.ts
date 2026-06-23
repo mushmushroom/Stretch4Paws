@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/authContext/useAuth';
-import { supabase } from '../lib/db';
+import { fetchSessions } from '@stretch4paws/db';
 import useGoal from './useGoal';
 
 function isToday(dateStr: string): boolean {
@@ -65,11 +65,7 @@ export default function useStats(): Stats {
 
     async function fetchStats() {
       if (!user) return;
-      const { data } = await supabase
-        .from('sessions')
-        .select('completed_at')
-        .eq('user_id', user.id)
-        .order('completed_at', { ascending: false });
+      const { data } = await fetchSessions(user.id);
 
       const rows = data ?? [];
       const dates = rows.map((r) => r.completed_at as string);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/authContext/useAuth';
-import { supabase } from '../lib/db';
+import { fetchGoal, upsertGoal } from '@stretch4paws/db';
 
 const DEFAULT_GOAL = 5;
 
@@ -18,21 +18,16 @@ export default function useGoal(): Goal {
   useEffect(() => {
     if (!user) return;
 
-    supabase
-      .from('goals')
-      .select('sessions_per_week')
-      .eq('user_id', user.id)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (data) setGoal(data.sessions_per_week);
-        setGoalLoading(false);
-      });
+    fetchGoal(user.id).then(({ data }) => {
+      if (data) setGoal(data.sessions_per_week);
+      setGoalLoading(false);
+    });
   }, [user]);
 
   async function updateGoal(value: number) {
     if (!user) return;
     setGoal(value);
-    await supabase.from('goals').upsert({ user_id: user.id, sessions_per_week: value });
+    await upsertGoal(user.id, value);
   }
 
   return { goal, goalLoading, updateGoal };

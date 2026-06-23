@@ -13,9 +13,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.4.0
         version: 5.4.0(react-hook-form@7.78.0(react@19.2.7))
-      '@supabase/supabase-js':
-        specifier: ^2.108.1
-        version: 2.108.1
+      '@stretch4paws/db':
+        specifier: workspace:*
+        version: link:../db
       lottie-react:
         specifier: ^2.4.1
         version: 2.4.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -71,6 +71,15 @@ importers:
       vite:
         specifier: ^7.3.5
         version: 7.3.5(@types/node@24.13.1)(sass-embedded@1.100.0)(sass@1.100.0)
+
+  packages/db:
+    dependencies:
+      '@supabase/supabase-js':
+        specifier: ^2.108.1
+        version: 2.108.1
+      react:
+        specifier: ^19.1.1
+        version: 19.2.7
 
   packages/web:
     dependencies:
