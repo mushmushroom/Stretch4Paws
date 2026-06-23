@@ -2,23 +2,18 @@ import { useState } from 'react';
 import DashboardWrapper from '../pageWrappers/DashboardWrapper';
 import DashboardHeader from './DashboardHeader';
 import useGoal from '../../hooks/useGoal';
-
-const MIN = 1;
-const MAX = 14;
+import { MAX_GOAL, MIN_GOAL } from '../../lib/constants';
 
 export default function GoalsPage() {
-  const { goal, goalLoading, updateGoal } = useGoal();
+  const { goal, goalLoading, saved, saveGoal } = useGoal();
   const [draft, setDraft] = useState<number | null>(null);
-  const [saved, setSaved] = useState(false);
 
   const current = draft ?? goal;
-  const percent = ((current - MIN) / (MAX - MIN)) * 100;
+  const percent = ((current - MIN_GOAL) / (MAX_GOAL - MIN_GOAL)) * 100;
 
   async function handleSave() {
-    await updateGoal(current);
+    await saveGoal(current);
     setDraft(null);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
   }
 
   return (
@@ -39,16 +34,16 @@ export default function GoalsPage() {
             <input
               className="goal-slider"
               type="range"
-              min={MIN}
-              max={MAX}
-              value={goalLoading ? MIN : current}
+              min={MIN_GOAL}
+              max={MAX_GOAL}
+              value={goalLoading ? MIN_GOAL : current}
               disabled={goalLoading}
               style={{ '--goal-slider-fill': `${percent}%` } as React.CSSProperties}
               onChange={(e) => setDraft(Number(e.target.value))}
             />
             <div className="goal-card__range-labels">
-              <span>{MIN}</span>
-              <span>{MAX}</span>
+              <span>{MIN_GOAL}</span>
+              <span>{MAX_GOAL}</span>
             </div>
           </div>
           <button className="btn" onClick={handleSave} disabled={goalLoading}>

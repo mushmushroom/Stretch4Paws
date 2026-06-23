@@ -1,19 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/authContext/useAuth';
 import { fetchGoal, upsertGoal } from '@stretch4paws/db';
-
-const DEFAULT_GOAL = 5;
-
-export interface Goal {
-  goal: number;
-  goalLoading: boolean;
-  updateGoal: (value: number) => Promise<void>;
-}
+import type { Goal } from '../lib/types';
+import { DEFAULT_GOAL } from '../lib/constants';
 
 export default function useGoal(): Goal {
   const { user, isLoading: authLoading } = useAuth();
   const [goal, setGoal] = useState(DEFAULT_GOAL);
   const [goalLoading, setGoalLoading] = useState(true);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     if (authLoading) return;
@@ -30,11 +25,13 @@ export default function useGoal(): Goal {
     });
   }, [user, authLoading]);
 
-  async function updateGoal(value: number) {
+  async function saveGoal(value: number) {
     if (!user) return;
     setGoal(value);
     await upsertGoal(user.id, value);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
   }
 
-  return { goal, goalLoading, updateGoal };
+  return { goal, goalLoading, saved, saveGoal };
 }

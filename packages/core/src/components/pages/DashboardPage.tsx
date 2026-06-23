@@ -40,11 +40,7 @@ export default function DashboardPage() {
               {
                 title: isLoading ? '—' : String(thisWeek),
                 text: 'Completed this week',
-              },
-              // {
-              //   title: isLoading ? '—' : `${streak} d`,
-              //   text: 'Current streak',
-              // },
+              }
             ]}
           />
         </div>

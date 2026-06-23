@@ -2,68 +2,8 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../context/authContext/useAuth';
 import { fetchSessions } from '@stretch4paws/db';
 import useGoal from './useGoal';
-
-function isToday(dateStr: string): boolean {
-  const date = new Date(dateStr);
-  const now = new Date();
-  return (
-    date.getFullYear() === now.getFullYear() &&
-    date.getMonth() === now.getMonth() &&
-    date.getDate() === now.getDate()
-  );
-}
-
-function isThisWeek(dateStr: string): boolean {
-  const date = new Date(dateStr);
-  const now = new Date();
-  const startOfWeek = new Date(now);
-  startOfWeek.setDate(now.getDate() - now.getDay());
-  startOfWeek.setHours(0, 0, 0, 0);
-  // compare local midnight to local midnight — no UTC shift
-  const dateLocal = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  return dateLocal >= startOfWeek;
-}
-
-function toLocalDateStr(dateStr: string): string {
-  const d = new Date(dateStr);
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
-function calcStreak(dates: string[]): number {
-  if (dates.length === 0) return 0;
-
-  // get unique local calendar days, sorted descending
-  const days = [...new Set(dates.map(toLocalDateStr))].sort().reverse();
-
-  let streak = 0;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  for (let i = 0; i < days.length; i++) {
-    const expected = new Date(today);
-    expected.setDate(today.getDate() - i);
-    const expectedStr = toLocalDateStr(expected.toISOString());
-
-    if (days[i] === expectedStr) {
-      streak++;
-    } else {
-      break;
-    }
-  }
-
-  return streak;
-}
-
-export interface Stats {
-  today: number;
-  thisWeek: number;
-  streak: number;
-  goalProgress: number; // 0–100
-  isLoading: boolean;
-}
+import type { Stats } from '../lib/types';
+import { calcStreak, isThisWeek, isToday } from '../lib/utils';
 
 export default function useStats(): Stats {
   const { user, isLoading: authLoading } = useAuth();

@@ -13,3 +13,7 @@ export const AppRoutes = {
   DASHBOARD_PROFILE: '/dashboard/profile',
   DESKTOP_APP: '/desktop-app',
 } as const;
+
+export const DEFAULT_GOAL = 5;
+export const MIN_GOAL = 1;
+export const MAX_GOAL = 14;
