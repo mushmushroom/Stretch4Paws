@@ -55,9 +55,12 @@ export default function WeeklyChart({ perDay }: WeeklyChartProps) {
     datasets: [
       {
         data: perDay,
-        backgroundColor: DAYS.map((_, i) => barColorByIndex(i, TODAY)),
+        backgroundColor: DAYS.map((_, i) =>
+          perDay[i] === 0 ? getCssVar('--color-bg-timer') : barColorByIndex(i, TODAY)
+        ),
         borderRadius: 8,
         borderSkipped: false,
+        minBarLength: 6,
       },
     ],
   };

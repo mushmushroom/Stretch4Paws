@@ -29,9 +29,12 @@ export default function MonthlyChart({ perMonth, monthLabels }: MonthlyChartProp
     datasets: [
       {
         data: perMonth,
-        backgroundColor: perMonth.map((_, i) => barColorByIndex(i, currentIdx)),
+        backgroundColor: perMonth.map((val, i) =>
+          val === 0 ? getCssVar('--color-bg-timer') : barColorByIndex(i, currentIdx)
+        ),
         borderRadius: 8,
         borderSkipped: false,
+        minBarLength: 6,
       },
     ],
   };

@@ -1,79 +1,108 @@
-// border radius scale
+// ─── Border radius ───────────────────────────────────────────────────────────
 :root {
-  --radius-full: 50%; // circles & dots
-  --radius-pill: 3rem; // pill-shaped bars
-  --radius-2xl: 3.4rem; // large section containers
-  --radius-xl: 2.2rem; // section item cards
+  --radius-full: 50%;     // circles & dots
+  --radius-pill: 3rem;    // pill-shaped bars
+  --radius-2xl: 3.4rem;   // large section containers
+  --radius-xl: 2.2rem;    // section item cards
   --radius-banner: 2.6rem; // app banner
-  --radius-lg: 2rem; // cards & auth panels
-  --radius-md: 1.6rem; // buttons, feedback, progress bars
-  --radius-sm: 1.2rem; // inputs, dividers, burger spans
-  --radius-xs: 1rem; // small controls & badges
+  --radius-lg: 2rem;      // cards & auth panels
+  --radius-md: 1.6rem;    // buttons, feedback, progress bars
+  --radius-sm: 1.2rem;    // inputs, dividers, burger spans
+  --radius-xs: 1rem;      // small controls & badges
 }
 
-$radius-full: var(--radius-full);
-$radius-pill: var(--radius-pill);
-$radius-2xl: var(--radius-2xl);
-$radius-xl: var(--radius-xl);
+$radius-full:   var(--radius-full);
+$radius-pill:   var(--radius-pill);
+$radius-2xl:    var(--radius-2xl);
+$radius-xl:     var(--radius-xl);
 $radius-banner: var(--radius-banner);
-$radius-lg: var(--radius-lg);
-$radius-md: var(--radius-md);
-$radius-sm: var(--radius-sm);
-$radius-xs: var(--radius-xs);
+$radius-lg:     var(--radius-lg);
+$radius-md:     var(--radius-md);
+$radius-sm:     var(--radius-sm);
+$radius-xs:     var(--radius-xs);
 
-// theme colors
+// ─── Colors ──────────────────────────────────────────────────────────────────
 :root {
-  --color-bg-sec: #ffffff;
-  --color-bg-main: #fae0db;
-  --color-bg-timer: #e8e8e8;
-  --color-main-dark: #f2998a;
-  --color-bg-accent: #6fc3ba;
-  --color-bg-accent-light: #eaf7f5;
-  --color-bg-accent-sec: #cbb1f8;
+  // backgrounds
+  --color-bg-sec:            #ffffff;
+  --color-bg-main:           #fae0db;
+  --color-bg-timer:          #e8e8e8;
+  --color-main-dark:         #f2998a;
+  --color-bg-accent:         #6fc3ba;
+  --color-bg-accent-light:   #eaf7f5;
+  --color-bg-accent-sec:     #cbb1f8;
   --color-bg-accent-sec-light: #f1e9ff;
-  --color-text-dark: #2e2740;
-  --color-text-light: #474d56;
-  --color-text-accent: #3E8C83;
-  --global-container-width: 1200px;
-  --weak-password: #e74c3c;
-  --medium-password: #f39c12;
-  --strong-password: #2ecc71;
-  --color-error: #e74c3c;
-  --color-success: #5da79f;
-  --color-bg-yellow: #F2C24B;
-  --color-bg-yellow-light: #FEF6DC;
+  --color-bg-yellow:         #F2C24B;
+  --color-bg-yellow-light:   #FEF6DC;
+
+  // text
+  --color-text-dark:         #2e2740;
+  --color-text-light:        #474d56;
+  --color-text-accent:       #3E8C83;
+
+  // feedback
+  --color-error:             #e74c3c;
+  --color-success:           #5da79f;
+
+  // password strength
+  --weak-password:           #e74c3c;
+  --medium-password:         #f39c12;
+  --strong-password:         #2ecc71;
 }
 
 [data-theme='dark'] {
-  // --color-bg-sec: #4f3750;
-  --color-bg-sec: #322a3e;
-  --color-bg-main: #231b2e;
-  --color-bg-timer: #746b7e;
-  --color-main-dark: #f8a9a4;
-  --color-bg-accent: #6dcbcb;
-  --color-bg-accent-sec: #b8a2f2;
+  --color-bg-sec:              #322a3e;
+  --color-bg-main:             #231b2e;
+  --color-bg-timer:            #746b7e;
+  --color-main-dark:           #f8a9a4;
+  --color-bg-accent:           #6dcbcb;
+  --color-bg-accent-sec:       #b8a2f2;
   --color-bg-accent-sec-light: #5c4a89;
-  --color-text-dark: #fafafc;
-  --color-text-light: #b6aec7;
+  --color-text-dark:           #fafafc;
+  --color-text-light:          #b6aec7;
 }
 
-$bg-sec: var(--color-bg-sec);
-$bg-main: var(--color-bg-main);
-$bg-timer: var(--color-bg-timer);
-$main-dark: var(--color-main-dark);
-$bg-accent: var(--color-bg-accent);
-$bg-accent-light: var(--color-bg-accent-light);
-$bg-accent-sec: var(--color-bg-accent-sec);
+$bg-sec:              var(--color-bg-sec);
+$bg-main:             var(--color-bg-main);
+$bg-timer:            var(--color-bg-timer);
+$main-dark:           var(--color-main-dark);
+$bg-accent:           var(--color-bg-accent);
+$bg-accent-light:     var(--color-bg-accent-light);
+$bg-accent-sec:       var(--color-bg-accent-sec);
 $bg-accent-sec-light: var(--color-bg-accent-sec-light);
-$text-dark: var(--color-text-dark);
-$text-light: var(--color-text-light);
-$text-accent: var(--color-text-accent);
-$global-container-width: var(--global-container-width);
+$bg-yellow:           var(--color-bg-yellow);
+$bg-yellow-light:     var(--color-bg-yellow-light);
+$text-dark:           var(--color-text-dark);
+$text-light:          var(--color-text-light);
+$text-accent:         var(--color-text-accent);
+$error:               var(--color-error);
+$success:             var(--color-success);
+$weak-password:       var(--weak-password);
+$medium-password:     var(--medium-password);
+$strong-password:     var(--strong-password);
+
+// ─── Layout ───────────────────────────────────────────────────────────────────
+:root {
+  --global-container-width: 1200px;
+
+  // unordered card grid accent variant backgrounds (not theme-switchable)
+  --color-bg-card-accent:       rgb(252, 246, 249);
+  --color-bg-card-accent-badge: rgb(234, 247, 245);
+
+  // overlay
+  --color-overlay: rgba(0, 0, 0, 0.4);
+}
+
+$global-container-width:    var(--global-container-width);
+$dashboard-aside-width:     260px;
+$dashboard-page-padding:    15px;
+$bg-card-accent:            var(--color-bg-card-accent);
+$bg-card-accent-badge:      var(--color-bg-card-accent-badge);
+$overlay:                   var(--color-overlay);
+
+// breakpoints (use inside media queries with #{})
+$bp-tablet: 768px;
+$bp-mobile: 480px;
+
+// ─── Typography ───────────────────────────────────────────────────────────────
 $nunito: 'Nunito', sans-serif;
-$weak-password: var(--weak-password);
-$medium-password: var(--medium-password);
-$strong-password: var(--strong-password);
-$error: var(--color-error);
-$success: var(--color-success);
-$bg-yellow: var(--color-bg-yellow);
-$bg-yellow-light: var(--color-bg-yellow-light);

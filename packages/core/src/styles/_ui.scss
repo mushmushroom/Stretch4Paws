@@ -116,11 +116,11 @@
   margin: 0;
   counter-reset: card-grid-counter;
 
-  @media (max-width: 768px) {
+  @media (max-width: #{$bp-tablet}) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: #{$bp-mobile}) {
     grid-template-columns: 1fr;
     gap: 14px;
   }
@@ -132,7 +132,7 @@
     flex-direction: column;
     gap: 7px;
 
-    @media (max-width: 480px) {
+    @media (max-width: #{$bp-mobile}) {
       padding: 2rem;
     }
 
@@ -211,10 +211,10 @@
   // variants
   &--accent {
     .card-grid__item {
-      background-color: rgb(252, 246, 249);
+      background-color: $bg-card-accent;
 
       &::before {
-        background-color: rgb(234, 247, 245);
+        background-color: $bg-card-accent-badge;
         color: $success;
       }
     }
