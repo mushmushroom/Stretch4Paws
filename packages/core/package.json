@@ -6,7 +6,9 @@
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
     "@stretch4paws/db": "workspace:*",
+    "chart.js": "^4.5.1",
     "lottie-react": "^2.4.1",
+    "react-chartjs-2": "^5.3.1",
     "react-circular-progressbar": "^2.2.0",
     "react-confetti": "^6.4.0",
     "react-hook-form": "^7.78.0",

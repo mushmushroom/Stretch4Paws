@@ -50,8 +50,6 @@ export default function useLogin() {
     try {
       const { error } = await signInWithOtp(formData.email, AppRoutes.HOME);
 
-      console.log(error);
-
       if (error) {
         magicLinkForm.setError('root', { type: 'manual', message: error.message });
         return;

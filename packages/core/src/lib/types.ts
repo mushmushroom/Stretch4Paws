@@ -10,5 +10,6 @@ export interface Stats {
   thisWeek: number;
   streak: number;
   goalProgress: number; // 0–100
+  perDay: number[]; // Sun–Sat, count for current week
   isLoading: boolean;
 }

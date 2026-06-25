@@ -6,6 +6,7 @@ import stretch_completed from '../../data/stretch_completed.mp3';
 import all_completed from '../../data/all_completed.mp3';
 import { insertSession } from '@stretch4paws/db';
 import { useAuth } from '../authContext/useAuth';
+import useGoal from '../../hooks/useGoal';
 
 const TRANSITION_DELAY = 1; // seconds
 
@@ -41,6 +42,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
   const transitionTimeoutRef = useRef<number | null>(null);
 
   const { user } = useAuth();
+  const { goal } = useGoal();
   /* -----------------------------
      Stretch timer (runs only in stretch)
   ----------------------------- */
@@ -76,7 +78,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
         setPhase('completed');
 
         if (user) {
-          insertSession(user.id).then(({ error }) => {
+          insertSession(user.id, goal).then(({ error }) => {
             if (error) console.error('Session insert failed:', error);
           });
         }

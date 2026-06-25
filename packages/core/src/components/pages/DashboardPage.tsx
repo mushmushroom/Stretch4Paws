@@ -6,10 +6,11 @@ import CardGrid from '../common/CardGrid';
 import useStats from '../../hooks/useStats';
 import useGoal from '../../hooks/useGoal';
 import DashboardHeader from '../dashboard/DashboardHeader';
+import WeeklyChart from '../dashboard/WeeklyChart';
 
 export default function DashboardPage() {
   const { profile } = useAuth();
-  const { today, thisWeek, streak, goalProgress, isLoading } = useStats();
+  const { today, thisWeek, streak, goalProgress, perDay, isLoading } = useStats();
   const { goal } = useGoal();
 
   return (
@@ -45,13 +46,7 @@ export default function DashboardPage() {
           />
         </div>
 
-        <div>
-          <div>chart</div>
-          <div>
-            <div>pawsome work</div>
-            <div>daily goal</div>
-          </div>
-        </div>
+        {!isLoading && <WeeklyChart perDay={perDay} />}
       </div>
     </DashboardWrapper>
   );

@@ -59,6 +59,11 @@ $page-padding: 15px;
 
   &__main {
     padding: 3rem $page-padding;
+    min-width: 0;
+
+    @media (max-width: 480px) {
+      padding: 2rem $page-padding;
+    }
   }
 
   &__burger {
@@ -239,6 +244,27 @@ $page-padding: 15px;
     font-weight: 800;
     font-size: 13px;
     padding: 10px 16px;
+  }
+}
+
+.weekly-chart {
+  @extend %card;
+  padding: 2.5rem 2.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media (max-width: 480px) {
+    padding: 2rem 1.6rem;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.6rem;
+  }
+
+  &__canvas-wrap {
+    min-height: 140px;
   }
 }
 
