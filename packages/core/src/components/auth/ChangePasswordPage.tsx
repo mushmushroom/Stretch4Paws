@@ -4,10 +4,10 @@ import useChangePassword from '../../hooks/useChangePassword';
 import { AppRoutes } from '../../lib/constants';
 import AuthWrapper from '../pageWrappers/AuthWrapper';
 import FormInput from '../common/FormInput';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from '../common/ErrorMessage';
 import PasswordRequirements from './PasswordRequirements';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
-import SuccessMessage from './SuccessMessage';
+import SuccessMessage from '../common/SuccessMessage';
 
 export default function ChangePasswordPage() {
   const {

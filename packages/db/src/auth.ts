@@ -29,6 +29,10 @@ export function updatePassword(password: string) {
   return supabase.auth.updateUser({ password });
 }
 
+export function updateEmail(email: string, emailRedirectTo: string) {
+  return supabase.auth.updateUser({ email }, { emailRedirectTo });
+}
+
 export function getSession() {
   return supabase.auth.getSession();
 }

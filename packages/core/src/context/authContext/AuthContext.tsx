@@ -17,6 +17,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setProfile(data ?? null);
   }
 
+  async function refreshProfile() {
+    if (user) await loadProfile(user.id);
+  }
+
   useEffect(() => {
     getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
@@ -36,6 +40,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, profile, isLoading }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, profile, isLoading, refreshProfile }}>
+      {children}
+    </AuthContext.Provider>
   );
 };

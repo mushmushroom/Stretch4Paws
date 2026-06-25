@@ -251,3 +251,51 @@
     background-color: $success;
   }
 }
+
+.divider {
+  border: none;
+  border-top: 1px solid $border;
+  margin: 0;
+}
+
+.toggle {
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  &__track {
+    display: block;
+    width: 46px;
+    height: 26px;
+    border-radius: $radius-pill;
+    background-color: $bg-timer;
+    position: relative;
+    transition: background-color 0.2s ease;
+  }
+
+  &__thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: $radius-full;
+    background-color: $bg-sec;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+
+  &__input:checked + &__track {
+    background-color: $bg-accent;
+  }
+
+  &__input:checked + &__track &__thumb {
+    transform: translateX(20px);
+  }
+}

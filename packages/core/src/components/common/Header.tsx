@@ -35,7 +35,7 @@ export default function Header() {
       <nav className={`header__menu${menuOpen ? ' header__menu--open' : ''}`}>
         <ul className="header__list">
           <li className="header__item">
-            <Link to={AppRoutes.STRETCHES} onClick={closeMenu}>
+            <Link className="btn btn--accent"  to={AppRoutes.STRETCHES} onClick={closeMenu}>
               Stretches
             </Link>
           </li>
@@ -61,7 +61,7 @@ export default function Header() {
           {user && (
             <>
               <li className="header__item">
-                <Link className="btn btn--accent" to={AppRoutes.DASHBOARD} onClick={closeMenu}>
+                <Link to={AppRoutes.DASHBOARD} onClick={closeMenu}>
                   Dashboard
                 </Link>
               </li>

@@ -7,8 +7,8 @@ import AuthWrapper from '../pageWrappers/AuthWrapper';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
 import OrDivider from './OrDivider';
 import PasswordRequirements from './PasswordRequirements';
-import ErrorMessage from './ErrorMessage';
-import SuccessMessage from './SuccessMessage';
+import ErrorMessage from '../common/ErrorMessage';
+import SuccessMessage from '../common/SuccessMessage';
 
 export default function RegisterPage() {
   const {

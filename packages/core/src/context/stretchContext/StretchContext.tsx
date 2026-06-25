@@ -41,14 +41,17 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
   const [totalTimeLeft, setTotalTimeLeft] = useState(totalDuration);
   const transitionTimeoutRef = useRef<number | null>(null);
 
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const { goal } = useGoal();
+
+  const soundEnabled = !user || (profile?.settings?.sound_enabled ?? true);
+
   /* -----------------------------
      Stretch timer (runs only in stretch)
   ----------------------------- */
 
-  const [playStretchCompleted] = useSound(stretch_completed);
-  const [playAllCompleted] = useSound(all_completed);
+  const [playStretchCompleted] = useSound(stretch_completed, { soundEnabled });
+  const [playAllCompleted] = useSound(all_completed, { soundEnabled });
 
   useEffect(() => {
     if (phase !== 'stretch') return;

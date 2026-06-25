@@ -1,6 +1,11 @@
+export interface ProfileSettings {
+  sound_enabled?: boolean;
+}
+
 export interface Profile {
   id: string;
   name: string | null;
+  settings: ProfileSettings;
 }
 
 export interface SessionRow {

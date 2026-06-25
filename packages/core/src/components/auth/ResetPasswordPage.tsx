@@ -3,8 +3,8 @@ import { AppRoutes } from '../../lib/constants';
 import FormInput from '../common/FormInput';
 import useResetPassword from '../../hooks/useResetPassword';
 import AuthWrapper from '../pageWrappers/AuthWrapper';
-import SuccessMessage from './SuccessMessage';
-import ErrorMessage from './ErrorMessage';
+import SuccessMessage from '../common/SuccessMessage';
+import ErrorMessage from '../common/ErrorMessage';
 
 export default function ResetPasswordPage() {
   const { register, handleSubmit, onSubmit, errors, successMessage, isSubmitting } =

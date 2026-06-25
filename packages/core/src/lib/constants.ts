@@ -11,6 +11,8 @@ export const AppRoutes = {
   DASHBOARD_STATISTICS: '/dashboard/statistics',
   DASHBOARD_GOAL: '/dashboard/goal',
   DASHBOARD_PROFILE: '/dashboard/profile',
+  DASHBOARD_EDIT_PROFILE: '/dashboard/profile/edit',
+  DASHBOARD_CHANGE_PASSWORD: '/dashboard/profile/change-password',
   DESKTOP_APP: '/desktop-app',
 } as const;
 

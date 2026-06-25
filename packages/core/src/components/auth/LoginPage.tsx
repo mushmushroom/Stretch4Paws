@@ -5,8 +5,8 @@ import useLogin from '../../hooks/useLogin';
 import SignInGoogleButton from './SignInGoogleButton';
 import { useState } from 'react';
 import OrDivider from './OrDivider';
-import SuccessMessage from './SuccessMessage';
-import ErrorMessage from './ErrorMessage';
+import SuccessMessage from '../common/SuccessMessage';
+import ErrorMessage from '../common/ErrorMessage';
 import AuthWrapper from '../pageWrappers/AuthWrapper';
 
 export default function LoginPage() {

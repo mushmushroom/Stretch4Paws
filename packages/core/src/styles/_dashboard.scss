@@ -277,6 +277,19 @@
   &__text {
     @extend %text-muted;
   }
+
+  &__back {
+    @extend %text-muted-sm;
+    align-self: flex-start;
+    margin-bottom: 0.4rem;
+    transition: opacity 0.2s;
+
+    @media (any-hover: hover) {
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
 }
 
 .goal-page {
@@ -372,5 +385,78 @@
 
   &:focus-visible::-webkit-slider-thumb {
     box-shadow: 0 0 0 4px $bg-accent-light;
+  }
+}
+
+.profile-card {
+  @extend %card;
+  overflow: hidden; // keeps divider flush to edges
+  padding: 2.8rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &__name {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 0.4rem;
+  }
+
+  &__email {
+    @extend %text-muted-sm;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    // padding: 2rem 3rem;
+  }
+
+  &__row-title {
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin-bottom: 0.3rem;
+  }
+
+  &__row-text {
+    @extend %text-muted-sm;
+  }
+
+  &__hint {
+    @extend %text-muted-sm;
+    font-style: italic;
+  }
+
+  &__action {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: $text-dark;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    @media (any-hover: hover) {
+      &:hover {
+        opacity: 0.4;
+      }
+    }
+
+    &--danger {
+      color: $error;
+    }
   }
 }
