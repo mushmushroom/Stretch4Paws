@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { updateProfileName, updateEmail } from '@stretch4paws/db';
@@ -9,6 +9,9 @@ import { editProfileSchema, type EditProfileInputs } from '../lib/schemas/editPr
 export default function useEditProfile() {
   const { user, profile, refreshProfile } = useAuth();
   const [saved, setSaved] = useState(false);
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => () => clearTimeout(savedTimerRef.current), []);
 
   const isOAuthUser = user?.app_metadata?.provider !== 'email';
 
@@ -53,7 +56,7 @@ export default function useEditProfile() {
 
     await refreshProfile();
     setSaved(true);
-    setTimeout(() => setSaved(false), 5000);
+    savedTimerRef.current = setTimeout(() => setSaved(false), 5000);
   }
 
   return {

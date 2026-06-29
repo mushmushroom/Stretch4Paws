@@ -1,12 +1,15 @@
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 import { updatePassword } from '@stretch4paws/db';
 import { changePasswordSchema, type ChangePasswordInputs } from '../lib/schemas/changePassword.schema';
 import { zxcvbn } from '../lib/zxcvbn';
 
 export default function useDashboardChangePassword() {
   const [saved, setSaved] = useState(false);
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => () => clearTimeout(savedTimerRef.current), []);
 
   const {
     register,
@@ -32,7 +35,7 @@ export default function useDashboardChangePassword() {
     }
     reset();
     setSaved(true);
-    setTimeout(() => setSaved(false), 5000);
+    savedTimerRef.current = setTimeout(() => setSaved(false), 5000);
   }
 
   return { register, handleSubmit, onSubmit, errors, isSubmitting, passwordScore, saved };

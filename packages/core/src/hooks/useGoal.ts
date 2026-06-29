@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/authContext/useAuth';
 import { fetchGoal, upsertGoal } from '@stretch4paws/db';
 import type { Goal } from '../lib/types';
@@ -10,6 +10,9 @@ export default function useGoal(): Goal {
   const [goalLoading, setGoalLoading] = useState(true);
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => () => clearTimeout(savedTimerRef.current), []);
 
   useEffect(() => {
     if (authLoading) return;
@@ -36,7 +39,7 @@ export default function useGoal(): Goal {
       return;
     }
     setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    savedTimerRef.current = setTimeout(() => setSaved(false), 2000);
   }
 
   return { goal, goalLoading, saved, saveError, saveGoal };

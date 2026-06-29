@@ -6,47 +6,43 @@ import {
   type Plugin,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { barColorByIndex, topLabelsPlugin } from '../../lib/chartUtils';
+import { barColorByIndex, getCssVar, topLabelsPlugin } from '../../lib/chartUtils';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const TODAY = new Date().getDay();
-
-function getCssVar(name: string) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
-
-// wrap shared plugin to skip future days
-const weeklyTopLabels: Plugin<'bar'> = {
-  ...topLabelsPlugin,
-  afterDatasetDraw(chart) {
-    const { ctx, data } = chart;
-    const dataset = chart.getDatasetMeta(0);
-    const textColor = getCssVar('--color-text-light');
-
-    ctx.save();
-    ctx.font = '600 12px Nunito, sans-serif';
-    ctx.fillStyle = textColor;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'bottom';
-
-    dataset.data.forEach((bar, i) => {
-      if (i > TODAY) return; // skip future days
-      const value = data.datasets[0].data[i] as number;
-      const { x, y } = bar.getProps(['x', 'y'], true);
-      ctx.fillText(String(value), x, y - 4);
-    });
-
-    ctx.restore();
-  },
-};
 
 interface WeeklyChartProps {
   perDay: number[];
 }
 
 export default function WeeklyChart({ perDay }: WeeklyChartProps) {
+  const TODAY = new Date().getDay();
+
+  // wrap shared plugin to skip future days
+  const weeklyTopLabels: Plugin<'bar'> = {
+    ...topLabelsPlugin,
+    afterDatasetDraw(chart) {
+      const { ctx, data } = chart;
+      const dataset = chart.getDatasetMeta(0);
+      const textColor = getCssVar('--color-text-light');
+
+      ctx.save();
+      ctx.font = '600 12px Nunito, sans-serif';
+      ctx.fillStyle = textColor;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+
+      dataset.data.forEach((bar, i) => {
+        if (i > TODAY) return; // skip future days
+        const value = data.datasets[0].data[i] as number;
+        const { x, y } = bar.getProps(['x', 'y'], true);
+        ctx.fillText(String(value), x, y - 4);
+      });
+
+      ctx.restore();
+    },
+  };
   const maxVal = Math.max(...perDay, 1);
   const canvasHeight = Math.max(140, maxVal * 28);
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { updateProfileSettings } from '@stretch4paws/db';
 import { useAuth } from '../context/authContext/useAuth';
 
@@ -7,6 +7,9 @@ export default function useSettings() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => () => clearTimeout(savedTimerRef.current), []);
 
   useEffect(() => {
     if (profile) setSoundEnabled(profile.settings?.sound_enabled ?? true);
@@ -26,7 +29,7 @@ export default function useSettings() {
     } else {
       await refreshProfile();
       setSaved(true);
-      setTimeout(() => setSaved(false), 5000);
+      savedTimerRef.current = setTimeout(() => setSaved(false), 5000);
     }
   }
 

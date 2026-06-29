@@ -1,6 +1,6 @@
 import type { Plugin } from 'chart.js';
 
-function getCssVar(name: string) {
+export function getCssVar(name: string) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 

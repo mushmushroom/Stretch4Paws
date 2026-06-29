@@ -5,13 +5,9 @@ import {
   BarElement,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { barColorByIndex, topLabelsPlugin } from '../../lib/chartUtils';
+import { barColorByIndex, getCssVar, topLabelsPlugin } from '../../lib/chartUtils';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement);
-
-function getCssVar(name: string) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
 
 interface MonthlyChartProps {
   perMonth: number[];
