@@ -9,7 +9,7 @@ import {
   type LoginMagicLinkInputs,
 } from '../lib/schemas/loginMagicLink.schema';
 import { AppRoutes } from '../lib/constants';
-import { supabase } from '../lib/db';
+import { signIn, signInWithOtp } from '@stretch4paws/db';
 import { useGoogleAuth } from './useGoogleAuth';
 
 export default function useLogin() {
@@ -28,10 +28,7 @@ export default function useLogin() {
 
   async function onPasswordSubmit(formData: LoginPasswordInputs) {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password,
-      });
+      const { error } = await signIn(formData.email, formData.password);
 
       if (error) {
         passwordForm.setError('root', { type: 'manual', message: error.message });
@@ -51,14 +48,7 @@ export default function useLogin() {
   async function onMagicLinkSubmit(formData: LoginMagicLinkInputs) {
     setSuccessMagicLinkMessage(null);
     try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email: formData.email,
-        options: {
-          emailRedirectTo: AppRoutes.HOME,
-        },
-      });
-
-      console.log(error);
+      const { error } = await signInWithOtp(formData.email, AppRoutes.HOME);
 
       if (error) {
         magicLinkForm.setError('root', { type: 'manual', message: error.message });

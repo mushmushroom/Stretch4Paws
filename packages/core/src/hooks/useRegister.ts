@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { type RegisterInputs, registerSchema } from '../lib/schemas/register.schema';
-import { supabase } from '../lib/db';
+import { signUp } from '@stretch4paws/db';
 import { useGoogleAuth } from './useGoogleAuth';
 import { zxcvbn } from '../lib/zxcvbn';
 
@@ -28,13 +28,7 @@ export default function useRegister() {
 
   async function onSubmit(formData: RegisterInputs) {
     try {
-      const { error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          data: { name: formData.name },
-        },
-      });
+      const { error } = await signUp(formData.email, formData.password, formData.name);
 
       if (error) {
         setError('root', { type: 'manual', message: error.message });

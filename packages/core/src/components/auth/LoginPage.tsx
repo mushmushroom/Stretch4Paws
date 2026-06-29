@@ -5,8 +5,8 @@ import useLogin from '../../hooks/useLogin';
 import SignInGoogleButton from './SignInGoogleButton';
 import { useState } from 'react';
 import OrDivider from './OrDivider';
-import SuccessMessage from './SuccessMessage';
-import ErrorMessage from './ErrorMessage';
+import SuccessMessage from '../common/SuccessMessage';
+import ErrorMessage from '../common/ErrorMessage';
 import AuthWrapper from '../pageWrappers/AuthWrapper';
 
 export default function LoginPage() {
@@ -23,8 +23,9 @@ export default function LoginPage() {
   return (
     <AuthWrapper title="Welcome back!" description="Your streak missed you.">
       {loginMode === 'password' && (
-        <form className="form-wrapper__form" onClick={passwordForm.handleSubmit(onPasswordSubmit)}>
+        <form className="form-wrapper__form" onSubmit={passwordForm.handleSubmit(onPasswordSubmit)}>
           <FormInput
+            id="login-email"
             label="Email"
             type="email"
             placeholder="johndoe@example.com"
@@ -33,6 +34,7 @@ export default function LoginPage() {
             error={passwordForm.formState.errors.email}
           />
           <FormInput
+            id="login-password"
             label="Password"
             type="password"
             placeholder="••••••••"
@@ -54,9 +56,10 @@ export default function LoginPage() {
       {loginMode === 'magic-link' && (
         <form
           className="form-wrapper__form"
-          onClick={magicLinkForm.handleSubmit(onMagicLinkSubmit)}
+          onSubmit={magicLinkForm.handleSubmit(onMagicLinkSubmit)}
         >
           <FormInput
+            id="magic-link-email"
             label="Email"
             type="email"
             placeholder="johndoe@example.com"

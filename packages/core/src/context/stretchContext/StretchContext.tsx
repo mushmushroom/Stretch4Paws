@@ -4,6 +4,9 @@ import { StretchContext } from './StretchContextDef';
 import useSound from 'use-sound';
 import stretch_completed from '../../data/stretch_completed.mp3';
 import all_completed from '../../data/all_completed.mp3';
+import { insertSession } from '@stretch4paws/db';
+import { useAuth } from '../authContext/useAuth';
+import useGoal from '../../hooks/useGoal';
 
 const TRANSITION_DELAY = 1; // seconds
 
@@ -38,12 +41,17 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
   const [totalTimeLeft, setTotalTimeLeft] = useState(totalDuration);
   const transitionTimeoutRef = useRef<number | null>(null);
 
+  const { user, profile } = useAuth();
+  const { goal } = useGoal();
+
+  const soundEnabled = !user || (profile?.settings?.sound_enabled ?? true);
+
   /* -----------------------------
      Stretch timer (runs only in stretch)
   ----------------------------- */
 
-  const [playStretchCompleted] = useSound(stretch_completed);
-  const [playAllCompleted] = useSound(all_completed);
+  const [playStretchCompleted] = useSound(stretch_completed, { soundEnabled });
+  const [playAllCompleted] = useSound(all_completed, { soundEnabled });
 
   useEffect(() => {
     if (phase !== 'stretch') return;
@@ -71,6 +79,10 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
         // Last stretch completed
         playAllCompleted();
         setPhase('completed');
+
+        if (user) {
+          insertSession(user.id, goal).catch(console.error);
+        }
       } else {
         // Move to next stretch
         const next = currentStretchIndex + 1;

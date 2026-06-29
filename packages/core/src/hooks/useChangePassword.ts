@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { supabase } from '../lib/db';
+import { onAuthStateChange, updatePassword } from '@stretch4paws/db';
 import { AppRoutes } from '../lib/constants';
 import {
   changePasswordSchema,
@@ -47,7 +47,7 @@ export default function useChangePassword() {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event) => {
+    } = onAuthStateChange((event) => {
       if (event === 'PASSWORD_RECOVERY') {
         clearTimeout(timeout);
         setStatus('verified');
@@ -66,9 +66,7 @@ export default function useChangePassword() {
 
   async function onSubmit(formData: ChangePasswordInputs) {
     try {
-      const { error } = await supabase.auth.updateUser({
-        password: formData.password,
-      });
+      const { error } = await updatePassword(formData.password);
 
       if (error) {
         setError('root', { type: 'manual', message: error.message });
@@ -87,7 +85,6 @@ export default function useChangePassword() {
     errors,
     onSubmit,
     handleSubmit,
-    watch,
     isSubmitting,
     passwordScore,
     errorMessage,

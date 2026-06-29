@@ -7,8 +7,8 @@ import AuthWrapper from '../pageWrappers/AuthWrapper';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
 import OrDivider from './OrDivider';
 import PasswordRequirements from './PasswordRequirements';
-import ErrorMessage from './ErrorMessage';
-import SuccessMessage from './SuccessMessage';
+import ErrorMessage from '../common/ErrorMessage';
+import SuccessMessage from '../common/SuccessMessage';
 
 export default function RegisterPage() {
   const {
@@ -27,6 +27,7 @@ export default function RegisterPage() {
       <>
         <form className="form-wrapper__form" onSubmit={handleSubmit(onSubmit)}>
           <FormInput
+            id="register-name"
             label="Name"
             placeholder="John Doe"
             autoComplete="name"
@@ -34,6 +35,7 @@ export default function RegisterPage() {
             error={errors.name}
           />
           <FormInput
+            id="register-email"
             label="Email"
             type="email"
             placeholder="johndoe@example.com"
@@ -42,6 +44,7 @@ export default function RegisterPage() {
             error={errors.email}
           />
           <FormInput
+            id="register-password"
             label="Password"
             type="password"
             placeholder="••••••••"
@@ -52,6 +55,7 @@ export default function RegisterPage() {
           <PasswordRequirements />
           <PasswordStrengthIndicator passwordScore={passwordScore} />
           <FormInput
+            id="register-confirm-password"
             label="Confirm password"
             type="password"
             placeholder="••••••••"

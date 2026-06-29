@@ -8,5 +8,14 @@ export const AppRoutes = {
   CHANGE_PASSWORD: '/change-password',
   STRETCHES: '/stretches',
   DASHBOARD: '/dashboard',
+  DASHBOARD_STATISTICS: '/dashboard/statistics',
+  DASHBOARD_GOAL: '/dashboard/goal',
+  DASHBOARD_PROFILE: '/dashboard/profile',
+  DASHBOARD_EDIT_PROFILE: '/dashboard/profile/edit',
+  DASHBOARD_CHANGE_PASSWORD: '/dashboard/profile/change-password',
   DESKTOP_APP: '/desktop-app',
 } as const;
+
+export const DEFAULT_GOAL = 5;
+export const MIN_GOAL = 1;
+export const MAX_GOAL = 14;

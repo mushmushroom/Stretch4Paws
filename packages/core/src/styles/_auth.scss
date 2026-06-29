@@ -11,7 +11,7 @@
   align-items: center;
   padding: 0 15px;
 
-  @media (max-width: 768px) {
+  @media (max-width: #{$bp-tablet}) {
     align-items: flex-start;
     background-color: $bg-sec;
     padding: 0;
@@ -24,7 +24,7 @@
     padding: 4rem 3.5rem;
     border-radius: $radius-lg;
 
-    @media (max-width: 768px) {
+    @media (max-width: #{$bp-tablet}) {
       border-radius: 0;
       padding: 4rem 15px;
     }
@@ -34,7 +34,7 @@
     @extend %flex-col-center;
     gap: 30px;
 
-    @media (max-width: 768px) {
+    @media (max-width: #{$bp-tablet}) {
       display: none;
     }
   }
@@ -129,6 +129,11 @@
     @extend %text-muted;
   }
 
+  &__checking {
+    @extend %text-muted;
+    font-style: italic;
+  }
+
   &__form {
     display: flex;
     flex-direction: column;
@@ -211,7 +216,7 @@
     }
 
     &.error {
-      border-color: red;
+      border-color: $error;
     }
   }
 

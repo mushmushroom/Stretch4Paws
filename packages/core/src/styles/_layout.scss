@@ -22,7 +22,7 @@
     z-index: 101;
     position: relative;
 
-    @media (max-width: 768px) {
+    @media (max-width: #{$bp-tablet}) {
       & {
         display: flex;
       }
@@ -56,19 +56,19 @@
   &__overlay {
     display: none;
 
-    @media (max-width: 768px) {
+    @media (max-width: #{$bp-tablet}) {
       & {
         display: block;
         position: fixed;
         inset: 0;
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: $overlay;
         z-index: 99;
       }
     }
   }
 
   &__menu {
-    @media (max-width: 768px) {
+    @media (max-width: #{$bp-tablet}) {
       & {
         position: fixed;
         top: 0;
@@ -76,7 +76,7 @@
         height: 100dvh;
         width: 70vw;
         max-width: 320px;
-        background-color: var(--color-bg-sec);
+        background-color: $bg-sec;
         z-index: 100;
         padding: 8rem 3rem 3rem;
         transform: translateX(100%);
@@ -94,7 +94,7 @@
   &__list {
     @extend %nav-list;
 
-    @media (max-width: 768px) {
+    @media (max-width: #{$bp-tablet}) {
       & {
         flex-direction: column;
         align-items: flex-start;
@@ -205,50 +205,6 @@
     @extend %text-muted;
   }
 
-  &__list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
-    counter-reset: how-counter;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  &__item {
-    counter-increment: how-counter;
-    background: rgb(252, 246, 249);
-    border-radius: $radius-xl;
-    padding: 2.8rem;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-
-    &::before {
-      content: counter(how-counter);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 3.6rem;
-      height: 3.6rem;
-      border-radius: $radius-xs;
-      background: rgb(234, 247, 245);
-      color: $success;
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-  }
-
-  &__item-title {
-    font-size: 1.7rem;
-    font-weight: 700;
-  }
-
-  &__item-descr {
-    @extend %text-muted-sm;
-  }
 }
 
 .app-banner {
@@ -263,7 +219,7 @@
     justify-content: space-between;
     gap: 30px;
 
-    @media (max-width: 768px) {
+    @media (max-width: #{$bp-tablet}) {
       flex-direction: column;
       align-items: flex-start;
       padding: 32px 28px;

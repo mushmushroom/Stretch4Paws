@@ -3,7 +3,7 @@ import type { Stretch } from '../../data/stretches';
 
 export type Phase = 'idle' | 'stretch' | 'paused' | 'completed';
 
-export type StretchContextType = {
+export interface StretchContextType {
   stretches: Stretch[];
   currentStretch: Stretch;
   phase: Phase;
@@ -14,6 +14,6 @@ export type StretchContextType = {
   start: () => void;
   pause: () => void;
   reset: () => void;
-};
+}
 
 export const StretchContext = createContext<StretchContextType | undefined>(undefined);
