@@ -23,7 +23,7 @@ export default function LoginPage() {
   return (
     <AuthWrapper title="Welcome back!" description="Your streak missed you.">
       {loginMode === 'password' && (
-        <form className="form-wrapper__form" onClick={passwordForm.handleSubmit(onPasswordSubmit)}>
+        <form className="form-wrapper__form" onSubmit={passwordForm.handleSubmit(onPasswordSubmit)}>
           <FormInput
             label="Email"
             type="email"
@@ -54,7 +54,7 @@ export default function LoginPage() {
       {loginMode === 'magic-link' && (
         <form
           className="form-wrapper__form"
-          onClick={magicLinkForm.handleSubmit(onMagicLinkSubmit)}
+          onSubmit={magicLinkForm.handleSubmit(onMagicLinkSubmit)}
         >
           <FormInput
             label="Email"

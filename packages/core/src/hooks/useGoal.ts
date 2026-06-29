@@ -9,6 +9,7 @@ export default function useGoal(): Goal {
   const [goal, setGoal] = useState(DEFAULT_GOAL);
   const [goalLoading, setGoalLoading] = useState(true);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   useEffect(() => {
     if (authLoading) return;
@@ -28,10 +29,15 @@ export default function useGoal(): Goal {
   async function saveGoal(value: number) {
     if (!user) return;
     setGoal(value);
-    await upsertGoal(user.id, value);
+    setSaveError(null);
+    const { error } = await upsertGoal(user.id, value);
+    if (error) {
+      setSaveError(error.message);
+      return;
+    }
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   }
 
-  return { goal, goalLoading, saved, saveGoal };
+  return { goal, goalLoading, saved, saveError, saveGoal };
 }

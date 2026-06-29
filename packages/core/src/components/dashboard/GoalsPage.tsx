@@ -3,9 +3,10 @@ import DashboardWrapper from '../pageWrappers/DashboardWrapper';
 import DashboardHeader from './DashboardHeader';
 import useGoal from '../../hooks/useGoal';
 import { MAX_GOAL, MIN_GOAL } from '../../lib/constants';
+import ErrorMessage from '../common/ErrorMessage';
 
 export default function GoalsPage() {
-  const { goal, goalLoading, saved, saveGoal } = useGoal();
+  const { goal, goalLoading, saved, saveError, saveGoal } = useGoal();
   const [draft, setDraft] = useState<number | null>(null);
 
   const current = draft ?? goal;
@@ -24,11 +25,9 @@ export default function GoalsPage() {
           <div className="goal-card__header">
             <div>
               <h3 className="goal-card__title">Daily stretch goal</h3>
-              <p className="goal-card__text">How many sessions do you want to complete per week?</p>
+              <p className="goal-card__text">How many sessions do you want to complete per day?</p>
             </div>
-            <div className="goal-card__value">
-              {goalLoading ? '—' : current}
-            </div>
+            <div className="goal-card__value">{goalLoading ? '—' : current}</div>
           </div>
           <div className="goal-card__slider-wrap">
             <input
@@ -46,6 +45,7 @@ export default function GoalsPage() {
               <span>{MAX_GOAL}</span>
             </div>
           </div>
+          {saveError && <ErrorMessage message={saveError} />}
           <button className="btn" onClick={handleSave} disabled={goalLoading}>
             {saved ? 'Saved!' : 'Save goal'}
           </button>

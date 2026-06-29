@@ -2,6 +2,7 @@ export interface Goal {
   goal: number;
   goalLoading: boolean;
   saved: boolean;
+  saveError: string | null;
   saveGoal: (value: number) => Promise<void>;
 }
 

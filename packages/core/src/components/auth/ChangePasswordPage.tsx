@@ -7,8 +7,6 @@ import FormInput from '../common/FormInput';
 import ErrorMessage from '../common/ErrorMessage';
 import PasswordRequirements from './PasswordRequirements';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
-import SuccessMessage from '../common/SuccessMessage';
-
 export default function ChangePasswordPage() {
   const {
     status,
@@ -24,7 +22,7 @@ export default function ChangePasswordPage() {
   if (status === 'checking') {
     return (
       <AuthWrapper>
-        <SuccessMessage message="Checking" />
+        <p className="form-wrapper__checking">Checking your reset link…</p>
       </AuthWrapper>
     );
   }

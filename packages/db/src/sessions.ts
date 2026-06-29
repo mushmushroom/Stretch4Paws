@@ -32,22 +32,13 @@ export async function fetchSessions(userId: string) {
 export async function insertSession(userId: string, goal: number) {
   const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD local
 
-  const { data } = await supabase
-    .from('daily_stats')
-    .select('sessions_completed')
-    .eq('user_id', userId)
-    .eq('date', today)
-    .maybeSingle();
+  const { error: rpcError } = await supabase.rpc('increment_daily_session', {
+    p_user_id: userId,
+    p_date: today,
+    p_goal: goal,
+  });
 
-  await supabase.from('daily_stats').upsert(
-    {
-      user_id: userId,
-      date: today,
-      sessions_completed: (data?.sessions_completed ?? 0) + 1,
-      goal,
-    },
-    { onConflict: 'user_id,date' },
-  );
+  if (rpcError) return { error: rpcError };
 
   return supabase.from('sessions').insert({ user_id: userId });
 }

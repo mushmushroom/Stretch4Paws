@@ -22,9 +22,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   useEffect(() => {
-    getSession().then(({ data: { session } }) => {
+    getSession().then(async ({ data: { session } }) => {
       setUser(session?.user ?? null);
-      if (session?.user) loadProfile(session.user.id);
+      if (session?.user) await loadProfile(session.user.id);
       setIsLoading(false);
     });
 

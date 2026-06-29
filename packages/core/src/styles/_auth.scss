@@ -129,6 +129,11 @@
     @extend %text-muted;
   }
 
+  &__checking {
+    @extend %text-muted;
+    font-style: italic;
+  }
+
   &__form {
     display: flex;
     flex-direction: column;

@@ -98,7 +98,7 @@ export default function useStats(): Stats {
     }
 
     fetchStats();
-  }, [user, authLoading]);
+  }, [user, authLoading, goal]);
 
   return stats;
 }
