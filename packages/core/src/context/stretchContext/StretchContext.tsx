@@ -6,7 +6,6 @@ import stretch_completed from '../../data/stretch_completed.mp3';
 import all_completed from '../../data/all_completed.mp3';
 import { insertSession } from '@stretch4paws/db';
 import { useAuth } from '../authContext/useAuth';
-import useGoal from '../../hooks/useGoal';
 
 const TRANSITION_DELAY = 1; // seconds
 
@@ -41,8 +40,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
   const [totalTimeLeft, setTotalTimeLeft] = useState(totalDuration);
   const transitionTimeoutRef = useRef<number | null>(null);
 
-  const { user, profile } = useAuth();
-  const { goal } = useGoal();
+  const { user, profile, goal } = useAuth();
 
   const soundEnabled = !user || (profile?.settings?.sound_enabled ?? true);
 

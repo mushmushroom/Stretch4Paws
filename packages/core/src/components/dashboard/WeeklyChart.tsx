@@ -87,9 +87,9 @@ export default function WeeklyChart({ perDay }: WeeklyChartProps) {
   };
 
   return (
-    <div className="weekly-chart">
-      <h4 className="weekly-chart__title">This week</h4>
-      <div className="weekly-chart__canvas-wrap" style={{ height: canvasHeight }}>
+    <div className="bar-chart">
+      <h4 className="bar-chart__title">This week</h4>
+      <div className="bar-chart__canvas-wrap" style={{ height: canvasHeight }}>
         <Bar data={data} options={options} plugins={[weeklyTopLabels]} />
       </div>
     </div>

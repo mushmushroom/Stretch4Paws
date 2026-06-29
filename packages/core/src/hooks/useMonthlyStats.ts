@@ -1,15 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/authContext/useAuth';
 import { fetchDailyStats } from '@stretch4paws/db';
-
-export interface MonthlyStats {
-  totalStretches: number;
-  weeklyAverage: number;
-  bestMonth: string;
-  perMonth: number[];     // 6 entries, index 0 = oldest month
-  monthLabels: string[];  // e.g. ['Jan', 'Feb', ...]
-  isLoading: boolean;
-}
+import type { MonthlyStats } from '../lib/types';
 
 const EMPTY: MonthlyStats = {
   totalStretches: 0,
@@ -49,10 +41,10 @@ export default function useMonthlyStats(): MonthlyStats {
       }
 
       for (const row of rows) {
-        const monthKey = (row.date as string).slice(0, 7); // YYYY-MM
+        const monthKey = row.date.slice(0, 7); // YYYY-MM
         const bucket = buckets.find((b) => b.key === monthKey);
         if (!bucket) continue;
-        bucket.total += row.sessions_completed as number;
+        bucket.total += row.sessions_completed;
       }
 
       const totalStretches = buckets.reduce((s, b) => s + b.total, 0);

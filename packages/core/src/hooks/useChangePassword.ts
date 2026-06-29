@@ -85,7 +85,6 @@ export default function useChangePassword() {
     errors,
     onSubmit,
     handleSubmit,
-    watch,
     isSubmitting,
     passwordScore,
     errorMessage,

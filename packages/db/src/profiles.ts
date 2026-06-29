@@ -4,7 +4,7 @@ import type { ProfileSettings } from './types';
 export function fetchProfile(userId: string) {
   return supabase
     .from('profiles')
-    .select('id, user_id, name, settings')
+    .select('id, name, settings')
     .eq('user_id', userId)
     .maybeSingle();
 }

@@ -1,9 +1,10 @@
 import { supabase } from './client';
+import type { DailyStatRow } from './types';
 
 export async function fetchDailyStats(userId: string, fromDate: string) {
   return supabase
     .from('daily_stats')
-    .select('date, sessions_completed')
+    .select<'date, sessions_completed', DailyStatRow>('date, sessions_completed')
     .eq('user_id', userId)
     .gte('date', fromDate)
     .order('date', { ascending: true });
@@ -15,7 +16,7 @@ export async function fetchRecentDailyStats(userId: string, days: number) {
   const fromStr = from.toLocaleDateString('en-CA');
   return supabase
     .from('daily_stats')
-    .select('date, sessions_completed')
+    .select<'date, sessions_completed', DailyStatRow>('date, sessions_completed')
     .eq('user_id', userId)
     .gte('date', fromStr)
     .order('date', { ascending: false });

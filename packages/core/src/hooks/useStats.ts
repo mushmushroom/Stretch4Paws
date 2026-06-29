@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/authContext/useAuth';
 import { fetchRecentDailyStats } from '@stretch4paws/db';
-import useGoal from './useGoal';
 import type { Stats } from '../lib/types';
 
 const EMPTY_STATS: Stats = {
@@ -21,8 +20,7 @@ function getLocalDateStr(date: Date): string {
 }
 
 export default function useStats(): Stats {
-  const { user, isLoading: authLoading } = useAuth();
-  const { goal } = useGoal();
+  const { user, goal, isLoading: authLoading } = useAuth();
   const [stats, setStats] = useState<Stats>({ ...EMPTY_STATS, isLoading: true });
 
   useEffect(() => {
@@ -37,7 +35,7 @@ export default function useStats(): Stats {
       if (!user) return;
 
       // 90 days covers streak + this week with headroom
-      const { data, error } = await fetchRecentDailyStats(user.id, 90);
+      const { data } = await fetchRecentDailyStats(user.id, 90);
       const rows = data ?? [];
 
       const now = new Date();
@@ -54,8 +52,7 @@ export default function useStats(): Stats {
       const perDay: number[] = [0, 0, 0, 0, 0, 0, 0];
 
       for (const row of rows) {
-        const dateStr = row.date as string;
-        const count = row.sessions_completed as number;
+        const { date: dateStr, sessions_completed: count } = row;
 
         if (dateStr === todayStr) today = count;
 
@@ -74,7 +71,7 @@ export default function useStats(): Stats {
       expected.setHours(0, 0, 0, 0);
 
       for (const row of rows) {
-        const dateStr = row.date as string;
+        const { date: dateStr } = row;
         const expectedStr = getLocalDateStr(expected);
 
         if (dateStr === expectedStr) {

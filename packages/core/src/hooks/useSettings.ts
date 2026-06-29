@@ -4,19 +4,14 @@ import { useAuth } from '../context/authContext/useAuth';
 
 export default function useSettings() {
   const { profile, user, refreshProfile } = useAuth();
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const soundEnabled = profile?.settings?.sound_enabled ?? true;
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const savedTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => () => clearTimeout(savedTimerRef.current), []);
 
-  useEffect(() => {
-    if (profile) setSoundEnabled(profile.settings?.sound_enabled ?? true);
-  }, [profile]);
-
   async function handleSoundToggle(value: boolean) {
-    setSoundEnabled(value);
     setError(null);
     setSaved(false);
     if (!user) return;

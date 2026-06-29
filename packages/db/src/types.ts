@@ -8,6 +8,11 @@ export interface Profile {
   settings: ProfileSettings;
 }
 
+export interface DailyStatRow {
+  date: string;
+  sessions_completed: number;
+}
+
 export interface SessionRow {
   user_id: string;
   completed_at: string;

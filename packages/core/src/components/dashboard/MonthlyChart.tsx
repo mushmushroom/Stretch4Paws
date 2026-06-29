@@ -61,9 +61,9 @@ export default function MonthlyChart({ perMonth, monthLabels }: MonthlyChartProp
   };
 
   return (
-    <div className="weekly-chart">
-      <h4 className="weekly-chart__title">Last 6 months</h4>
-      <div className="weekly-chart__canvas-wrap" style={{ height: canvasHeight }}>
+    <div className="bar-chart">
+      <h4 className="bar-chart__title">Last 6 months</h4>
+      <div className="bar-chart__canvas-wrap" style={{ height: canvasHeight }}>
         <Bar data={data} options={options} plugins={[topLabelsPlugin]} />
       </div>
     </div>

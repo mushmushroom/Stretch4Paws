@@ -4,14 +4,12 @@ import DashboardWrapper from '../pageWrappers/DashboardWrapper';
 import { AppRoutes } from '../../lib/constants';
 import CardGrid from '../common/CardGrid';
 import useStats from '../../hooks/useStats';
-import useGoal from '../../hooks/useGoal';
 import DashboardHeader from '../dashboard/DashboardHeader';
 import WeeklyChart from '../dashboard/WeeklyChart';
 
 export default function DashboardPage() {
-  const { profile } = useAuth();
-  const { today, thisWeek, streak, goalProgress, perDay, isLoading } = useStats();
-  const { goal } = useGoal();
+  const { profile, goal } = useAuth();
+  const { today, thisWeek, streak, perDay, isLoading } = useStats();
 
   return (
     <DashboardWrapper>
