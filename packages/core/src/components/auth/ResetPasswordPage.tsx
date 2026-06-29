@@ -13,6 +13,7 @@ export default function ResetPasswordPage() {
     <AuthWrapper title="Reset your password" description="We'll send you a link to reset it.">
       <form className="form-wrapper__form" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
+          id="reset-email"
           label="Email"
           type="email"
           placeholder="johndoe@example.com"

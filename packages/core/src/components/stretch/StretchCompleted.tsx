@@ -1,6 +1,6 @@
-import Lottie from 'lottie-react';
-import Confetti from 'react-confetti';
-import stretch4paws from '../../data/animations.json';
+import Lottie from ‘lottie-react’;
+import Confetti from ‘react-confetti’;
+import stretch4paws from ‘../../data/animations.json’;
 
 export default function StretchCompleted() {
   return (

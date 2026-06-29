@@ -13,6 +13,7 @@ import ProtectedRoute from '@stretch4paws/core/components/pageWrappers/Protected
 import DesktopAppPage from '@stretch4paws/core/components/pages/DesktopAppPage';
 import StretchesPage from '@stretch4paws/core/components/pages/StretchesPage';
 import Providers from '@stretch4paws/core/components/common/Providers';
+import ErrorBoundary from '@stretch4paws/core/components/common/ErrorBoundary';
 import StatisticsPage from '@stretch4paws/core/components/dashboard/StatisticsPage';
 import GoalsPage from '@stretch4paws/core/components/dashboard/GoalsPage';
 import ProfilePage from '@stretch4paws/core/components/dashboard/ProfilePage';
@@ -21,6 +22,7 @@ import DashboardChangePasswordPage from '@stretch4paws/core/components/dashboard
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <ErrorBoundary>
     <Providers>
       <BrowserRouter>
         <Routes>
@@ -110,5 +112,6 @@ createRoot(document.getElementById('root')!).render(
         </Routes>
       </BrowserRouter>
     </Providers>
+    </ErrorBoundary>
   </StrictMode>,
 );

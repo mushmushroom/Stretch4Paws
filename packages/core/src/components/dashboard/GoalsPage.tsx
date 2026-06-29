@@ -37,6 +37,7 @@ export default function GoalsPage() {
               max={MAX_GOAL}
               value={goalLoading ? MIN_GOAL : current}
               disabled={goalLoading}
+              aria-label="Daily stretch goal"
               style={{ '--goal-slider-fill': `${percent}%` } as React.CSSProperties}
               onChange={(e) => setDraft(Number(e.target.value))}
             />

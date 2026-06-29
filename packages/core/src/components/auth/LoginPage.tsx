@@ -25,6 +25,7 @@ export default function LoginPage() {
       {loginMode === 'password' && (
         <form className="form-wrapper__form" onSubmit={passwordForm.handleSubmit(onPasswordSubmit)}>
           <FormInput
+            id="login-email"
             label="Email"
             type="email"
             placeholder="johndoe@example.com"
@@ -33,6 +34,7 @@ export default function LoginPage() {
             error={passwordForm.formState.errors.email}
           />
           <FormInput
+            id="login-password"
             label="Password"
             type="password"
             placeholder="••••••••"
@@ -57,6 +59,7 @@ export default function LoginPage() {
           onSubmit={magicLinkForm.handleSubmit(onMagicLinkSubmit)}
         >
           <FormInput
+            id="magic-link-email"
             label="Email"
             type="email"
             placeholder="johndoe@example.com"

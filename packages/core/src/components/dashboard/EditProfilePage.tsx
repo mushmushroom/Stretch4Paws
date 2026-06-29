@@ -17,6 +17,7 @@ export default function EditProfilePage() {
 
         <form className="profile-card" onSubmit={handleSubmit(onSubmit)}>
           <FormInput
+            id="edit-name"
             label="Name"
             placeholder="John Doe"
             autoComplete="name"
@@ -26,6 +27,7 @@ export default function EditProfilePage() {
 
           {!isOAuthUser && (
             <FormInput
+              id="edit-email"
               label="Email"
               type="email"
               placeholder="johndoe@example.com"

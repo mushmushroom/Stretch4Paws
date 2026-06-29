@@ -11,7 +11,8 @@ export default function DashboardHeader({ title, text, back }: DashboardHeaderPr
     <div className="dashboard-header">
       {back && (
         <Link className="dashboard-header__back" to={back}>
-          ← Back
+          <span aria-hidden="true">←</span>
+          <span className="sr-only">Back</span>
         </Link>
       )}
       <h1 className="dashboard-header__title">{title}</h1>

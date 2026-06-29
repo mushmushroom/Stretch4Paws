@@ -2,6 +2,7 @@ import { type InputHTMLAttributes, useState } from 'react';
 import { type FieldError, type UseFormRegisterReturn } from 'react-hook-form';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  id: string;
   label: string;
   accentColor?: string;
   error?: FieldError;
@@ -21,7 +22,7 @@ export default function FormInput({
 
   return (
     <div className="form-input">
-      <label className="form-input__label">{label}</label>
+      <label className="form-input__label" htmlFor={inputProps.id}>{label}</label>
       <div className="form-input__field">
         <input
           className="form-input__input"

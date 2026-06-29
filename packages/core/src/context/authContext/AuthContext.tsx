@@ -34,7 +34,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     getSession().then(async ({ data: { session } }) => {
       setUser(session?.user ?? null);
-      if (session?.user) await Promise.all([loadProfile(session.user.id), loadGoal(session.user.id)]);
+      if (session?.user) {
+        await Promise.all([loadProfile(session.user.id), loadGoal(session.user.id)]).catch(
+          console.error,
+        );
+      }
       setIsLoading(false);
     });
 

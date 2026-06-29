@@ -40,7 +40,8 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
   const [totalTimeLeft, setTotalTimeLeft] = useState(totalDuration);
   const transitionTimeoutRef = useRef<number | null>(null);
 
-  const { user, profile, goal } = useAuth();
+  const { user, profile } = useAuth();
+  const { goal } = useGoal();
 
   const soundEnabled = !user || (profile?.settings?.sound_enabled ?? true);
 
@@ -79,9 +80,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
         setPhase('completed');
 
         if (user) {
-          insertSession(user.id, goal).then(({ error }) => {
-            if (error) console.error('Session insert failed:', error);
-          });
+          insertSession(user.id, goal).catch(console.error);
         }
       } else {
         // Move to next stretch

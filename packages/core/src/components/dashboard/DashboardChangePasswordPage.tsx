@@ -19,6 +19,7 @@ export default function DashboardChangePasswordPage() {
 
         <form className="profile-card" onSubmit={handleSubmit(onSubmit)}>
           <FormInput
+            id="dashboard-change-password"
             label="New password"
             type="password"
             placeholder="••••••••"
@@ -28,6 +29,7 @@ export default function DashboardChangePasswordPage() {
           <PasswordRequirements />
           <PasswordStrengthIndicator passwordScore={passwordScore} />
           <FormInput
+            id="dashboard-confirm-password"
             label="Confirm password"
             type="password"
             placeholder="••••••••"

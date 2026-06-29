@@ -30,7 +30,7 @@ export default function ChangePasswordPage() {
   if (status === 'error') {
     return (
       <AuthWrapper>
-        <ErrorMessage message={errorMessage} />
+        <ErrorMessage message={errorMessage ?? "Error changing the password"} />
         <Link className="btn" to={AppRoutes.RESET_PASSWORD}>
           Request new link
         </Link>
@@ -45,6 +45,7 @@ export default function ChangePasswordPage() {
     >
       <form className="form-wrapper__form" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
+          id="change-password"
           label="New password"
           type="password"
           placeholder="••••••••"
@@ -57,6 +58,7 @@ export default function ChangePasswordPage() {
         <PasswordStrengthIndicator passwordScore={passwordScore} />
 
         <FormInput
+          id="change-confirm-password"
           label="Confirm password"
           type="password"
           placeholder="••••••••"
