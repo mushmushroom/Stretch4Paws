@@ -4,6 +4,15 @@
   "version": "2.0.0",
   "scripts": {
     "build": "pnpm -r run build",
-    "dev:web": "pnpm --filter @stretch4paws/web dev"
+    "dev:web": "pnpm --filter @stretch4paws/web dev",
+    "dev:desktop": "pnpm --filter stretch4paws-app dev"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "lottie-react": "^2.4.1",
+    "react-chartjs-2": "^5.3.1",
+    "react-circular-progressbar": "^2.2.0",
+    "react-confetti": "^6.4.0",
+    "use-sound": "^5.0.0"
   }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "stretch4paws-app",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "dev:electron": "tsc -w",
+    "dev:react": "npm run dev --prefix renderer",
+    "dev": "concurrently \"npm:dev:react\" \"npm:dev:electron\" \"wait-on http://localhost:5174 && electron .\""
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "concurrently": "^10.0.3",
+    "electron": "^42.5.1",
+    "sass-embedded": "^1.100.0",
+    "typescript": "^6.0.3",
+    "wait-on": "^9.0.10"
+  },
+  "dependencies": {
+    "@stretch4paws/core": "workspace:*",
+    "dotenv": "^17.4.2"
+  }
+}
