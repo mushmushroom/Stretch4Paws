@@ -3,7 +3,7 @@ import { AppRoutes } from '../../lib/constants';
 import FormInput from '../common/FormInput';
 import useRegister from '../../hooks/useRegister';
 import SignInGoogleButton from './SignInGoogleButton';
-import AuthWrapper from '../pageWrappers/AuthWrapper';
+import AuthWrapper, { useDesktopRoute } from '../pageWrappers/AuthWrapper';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
 import OrDivider from './OrDivider';
 import PasswordRequirements from './PasswordRequirements';
@@ -21,6 +21,7 @@ export default function RegisterPage() {
     signInWithGoogle,
     isSubmitting,
   } = useRegister();
+  const desktopRoute = useDesktopRoute();
 
   return (
     <AuthWrapper title="Join the pack" description="Create an account to track every stretch.">
@@ -78,7 +79,7 @@ export default function RegisterPage() {
 
         <div className="form-wrapper__footer">
           <span>Already stretching?</span>
-          <Link to={AppRoutes.LOGIN}>Log in</Link>
+          <Link to={desktopRoute(AppRoutes.LOGIN)}>Log in</Link>
         </div>
       </>
     </AuthWrapper>

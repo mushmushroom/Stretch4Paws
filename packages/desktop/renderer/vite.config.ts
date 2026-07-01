@@ -13,6 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@stretch4paws/core': path.resolve(__dirname, '../../core/src'),
+      '@stretch4paws/db': path.resolve(__dirname, '../../db/src'),
       'react': path.resolve(__dirname, 'node_modules/react'),
       'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
       'lottie-react': path.resolve(coreNodeModules, 'lottie-react/build/index.es.js'),

@@ -9,6 +9,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["main.ts"],
+  "include": ["main.ts", "preload.ts"],
   "exclude": ["renderer", "node_modules", "dist"]
 }

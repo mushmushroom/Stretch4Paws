@@ -15,6 +15,7 @@ import { useGoogleAuth } from './useGoogleAuth';
 export default function useLogin() {
   const [successMagicLinkMessage, setSuccessMagicLinkMessage] = useState<string | null>(null);
   const navigate = useNavigate();
+
   const passwordForm = useForm<LoginPasswordInputs>({
     resolver: zodResolver(loginPasswordSchema),
     mode: 'onChange',
