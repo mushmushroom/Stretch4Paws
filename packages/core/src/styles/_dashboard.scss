@@ -431,6 +431,21 @@
     @extend %text-muted-sm;
   }
 
+  &__row--indent {
+    padding-left: 1rem;
+    gap: 3rem;
+    justify-content: flex-start;
+  }
+
+  &__row-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: $text-light;
+  }
+
   &__hint {
     @extend %text-muted-sm;
     font-style: italic;

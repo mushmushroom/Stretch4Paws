@@ -9,7 +9,14 @@ function openAuthWindow(path: string) {
   window.electron.openAuthWindow(`${BASE_URL}${path}`);
 }
 
-export default function DesktopHeader() {
+type DesktopView = 'stretches' | 'settings';
+
+interface DesktopHeaderProps {
+  view: DesktopView;
+  onViewChange: (view: DesktopView) => void;
+}
+
+export default function DesktopHeader({ view, onViewChange }: DesktopHeaderProps) {
   const { user } = useAuth();
 
   return (
@@ -17,12 +24,29 @@ export default function DesktopHeader() {
       <Logo text={true} />
       <nav className="header__menu">
         <ul className="header__list">
-          
-
+          <li className="header__item">
+            <button
+              className={`btn btn--ghost${view === 'stretches' ? ' btn--active' : ''}`}
+              onClick={() => onViewChange('stretches')}
+            >
+              Stretches
+            </button>
+          </li>
+          <li className="header__item">
+            <button
+              className={`btn btn--ghost${view === 'settings' ? ' btn--active' : ''}`}
+              onClick={() => onViewChange('settings')}
+            >
+              Settings
+            </button>
+          </li>
           {!user && (
             <>
               <li className="header__item">
-                <button className="btn btn--outline" onClick={() => openAuthWindow(AppRoutes.LOGIN)}>
+                <button
+                  className="btn btn--outline"
+                  onClick={() => openAuthWindow(AppRoutes.LOGIN)}
+                >
                   Login
                 </button>
               </li>
@@ -36,7 +60,10 @@ export default function DesktopHeader() {
           {user && (
             <>
               <li className="header__item">
-                <button className="btn btn--ghost" onClick={() => window.electron.openExternal(`${BASE_URL}${AppRoutes.DASHBOARD}`)}>
+                <button
+                  className="btn btn--ghost"
+                  onClick={() => window.electron.openExternal(`${BASE_URL}${AppRoutes.DASHBOARD}`)}
+                >
                   Dashboard
                 </button>
               </li>

@@ -13,7 +13,11 @@ ipcMain.on('open-auth-window', (_event, url: string) => {
   const authWindow = new BrowserWindow({
     width: 500,
     height: 700,
-    webPreferences: { nodeIntegration: false, contextIsolation: true },
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      partition: 'auth-window',
+    },
   });
 
   const webAppOrigin = new URL(url).origin;

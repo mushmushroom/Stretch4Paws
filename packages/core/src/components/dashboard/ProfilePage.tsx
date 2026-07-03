@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { AppRoutes } from '../../lib/constants';
 import LogoutButton from '../common/LogoutButton';
 import Divider from '../common/Divider';
-import SoundSettings from './SoundSettings';
+import WebSettings from './WebSettings';
 
 export default function ProfilePage() {
   const { profile, user } = useAuth();
@@ -27,7 +27,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <SoundSettings />
+        <WebSettings />
 
         <div className="profile-card">
           <Link className="profile-card__action" to={AppRoutes.DASHBOARD_CHANGE_PASSWORD}>

@@ -2,19 +2,18 @@ import Toggle from '../common/Toggle';
 import ErrorMessage from '../common/ErrorMessage';
 import SuccessMessage from '../common/SuccessMessage';
 import useSettings from '../../hooks/useSettings';
+import SettingsRow from './SettingsRow';
 
-export default function SoundSettings() {
+export default function WebSettings() {
   const { soundEnabled, handleSoundToggle, error, saved } = useSettings();
 
   return (
     <div className="profile-card">
-      <div className="profile-card__row">
-        <div>
-          <h3 className="profile-card__row-title">Sound effects</h3>
-          <p className="profile-card__row-text">A happy bark on completion</p>
-        </div>
-        <Toggle checked={soundEnabled} onChange={handleSoundToggle} label="Sound effects" />
-      </div>
+      <SettingsRow
+        title="Sound effects"
+        description="A happy bark on completion"
+        control={<Toggle checked={soundEnabled} onChange={handleSoundToggle} label="Sound effects" />}
+      />
       {error && <ErrorMessage message={error} />}
       {saved && <SuccessMessage message="Settings saved" />}
     </div>
