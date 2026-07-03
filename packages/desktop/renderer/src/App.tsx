@@ -6,15 +6,18 @@ import ThemeToggle from '@stretch4paws/core/components/common/ThemeToggle.js';
 import DesktopHeader from '@stretch4paws/core/components/common/DesktopHeader.js';
 import DesktopSettings from '@stretch4paws/core/components/dashboard/DesktopSettings.js';
 import { setSession } from '@stretch4paws/db';
-
-type DesktopView = 'stretches' | 'settings';
+import type { DesktopView } from '@stretch4paws/core/lib/types';
 
 function AppInner() {
   const [view, setView] = useState<DesktopView>('stretches');
 
   useEffect(() => {
-    window.electron.onAuthCallback(async ({ accessToken, refreshToken }) => {
-      await setSession(accessToken, refreshToken);
+    return window.electron.onAuthCallback(async ({ accessToken, refreshToken }) => {
+      try {
+        await setSession(accessToken, refreshToken);
+      } catch (err) {
+        console.error('[auth-callback] Failed to set session:', err);
+      }
     });
   }, []);
 

@@ -2,14 +2,7 @@ import Logo from './Logo';
 import { useAuth } from '../../context/authContext/useAuth';
 import { AppRoutes } from '../../lib/constants';
 import LogoutButton from './LogoutButton';
-
-const BASE_URL = import.meta.env.VITE_PUBLIC_URL ?? '';
-
-function openAuthWindow(path: string) {
-  window.electron.openAuthWindow(`${BASE_URL}${path}`);
-}
-
-type DesktopView = 'stretches' | 'settings';
+import type { DesktopView } from '../../lib/types';
 
 interface DesktopHeaderProps {
   view: DesktopView;
@@ -18,6 +11,11 @@ interface DesktopHeaderProps {
 
 export default function DesktopHeader({ view, onViewChange }: DesktopHeaderProps) {
   const { user } = useAuth();
+  const BASE_URL = import.meta.env.VITE_PUBLIC_URL ?? '';
+
+  const openAuthWindow = (path: string) => {
+    window.electron?.openAuthWindow(`${BASE_URL}${path}`);
+  };
 
   return (
     <header className="header">
@@ -62,7 +60,7 @@ export default function DesktopHeader({ view, onViewChange }: DesktopHeaderProps
               <li className="header__item">
                 <button
                   className="btn btn--ghost"
-                  onClick={() => window.electron.openExternal(`${BASE_URL}${AppRoutes.DASHBOARD}`)}
+                  onClick={() => window.electron?.openExternal(`${BASE_URL}${AppRoutes.DASHBOARD}`)}
                 >
                   Dashboard
                 </button>

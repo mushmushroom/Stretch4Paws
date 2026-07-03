@@ -40,7 +40,8 @@ export default function DesktopSettings() {
       />
 
       {quietHoursEnabled && (
-        <div className="profile-card__row profile-card__row--indent">
+        <fieldset className="profile-card__row profile-card__row--indent">
+          <legend className="sr-only">Quiet hours range</legend>
           <label className="profile-card__row-label">
             From
             <input
@@ -59,7 +60,7 @@ export default function DesktopSettings() {
               onChange={(e) => handleQuietHoursEnd(e.target.value)}
             />
           </label>
-        </div>
+        </fieldset>
       )}
 
       <Separator />

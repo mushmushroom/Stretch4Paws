@@ -23,7 +23,7 @@ export default function useSettings() {
   const { profile, user, refreshProfile } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
-  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const [localSettings, setLocalSettings] = useState<ProfileSettings>(() => loadLocalSettings());
   const syncedRef = useRef(false);
@@ -36,12 +36,24 @@ export default function useSettings() {
     if (!user || !profile || syncedRef.current) return;
     syncedRef.current = true;
 
-    const local = loadLocalSettings();
-    if (Object.keys(local).length === 0) return; // nothing local to merge
+    // Use localSettings from state — already loaded, no need to re-read localStorage
+    if (Object.keys(localSettings).length === 0) return; // nothing local to merge
 
-    const merged = { ...profile.settings, ...local };
-    void updateProfileSettings(user.id, merged).then(() => refreshProfile());
-  }, [user, profile]);
+    const merged = { ...profile.settings, ...localSettings };
+    async function sync() {
+      try {
+        const { error: updateError } = await updateProfileSettings(user!.id, merged);
+        if (updateError) {
+          setError(updateError.message);
+          return;
+        }
+        await refreshProfile();
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : 'Failed to sync settings');
+      }
+    }
+    void sync();
+  }, [user, profile, localSettings, refreshProfile]);
 
   // When logged in, Supabase is source of truth (already synced from local on login)
   const settings = user ? (profile?.settings ?? localSettings) : localSettings;
@@ -54,6 +66,7 @@ export default function useSettings() {
   const isCustomInterval = !REMINDER_PRESETS.some((p) => p.value === reminderIntervalMinutes);
 
   function showSaved() {
+    clearTimeout(savedTimerRef.current);
     setSaved(true);
     savedTimerRef.current = setTimeout(() => setSaved(false), 5000);
   }

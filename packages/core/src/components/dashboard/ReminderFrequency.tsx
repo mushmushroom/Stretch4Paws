@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { REMINDER_PRESETS } from '../../lib/constants';
 
 interface ReminderFrequencyProps {
@@ -16,10 +16,21 @@ export default function ReminderFrequency({
     isCustomInterval ? String(intervalMinutes) : ''
   );
   const [showCustomInput, setShowCustomInput] = useState(isCustomInterval);
+  const [customError, setCustomError] = useState<string | null>(null);
+
+  // Keep local input in sync if intervalMinutes changes externally (e.g. after Supabase sync)
+  useEffect(() => {
+    if (isCustomInterval) setCustomMinutes(String(intervalMinutes));
+  }, [intervalMinutes, isCustomInterval]);
 
   function saveCustom() {
     const mins = parseInt(customMinutes);
-    if (!isNaN(mins) && mins > 0) onIntervalChange(mins);
+    if (isNaN(mins) || mins < 1 || mins > 480) {
+      setCustomError('Enter a value between 1 and 480 minutes');
+      return;
+    }
+    setCustomError(null);
+    onIntervalChange(mins);
   }
 
   return (
@@ -52,7 +63,7 @@ export default function ReminderFrequency({
               min={1}
               max={480}
               value={customMinutes}
-              onChange={(e) => setCustomMinutes(e.target.value)}
+              onChange={(e) => { setCustomMinutes(e.target.value); setCustomError(null); }}
               onKeyDown={(e) => { if (e.key === 'Enter') saveCustom(); }}
               style={{ width: '7rem' }}
             />
@@ -61,6 +72,7 @@ export default function ReminderFrequency({
           <button className="btn btn--outline" onClick={saveCustom}>
             Save
           </button>
+          {customError && <p className="form-error">{customError}</p>}
         </div>
       )}
     </>

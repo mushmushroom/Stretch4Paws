@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 interface SettingsRowProps {
   title: string;
-  description: string;
+  description: ReactNode;
   control?: ReactNode;
 }
 
