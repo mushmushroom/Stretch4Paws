@@ -19,6 +19,8 @@ export default function DesktopSettings() {
     handleQuietHoursStart,
     handleQuietHoursEnd,
     handleReminderInterval,
+    remindersEnabled,
+    handleReminderToggle,
     error,
     saved,
   } = useSettings();
@@ -28,7 +30,9 @@ export default function DesktopSettings() {
       <SettingsRow
         title="Sound effects"
         description="A happy bark on completion"
-        control={<Toggle checked={soundEnabled} onChange={handleSoundToggle} label="Sound effects" />}
+        control={
+          <Toggle checked={soundEnabled} onChange={handleSoundToggle} label="Sound effects" />
+        }
       />
 
       <Separator />
@@ -36,9 +40,14 @@ export default function DesktopSettings() {
       <SettingsRow
         title="Quiet hours"
         description="No nudges during this time"
-        control={<Toggle checked={quietHoursEnabled} onChange={handleQuietHoursToggle} label="Quiet hours" />}
+        control={
+          <Toggle
+            checked={quietHoursEnabled}
+            onChange={handleQuietHoursToggle}
+            label="Quiet hours"
+          />
+        }
       />
-
       {quietHoursEnabled && (
         <fieldset className="profile-card__row profile-card__row--indent">
           <legend className="sr-only">Quiet hours range</legend>
@@ -66,14 +75,29 @@ export default function DesktopSettings() {
       <Separator />
 
       <SettingsRow
-        title="Reminder frequency"
-        description="How often to nudge you to stretch"
+        title="Remind to stretch"
+        description="Receive notifications to stretch"
+        control={
+          <Toggle
+            checked={remindersEnabled}
+            onChange={handleReminderToggle}
+            label="Reminders enabled"
+          />
+        }
       />
-      <ReminderFrequency
-        intervalMinutes={reminderIntervalMinutes}
-        isCustomInterval={isCustomInterval}
-        onIntervalChange={handleReminderInterval}
-      />
+
+      {remindersEnabled && (
+        <>
+          <Separator />
+
+          <SettingsRow title="Reminder frequency" description="How often to nudge you to stretch" />
+          <ReminderFrequency
+            intervalMinutes={reminderIntervalMinutes}
+            isCustomInterval={isCustomInterval}
+            onIntervalChange={handleReminderInterval}
+          />
+        </>
+      )}
 
       {error && <ErrorMessage message={error} />}
       {saved && <SuccessMessage message="Settings saved" />}

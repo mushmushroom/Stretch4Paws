@@ -53,6 +53,7 @@ export default function useSettings() {
       }
     }
     void sync();
+
   }, [user, profile, localSettings, refreshProfile]);
 
   // When logged in, Supabase is source of truth (already synced from local on login)
@@ -62,8 +63,20 @@ export default function useSettings() {
   const quietHoursEnabled = settings.quiet_hours_enabled ?? DEFAULT_SETTINGS.QUIET_HOURS;
   const quietHoursStart = settings.quiet_hours_start ?? DEFAULT_SETTINGS.QUIET_HOURS_START;
   const quietHoursEnd = settings.quiet_hours_end ?? DEFAULT_SETTINGS.QUIET_HOURS_END;
-  const reminderIntervalMinutes = settings.reminder_interval_minutes ?? DEFAULT_SETTINGS.REMINDER_INTERVAL_MINUTES;
+  const reminderIntervalMinutes =
+    settings.reminder_interval_minutes ?? DEFAULT_SETTINGS.REMINDER_INTERVAL_MINUTES;
   const isCustomInterval = !REMINDER_PRESETS.some((p) => p.value === reminderIntervalMinutes);
+  const remindersEnabled = settings.reminders_enabled ?? DEFAULT_SETTINGS.REMINDERS_ENABLED;
+
+  useEffect(() => {
+    window.electron?.setReminderSchedule({
+      reminders_enabled: remindersEnabled,
+      reminder_interval_minutes: reminderIntervalMinutes,
+      quiet_hours_enabled: quietHoursEnabled,
+      quiet_hours_start: quietHoursStart,
+      quiet_hours_end: quietHoursEnd,
+    });
+  }, [remindersEnabled, reminderIntervalMinutes, quietHoursEnabled, quietHoursStart, quietHoursEnd]);
 
   function showSaved() {
     clearTimeout(savedTimerRef.current);
@@ -109,6 +122,10 @@ export default function useSettings() {
     return updateSettings({ quiet_hours_end: value });
   }
 
+  function handleReminderToggle(value: boolean) {
+    return updateSettings({ reminders_enabled: value });
+  }
+
   function handleReminderInterval(minutes: number) {
     return updateSettings({ reminder_interval_minutes: minutes });
   }
@@ -125,6 +142,8 @@ export default function useSettings() {
     reminderIntervalMinutes,
     isCustomInterval,
     handleReminderInterval,
+    handleReminderToggle,
+    remindersEnabled,
     error,
     saved,
   };

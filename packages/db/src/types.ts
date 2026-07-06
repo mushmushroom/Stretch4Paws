@@ -4,6 +4,7 @@ export interface ProfileSettings {
   quiet_hours_start?: string;
   quiet_hours_end?: string;
   reminder_interval_minutes?: number;
+  reminders_enabled?: boolean;
 }
 
 export interface Profile {

@@ -2,6 +2,8 @@ packages:
   - 'packages/*'
 allowBuilds:
   '@parcel/watcher': false
+  electron-winstaller: false
   esbuild: set this to true or false
+  macos-notification-state: false
 minimumReleaseAgeExclude:
   - electron@42.5.1

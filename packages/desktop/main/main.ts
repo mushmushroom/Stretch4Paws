@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, shell, Notification } from 'electron';
 import path from 'path';
 import { registerIpcHandlers } from './ipcHandlers.js';
 
@@ -19,6 +19,10 @@ function createWindow() {
 
   mainWindowRef.current = mainWindow;
 
+  if (process.platform !== 'darwin') {
+    app.setAppUserModelId('com.stretch4paws.app');
+  }
+
   mainWindow.maximize();
   mainWindow.loadURL(DEV_URL);
 
@@ -26,6 +30,10 @@ function createWindow() {
     shell.openExternal(url);
     return { action: 'deny' };
   });
+
+  // mainWindow.webContents.once('did-finish-load', () => {
+  //   showNotification();
+  // });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -38,9 +46,16 @@ if (!gotLock) {
   app.quit();
 }
 
+app.setName('Stretch4Paws');
+// TODO: remove before packaging — dev-only hack to get macOS notifications without a signed bundle
+if (process.platform === 'darwin') {
+  app.setAppUserModelId('com.apple.Terminal');
+}
+
 app.whenReady().then(() => {
   createWindow();
   registerIpcHandlers(mainWindowRef, new URL(APP_URL).origin);
+  // showNotification();
 });
 
 app.on('second-instance', () => {
@@ -57,3 +72,5 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
   if (mainWindow === null) createWindow();
 });
+
+console.log(app.getName());

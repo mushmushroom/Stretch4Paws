@@ -11,12 +11,27 @@
     "start": "electron .",
     "dev:electron": "tsc -w",
     "dev:react": "npm run dev --prefix renderer",
-    "dev": "concurrently \"npm:dev:react\" \"npm:dev:electron\" \"wait-on http://localhost:5174 && electron .\""
+    "dev": "concurrently \"npm:dev:react\" \"npm:dev:electron\" \"wait-on http://localhost:5174 && electron .\"",
+    "build:app": "electron-builder --dir",
+    "sign:dev": "codesign --force --deep --sign 'Electron Dev' /Users/marie/Documents/from0to1/PORTFOLIO/Stretch4Paws/packages/desktop/dist/mac-arm64/stretch4paws-app.app"
+  },
+  "build": {
+    "appId": "com.stretch4paws.app",
+    "mac": {
+      "target": "dir"
+    },
+    "files": [
+      "dist/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "concurrently": "^10.0.3",
     "electron": "^42.5.1",
+    "electron-builder": "^26.15.3",
     "sass-embedded": "^1.100.0",
     "typescript": "^6.0.3",
     "wait-on": "^9.0.10"

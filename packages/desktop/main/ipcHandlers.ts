@@ -1,4 +1,62 @@
-import { ipcMain, BrowserWindow, shell } from 'electron';
+import { ipcMain, BrowserWindow, shell, Notification } from 'electron';
+
+interface ReminderSchedule {
+  reminders_enabled?: boolean;
+  reminder_interval_minutes?: number;
+  quiet_hours_enabled?: boolean;
+  quiet_hours_start?: string;
+  quiet_hours_end?: string;
+}
+
+let reminderTimer: NodeJS.Timeout | null = null;
+let currentSchedule: ReminderSchedule = {};
+
+function isInQuietHours(schedule: ReminderSchedule): boolean {
+  if (!schedule.quiet_hours_enabled) return false;
+  const start = schedule.quiet_hours_start;
+  const end = schedule.quiet_hours_end;
+  if (!start || !end) return false;
+
+  const now = new Date();
+  const current = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+  // overnight range e.g. 22:00–06:00
+  if (start > end) return current >= start || current <= end;
+  // same-day range e.g. 12:00–14:00
+  return current >= start && current <= end;
+}
+
+function showReminderNotification(mainWindowRef: { current: BrowserWindow | null }) {
+  if (isInQuietHours(currentSchedule)) return;
+
+  const notification = new Notification({
+    title: 'Time to stretch!',
+    body: 'Take a short break and move around to keep your body healthy.',
+    sound: 'Ping',
+  });
+
+  notification.on('click', () => {
+    const win = mainWindowRef.current;
+    if (!win) return;
+    if (win.isMinimized()) win.restore();
+    win.show();
+    win.focus();
+    win.webContents.send('focus-stretches');
+  });
+
+  notification.show();
+}
+
+function startReminderTimer(mainWindowRef: { current: BrowserWindow | null }) {
+  if (reminderTimer) {
+    clearInterval(reminderTimer);
+    reminderTimer = null;
+  }
+  if (!currentSchedule.reminders_enabled) return;
+
+  const intervalMs = (currentSchedule.reminder_interval_minutes ?? 30) * 60 * 1000;
+  reminderTimer = setInterval(() => showReminderNotification(mainWindowRef), intervalMs);
+}
 
 export function registerIpcHandlers(
   mainWindowRef: { current: BrowserWindow | null },
@@ -114,5 +172,10 @@ export function registerIpcHandlers(
       clearInterval(poll);
       clearTimeout(timeout);
     });
+  });
+
+  ipcMain.on('set-reminder-schedule', (_event, schedule: ReminderSchedule) => {
+    currentSchedule = { ...currentSchedule, ...schedule };
+    startReminderTimer(mainWindowRef);
   });
 }
