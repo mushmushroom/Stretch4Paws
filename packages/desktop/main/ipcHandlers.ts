@@ -74,7 +74,9 @@ export function registerIpcHandlers(
       console.warn('[open-external] Rejected non-https URL:', url);
       return;
     }
-    shell.openExternal(url);
+    shell
+      .openExternal(url)
+      .catch((err) => console.error('[open-external] Failed to open URL:', err));
   });
 
   ipcMain.on('open-auth-window', (_event, url: string) => {
@@ -123,7 +125,10 @@ export function registerIpcHandlers(
       .clearStorageData({ storages: ['localstorage', 'cookies'] })
       .then(() => authWindow.loadURL(loginUrl.toString()))
       .catch(() => authWindow.loadURL(loginUrl.toString()))
-      .catch((err) => console.error('[auth-window] loadURL failed', err));
+      .catch((err) => {
+        console.error('[auth-window] loadURL failed', err);
+        if (!authWindow.isDestroyed()) authWindow.destroy();
+      });
 
     const timeout = setTimeout(() => {
       clearInterval(poll);
@@ -176,6 +181,15 @@ export function registerIpcHandlers(
 
   ipcMain.on('set-reminder-schedule', (_event, schedule: ReminderSchedule) => {
     currentSchedule = { ...currentSchedule, ...schedule };
+    const interval = currentSchedule.reminder_interval_minutes;
+    if (interval !== undefined && (isNaN(interval) || interval < 1)) {
+      console.warn(
+        '[set-reminder-schedule] Invalid reminder_interval_minutes:',
+        currentSchedule.reminder_interval_minutes,
+      );
+      return;
+    }
+
     startReminderTimer(mainWindowRef);
   });
 }

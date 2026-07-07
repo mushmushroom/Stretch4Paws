@@ -32,23 +32,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   useEffect(() => {
-    getSession().then(async ({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        await Promise.all([loadProfile(session.user.id), loadGoal(session.user.id)]).catch(
-          console.error,
-        );
-      }
-      setIsLoading(false);
-    });
+    getSession()
+      .then(async ({ data: { session } }) => {
+        setUser(session?.user ?? null);
+        if (session?.user) {
+          await Promise.all([loadProfile(session.user.id), loadGoal(session.user.id)]).catch(
+            console.error,
+          );
+        }
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error('[AuthContext] getSession failed:', err);
+      })
+      .finally(() => setIsLoading(false));
 
     const {
       data: { subscription },
     } = onAuthStateChange((_, session) => {
       setUser(session?.user ?? null);
       if (session?.user) {
-        loadProfile(session.user.id);
-        loadGoal(session.user.id);
+        Promise.all([loadProfile(session.user.id), loadGoal(session.user.id)]).catch(console.error);
       } else {
         setProfile(null);
         setGoal(DEFAULT_GOAL);

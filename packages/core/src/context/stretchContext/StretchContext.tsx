@@ -33,6 +33,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
 
   const [phase, setPhase] = useState<'idle' | 'stretch' | 'paused' | 'completed'>('idle');
   const [currentStretchIndex, setCurrentStretchIndex] = useState(0);
+  const [sessionSaveError, setSessionSaveError] = useState(false);
   const currentStretch = stretches[currentStretchIndex] ?? null;
 
   const [stretchTimeLeft, setStretchTimeLeft] = useState(
@@ -81,7 +82,10 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
         setPhase('completed');
 
         if (user) {
-          insertSession(user.id, goal).catch(console.error);
+          insertSession(user.id, goal).catch((err) => {
+            console.error('[StretchContext] Failed to save session:', err);
+            setSessionSaveError(true);
+          });
         }
       } else {
         // Move to next stretch
@@ -106,6 +110,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
       setCurrentStretchIndex(0);
       setStretchTimeLeft(stretches[0].duration);
       setTotalTimeLeft(totalDuration);
+      setSessionSaveError(false);
     }
     setPhase('stretch');
   }
@@ -141,6 +146,7 @@ export const StretchProvider: React.FC<StretchProviderProps> = ({ children }) =>
         stretchTimeLeft,
         totalTimeLeft,
         currentStretchIndex,
+        sessionSaveError,
         start,
         pause,
         reset,

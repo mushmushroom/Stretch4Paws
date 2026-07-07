@@ -16,7 +16,11 @@ function loadLocalSettings(): ProfileSettings {
 }
 
 function saveLocalSettings(settings: ProfileSettings) {
-  localStorage.setItem(LOCAL_SETTINGS_KEY, JSON.stringify(settings));
+  try {
+    localStorage.setItem(LOCAL_SETTINGS_KEY, JSON.stringify(settings));
+  } catch (err) {
+    console.error('Failed to save local settings', err);
+  }
 }
 
 export default function useSettings() {
@@ -53,8 +57,7 @@ export default function useSettings() {
       }
     }
     void sync();
-
-  }, [user, profile, localSettings, refreshProfile]);
+  }, [user, profile, refreshProfile]);
 
   // When logged in, Supabase is source of truth (already synced from local on login)
   const settings = user ? (profile?.settings ?? localSettings) : localSettings;
@@ -76,7 +79,13 @@ export default function useSettings() {
       quiet_hours_start: quietHoursStart,
       quiet_hours_end: quietHoursEnd,
     });
-  }, [remindersEnabled, reminderIntervalMinutes, quietHoursEnabled, quietHoursStart, quietHoursEnd]);
+  }, [
+    remindersEnabled,
+    reminderIntervalMinutes,
+    quietHoursEnabled,
+    quietHoursStart,
+    quietHoursEnd,
+  ]);
 
   function showSaved() {
     clearTimeout(savedTimerRef.current);
@@ -95,9 +104,14 @@ export default function useSettings() {
 
     // Also sync to Supabase when logged in
     if (user) {
-      const { error: updateError } = await updateProfileSettings(user.id, merged);
-      if (updateError) {
-        setError(updateError.message);
+      try {
+        const { error: updateError } = await updateProfileSettings(user.id, merged);
+        if (updateError) {
+          setError(updateError.message);
+          return;
+        }
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : 'Failed to update settings');
         return;
       }
       await refreshProfile();

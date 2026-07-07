@@ -24,7 +24,7 @@ function createWindow() {
   }
 
   mainWindow.maximize();
-  mainWindow.loadURL(DEV_URL);
+  mainWindow.loadURL(DEV_URL).catch((err) => console.error('[main] Failed to load renderer:', err));
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
@@ -52,11 +52,16 @@ if (process.platform === 'darwin') {
   app.setAppUserModelId('com.apple.Terminal');
 }
 
-app.whenReady().then(() => {
-  createWindow();
-  registerIpcHandlers(mainWindowRef, new URL(APP_URL).origin);
-  // showNotification();
-});
+app
+  .whenReady()
+  .then(() => {
+    createWindow();
+    registerIpcHandlers(mainWindowRef, new URL(APP_URL).origin);
+  })
+  .catch((err) => {
+    console.error('[main] Failed to start app:', err);
+    app.quit();
+  });
 
 app.on('second-instance', () => {
   if (mainWindow) {
