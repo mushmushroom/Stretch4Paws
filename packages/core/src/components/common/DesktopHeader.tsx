@@ -2,6 +2,7 @@ import Logo from './Logo';
 import { useAuth } from '../../context/authContext/useAuth';
 import { AppRoutes } from '../../lib/constants';
 import LogoutButton from './LogoutButton';
+import useOnlineStatus from '../../hooks/useOnlineStatus';
 import type { DesktopView } from '../../lib/types';
 
 interface DesktopHeaderProps {
@@ -11,6 +12,7 @@ interface DesktopHeaderProps {
 
 export default function DesktopHeader({ view, onViewChange }: DesktopHeaderProps) {
   const { user } = useAuth();
+  const isOnline = useOnlineStatus();
   const BASE_URL = import.meta.env.VITE_PUBLIC_URL ?? '';
 
   const openAuthWindow = (path: string) => {
@@ -44,12 +46,19 @@ export default function DesktopHeader({ view, onViewChange }: DesktopHeaderProps
                 <button
                   className="btn btn--outline"
                   onClick={() => openAuthWindow(AppRoutes.LOGIN)}
+                  disabled={!isOnline}
+                  title={!isOnline ? 'No internet connection' : undefined}
                 >
                   Login
                 </button>
               </li>
               <li className="header__item">
-                <button className="btn" onClick={() => openAuthWindow(AppRoutes.REGISTER)}>
+                <button
+                  className="btn"
+                  onClick={() => openAuthWindow(AppRoutes.REGISTER)}
+                  disabled={!isOnline}
+                  title={!isOnline ? 'No internet connection' : undefined}
+                >
                   Start free
                 </button>
               </li>
@@ -61,6 +70,8 @@ export default function DesktopHeader({ view, onViewChange }: DesktopHeaderProps
                 <button
                   className="btn btn--ghost"
                   onClick={() => window.electron?.openExternal(`${BASE_URL}${AppRoutes.DASHBOARD}`)}
+                  disabled={!isOnline}
+                  title={!isOnline ? 'No internet connection' : undefined}
                 >
                   Dashboard
                 </button>

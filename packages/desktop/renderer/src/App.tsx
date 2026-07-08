@@ -7,6 +7,7 @@ import ThemeToggle from '@stretch4paws/core/components/common/ThemeToggle.js';
 import DesktopHeader from '@stretch4paws/core/components/common/DesktopHeader.js';
 import DesktopSettings from '@stretch4paws/core/components/dashboard/DesktopSettings.js';
 import ErrorMessage from '@stretch4paws/core/components/common/ErrorMessage.js';
+import OfflineBanner from '@stretch4paws/core/components/common/OfflineBanner.js';
 import { setSession } from '@stretch4paws/db';
 import type { DesktopView } from '@stretch4paws/core/lib/types';
 import { useStretchContext } from '@stretch4paws/core/context/stretchContext/useStretchContext.js';
@@ -43,10 +44,11 @@ function AppInner() {
   return (
     <div className="public-wrapper">
       <DesktopHeader view={view} onViewChange={setView} />
+      <OfflineBanner />
       {authError && <ErrorMessage message={authError} />}
       <main>
         {view === 'stretches' && <StretchesSection />}
-        <div style={{ display: view === 'settings' ? undefined : 'none' }}>
+        <div className="settings-wrapper" style={{ display: view === 'settings' ? undefined : 'none' }}>
           <DesktopSettings />
         </div>
       </main>

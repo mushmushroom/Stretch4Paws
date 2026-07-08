@@ -16,6 +16,11 @@
   background-color: $bg-accent;
   transition: opacity 0.3s ease;
 
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
   &--outline {
     background-color: transparent;
     color: $bg-accent;
@@ -291,6 +296,16 @@
 
   &:before {
     background-color: $success;
+  }
+}
+
+.warning-message {
+  @extend %feedback-message;
+  border: 1px solid $warning;
+  color: $warning;
+
+  &:before {
+    background-color: $warning;
   }
 }
 
