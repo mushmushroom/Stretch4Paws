@@ -6,8 +6,9 @@ const coreNodeModules = path.resolve(__dirname, '../../core/node_modules');
 
 export default defineConfig({
   plugins: [react()],
+  base: './',
   server: {
-    port: 5174,
+    port: 5173,
     fs: { allow: [path.resolve(__dirname, '../../../..')] },
   },
   resolve: {

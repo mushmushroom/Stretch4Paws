@@ -10,22 +10,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "dev:electron": "tsc -w",
-    "dev:react": "npm run dev --prefix renderer",
-    "dev": "concurrently \"npm:dev:react\" \"npm:dev:electron\" \"wait-on http://localhost:5174 && electron .\"",
-    "build:app": "electron-builder --dir",
-    "sign:dev": "codesign --force --deep --sign 'Electron Dev' /Users/marie/Documents/from0to1/PORTFOLIO/Stretch4Paws/packages/desktop/dist/mac-arm64/stretch4paws-app.app"
-  },
-  "build": {
-    "appId": "com.stretch4paws.app",
-    "mac": {
-      "target": "dir"
-    },
-    "files": [
-      "dist/**/*"
-    ],
-    "directories": {
-      "buildResources": "assets"
-    }
+    "dev:react": "pnpm --prefix renderer dev",
+    "dev": "concurrently \"npm:dev:react\" \"npm:dev:electron\" \"wait-on http://localhost:5173 && electron .\"",
+    "build:renderer": "pnpm --prefix renderer build",
+    "build:main": "tsc",
+    "build": "pnpm run build:renderer && pnpm run build:main",
+    "sign:dev": "codesign --force --deep --sign 'Stretch4Paws App' --timestamp=none build/mac-arm64/Stretch4Paws.app",
+    "dist:mac": "pnpm run build && electron-builder --mac",
+    "dist:mac:signed": "pnpm run dist:mac && pnpm run sign:dev",
+    "dist:win": "pnpm run build && electron-builder --win"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

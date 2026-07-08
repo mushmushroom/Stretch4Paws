@@ -1,4 +1,8 @@
 import { ipcMain, BrowserWindow, shell, Notification } from 'electron';
+import { execFile } from 'child_process';
+
+const debug = process.env.DEBUG === 'true';
+const log = (...args: unknown[]) => { if (debug) console.log(...args); };
 
 interface ReminderSchedule {
   reminders_enabled?: boolean;
@@ -27,12 +31,27 @@ function isInQuietHours(schedule: ReminderSchedule): boolean {
 }
 
 function showReminderNotification(mainWindowRef: { current: BrowserWindow | null }) {
-  if (isInQuietHours(currentSchedule)) return;
+  log('[reminder] showReminderNotification called, schedule:', currentSchedule);
+  log('[reminder] Notification.isSupported():', Notification.isSupported());
+  if (isInQuietHours(currentSchedule)) {
+    log('[reminder] Blocked by quiet hours');
+    return;
+  }
+
+  if (process.platform === 'darwin') {
+    const script = `display notification "Take a short break and move around to keep your body healthy." with title "Time to stretch!" sound name "Ping"`;
+    execFile('osascript', ['-e', script], (err) => {
+      if (err) console.error('[reminder] osascript failed:', err);
+      else log('[reminder] osascript notification sent');
+    });
+    return;
+  }
 
   const notification = new Notification({
     title: 'Time to stretch!',
     body: 'Take a short break and move around to keep your body healthy.',
     sound: 'Ping',
+    urgency: 'critical',
   });
 
   notification.on('click', () => {
@@ -44,6 +63,8 @@ function showReminderNotification(mainWindowRef: { current: BrowserWindow | null
     win.webContents.send('focus-stretches');
   });
 
+  notification.on('failed', (_e, err) => console.error('[reminder] notification failed:', err));
+  log('[reminder] notification.show() called');
   notification.show();
 }
 
@@ -52,9 +73,13 @@ function startReminderTimer(mainWindowRef: { current: BrowserWindow | null }) {
     clearInterval(reminderTimer);
     reminderTimer = null;
   }
-  if (!currentSchedule.reminders_enabled) return;
+  if (!currentSchedule.reminders_enabled) {
+    log('[reminder] Timer not started: reminders_enabled is false');
+    return;
+  }
 
   const intervalMs = (currentSchedule.reminder_interval_minutes ?? 30) * 60 * 1000;
+  log(`[reminder] Timer started: interval=${intervalMs}ms (${currentSchedule.reminder_interval_minutes} min)`);
   reminderTimer = setInterval(() => showReminderNotification(mainWindowRef), intervalMs);
 }
 
@@ -70,7 +95,9 @@ export function registerIpcHandlers(
       console.warn('[open-external] Rejected invalid URL');
       return;
     }
-    if (parsed.protocol !== 'https:') {
+    const isHttpsUrl = parsed.protocol === 'https:';
+    const isLocalHttp = parsed.protocol === 'http:' && parsed.hostname === 'localhost';
+    if (!isHttpsUrl && !isLocalHttp) {
       console.warn('[open-external] Rejected non-https URL:', url);
       return;
     }
@@ -180,7 +207,9 @@ export function registerIpcHandlers(
   });
 
   ipcMain.on('set-reminder-schedule', (_event, schedule: ReminderSchedule) => {
+    log('[reminder] set-reminder-schedule received:', schedule);
     currentSchedule = { ...currentSchedule, ...schedule };
+    log('[reminder] merged schedule:', currentSchedule);
     const interval = currentSchedule.reminder_interval_minutes;
     if (interval !== undefined && (isNaN(interval) || interval < 1)) {
       console.warn(

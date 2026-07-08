@@ -18,7 +18,7 @@ function AppInner() {
   const phaseRef = useRef(phase);
 
   useEffect(() => {
-    return window.electron.onAuthCallback(async ({ accessToken, refreshToken }) => {
+    return window.electron?.onAuthCallback(async ({ accessToken, refreshToken }) => {
       try {
         await setSession(accessToken, refreshToken);
         setAuthError(null);
@@ -34,7 +34,7 @@ function AppInner() {
   }, [phase]);
 
   useEffect(() => {
-    return window.electron.onFocusStretches(() => {
+    return window.electron?.onFocusStretches(() => {
       setView('stretches');
       if (phaseRef.current === 'completed') reset();
     });
@@ -46,7 +46,9 @@ function AppInner() {
       {authError && <ErrorMessage message={authError} />}
       <main>
         {view === 'stretches' && <StretchesSection />}
-        {view === 'settings' && <DesktopSettings />}
+        <div style={{ display: view === 'settings' ? undefined : 'none' }}>
+          <DesktopSettings />
+        </div>
       </main>
       <ThemeToggle />
     </div>

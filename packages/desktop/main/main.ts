@@ -1,9 +1,9 @@
-import { app, BrowserWindow, shell, Notification } from 'electron';
+import { app, BrowserWindow, shell } from 'electron';
 import path from 'path';
 import { registerIpcHandlers } from './ipcHandlers.js';
 
-const DEV_URL = process.env.DEV_URL ?? 'http://localhost:5174';
-const APP_URL = process.env.APP_URL ?? 'http://localhost:5174';
+const DEV_URL = process.env.DEV_URL ?? 'http://localhost:5173';
+const APP_URL = process.env.APP_URL ?? 'http://localhost:5173';
 
 let mainWindow: BrowserWindow | null = null;
 const mainWindowRef: { current: BrowserWindow | null } = { current: mainWindow };
@@ -24,16 +24,19 @@ function createWindow() {
   }
 
   mainWindow.maximize();
-  mainWindow.loadURL(DEV_URL).catch((err) => console.error('[main] Failed to load renderer:', err));
+
+  if (app.isPackaged) {
+    mainWindow.loadFile(path.join(__dirname, '../renderer/dist/index.html'));
+  } else {
+    mainWindow
+      .loadURL(DEV_URL)
+      .catch((err) => console.error('[main] Failed to load renderer:', err));
+  }
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
     return { action: 'deny' };
   });
-
-  // mainWindow.webContents.once('did-finish-load', () => {
-  //   showNotification();
-  // });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -47,9 +50,8 @@ if (!gotLock) {
 }
 
 app.setName('Stretch4Paws');
-// TODO: remove before packaging — dev-only hack to get macOS notifications without a signed bundle
 if (process.platform === 'darwin') {
-  app.setAppUserModelId('com.apple.Terminal');
+  app.setAppUserModelId('com.apple.mail');
 }
 
 app
@@ -75,7 +77,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (mainWindow === null) createWindow();
+  if (app.isReady() && mainWindow === null) createWindow();
 });
 
 console.log(app.getName());

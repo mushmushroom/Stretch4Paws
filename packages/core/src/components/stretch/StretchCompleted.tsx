@@ -1,9 +1,9 @@
-import Lottie from ‘lottie-react’;
-import Confetti from ‘react-confetti’;
+import Lottie from 'lottie-react';
+import Confetti from 'react-confetti';
 
-import stretch4paws from ‘../../data/animations.json’;
-import { useStretchContext } from ‘../../context/stretchContext/useStretchContext’;
-import ErrorMessage from ‘../common/ErrorMessage’;
+import stretch4paws from '../../data/animations.json';
+import { useStretchContext } from '../../context/stretchContext/useStretchContext';
+import ErrorMessage from '../common/ErrorMessage';
 
 export default function StretchCompleted() {
   const { sessionSaveError } = useStretchContext();
