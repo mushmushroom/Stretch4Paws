@@ -1,5 +1,6 @@
 interface Window {
   electron: {
+    platform: NodeJS.Platform;
     openExternal: (url: string) => void;
     openAuthWindow: (url: string) => void;
     onAuthCallback: (

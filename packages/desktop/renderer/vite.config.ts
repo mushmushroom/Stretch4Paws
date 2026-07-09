@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   base: './',
   server: {
-    port: 5173,
+    port: 5174,
     fs: { allow: [path.resolve(__dirname, '../../../..')] },
   },
   resolve: {

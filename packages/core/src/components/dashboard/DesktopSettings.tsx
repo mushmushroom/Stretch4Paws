@@ -25,6 +25,8 @@ export default function DesktopSettings() {
     saved,
   } = useSettings();
 
+  const notificationsSupported = window.electron?.platform !== 'darwin';
+
   return (
     <div className="profile-card">
       <SettingsRow
@@ -35,67 +37,75 @@ export default function DesktopSettings() {
         }
       />
 
-      <Separator />
-
-      <SettingsRow
-        title="Quiet hours"
-        description="No nudges during this time"
-        control={
-          <Toggle
-            checked={quietHoursEnabled}
-            onChange={handleQuietHoursToggle}
-            label="Quiet hours"
-          />
-        }
-      />
-      {quietHoursEnabled && (
-        <fieldset className="profile-card__row profile-card__row--indent">
-          <legend className="sr-only">Quiet hours range</legend>
-          <label className="profile-card__row-label">
-            From
-            <input
-              type="time"
-              className="settings-time-input"
-              value={quietHoursStart}
-              onChange={(e) => handleQuietHoursStart(e.target.value)}
-            />
-          </label>
-          <label className="profile-card__row-label">
-            To
-            <input
-              type="time"
-              className="settings-time-input"
-              value={quietHoursEnd}
-              onChange={(e) => handleQuietHoursEnd(e.target.value)}
-            />
-          </label>
-        </fieldset>
-      )}
-
-      <Separator />
-
-      <SettingsRow
-        title="Remind to stretch"
-        description="Receive notifications to stretch"
-        control={
-          <Toggle
-            checked={remindersEnabled}
-            onChange={handleReminderToggle}
-            label="Reminders enabled"
-          />
-        }
-      />
-
-      {remindersEnabled && (
+      {notificationsSupported && (
         <>
           <Separator />
 
-          <SettingsRow title="Reminder frequency" description="How often to nudge you to stretch" />
-          <ReminderFrequency
-            intervalMinutes={reminderIntervalMinutes}
-            isCustomInterval={isCustomInterval}
-            onIntervalChange={handleReminderInterval}
+          <SettingsRow
+            title="Quiet hours"
+            description="No nudges during this time"
+            control={
+              <Toggle
+                checked={quietHoursEnabled}
+                onChange={handleQuietHoursToggle}
+                label="Quiet hours"
+              />
+            }
           />
+          {quietHoursEnabled && (
+            <fieldset className="profile-card__row profile-card__row--indent">
+              <legend className="sr-only">Quiet hours range</legend>
+              <label className="profile-card__row-label">
+                From
+                <input
+                  type="time"
+                  className="settings-time-input"
+                  value={quietHoursStart}
+                  onChange={(e) => handleQuietHoursStart(e.target.value)}
+                />
+              </label>
+              <label className="profile-card__row-label">
+                To
+                <input
+                  type="time"
+                  className="settings-time-input"
+                  value={quietHoursEnd}
+                  onChange={(e) => handleQuietHoursEnd(e.target.value)}
+                />
+              </label>
+            </fieldset>
+          )}
+        </>
+      )}
+
+      {notificationsSupported && (
+        <>
+          <Separator />
+
+          <SettingsRow
+            title="Remind to stretch"
+            description="Receive notifications to stretch"
+            control={
+              <Toggle
+                checked={remindersEnabled}
+                onChange={handleReminderToggle}
+                label="Reminders enabled"
+              />
+            }
+          />
+
+          {remindersEnabled && (
+            <>
+              <Separator />
+
+              <SettingsRow title="Reminder frequency" description="How often to nudge you to stretch" />
+              <ReminderFrequency
+                intervalMinutes={reminderIntervalMinutes}
+                isCustomInterval={isCustomInterval}
+                onIntervalChange={handleReminderInterval}
+              />
+            </>
+          )}
         </>
       )}
 

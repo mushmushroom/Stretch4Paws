@@ -11,7 +11,7 @@
     "start": "electron .",
     "dev:electron": "tsc -w",
     "dev:react": "pnpm --prefix renderer dev",
-    "dev": "concurrently \"npm:dev:react\" \"npm:dev:electron\" \"wait-on http://localhost:5173 && electron .\"",
+    "dev": "concurrently \"npm:dev:react\" \"npm:dev:electron\" \"wait-on http://localhost:5174 && electron .\"",
     "build:renderer": "pnpm --prefix renderer build",
     "build:main": "tsc",
     "build": "pnpm run build:renderer && pnpm run build:main",

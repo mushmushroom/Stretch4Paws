@@ -1,5 +1,10 @@
-import { ipcMain, BrowserWindow, shell, Notification } from 'electron';
+import { ipcMain, BrowserWindow, shell, Notification, app } from 'electron';
 import { execFile } from 'child_process';
+import path from 'path';
+
+const iconPath = app.isPackaged
+  ? path.join(process.resourcesPath, 'icon.png')
+  : path.join(__dirname, '../../resources/icon.png');
 
 const debug = process.env.DEBUG === 'true';
 const log = (...args: unknown[]) => { if (debug) console.log(...args); };
@@ -52,6 +57,7 @@ function showReminderNotification(mainWindowRef: { current: BrowserWindow | null
     body: 'Take a short break and move around to keep your body healthy.',
     sound: 'Ping',
     urgency: 'critical',
+    icon: iconPath,
   });
 
   notification.on('click', () => {
@@ -72,6 +78,10 @@ function startReminderTimer(mainWindowRef: { current: BrowserWindow | null }) {
   if (reminderTimer) {
     clearInterval(reminderTimer);
     reminderTimer = null;
+  }
+  if (process.platform === 'darwin') {
+    log('[reminder] Timer not started: notifications not supported on macOS without proper signing');
+    return;
   }
   if (!currentSchedule.reminders_enabled) {
     log('[reminder] Timer not started: reminders_enabled is false');
