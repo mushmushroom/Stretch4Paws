@@ -1,6 +1,11 @@
 name: Build Desktop App
 
 on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release (e.g. v1.0.0)"
+        required: true
   push:
     tags:
       - "v*"
@@ -91,7 +96,7 @@ jobs:
   release:
     needs: [build-mac, build-win]
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
 
@@ -111,5 +116,6 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
           files: release-files/*
           generate_release_notes: true
