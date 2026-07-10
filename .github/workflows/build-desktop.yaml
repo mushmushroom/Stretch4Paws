@@ -39,11 +39,7 @@ jobs:
           node-version: "22"
           cache: "pnpm"
 
-      - name: Install workspace dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Install renderer dependencies
-        working-directory: packages/desktop/renderer
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build and package (macOS)
@@ -77,11 +73,7 @@ jobs:
           node-version: "22"
           cache: "pnpm"
 
-      - name: Install workspace dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Install renderer dependencies
-        working-directory: packages/desktop/renderer
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build and package (Windows)

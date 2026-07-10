@@ -1,5 +1,6 @@
 packages:
   - 'packages/*'
+  - 'packages/desktop/renderer'
 allowBuilds:
   '@parcel/watcher': false
   electron-winstaller: false
