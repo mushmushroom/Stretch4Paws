@@ -17,6 +17,8 @@ on:
       - "packages/core/**"
       - "packages/db/**"
       - ".github/workflows/build-desktop.yaml"
+      - "pnpm-workspace.yaml"
+      - "pnpm-lock.yaml"
 
 jobs:
   build-mac:
