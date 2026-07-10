@@ -1,6 +1,7 @@
 import { ipcMain, BrowserWindow, shell, Notification, app } from 'electron';
 import { execFile } from 'child_process';
 import path from 'path';
+import { IpcChannels } from './ipcChannels.js';
 
 const iconPath = app.isPackaged
   ? path.join(process.resourcesPath, 'icon.png')
@@ -66,7 +67,7 @@ function showReminderNotification(mainWindowRef: { current: BrowserWindow | null
     if (win.isMinimized()) win.restore();
     win.show();
     win.focus();
-    win.webContents.send('focus-stretches');
+    win.webContents.send(IpcChannels.FOCUS_STRETCHES);
   });
 
   notification.on('failed', (_e, err) => console.error('[reminder] notification failed:', err));
@@ -97,7 +98,7 @@ export function registerIpcHandlers(
   mainWindowRef: { current: BrowserWindow | null },
   allowedOrigin: string,
 ) {
-  ipcMain.on('open-external', (_event, url: string) => {
+  ipcMain.on(IpcChannels.OPEN_EXTERNAL, (_event, url: string) => {
     let parsed: URL;
     try {
       parsed = new URL(url);
@@ -116,7 +117,7 @@ export function registerIpcHandlers(
       .catch((err) => console.error('[open-external] Failed to open URL:', err));
   });
 
-  ipcMain.on('open-auth-window', (_event, url: string) => {
+  ipcMain.on(IpcChannels.OPEN_AUTH_WINDOW, (_event, url: string) => {
     let parsed: URL;
     try {
       parsed = new URL(url);
@@ -151,7 +152,7 @@ export function registerIpcHandlers(
       done = true;
       clearTimeout(timeout);
       if (mainWindowRef.current) {
-        mainWindowRef.current.webContents.send('auth-callback', { accessToken, refreshToken });
+        mainWindowRef.current.webContents.send(IpcChannels.AUTH_CALLBACK, { accessToken, refreshToken });
         mainWindowRef.current.focus();
       }
       authWindow.destroy();
@@ -216,7 +217,7 @@ export function registerIpcHandlers(
     });
   });
 
-  ipcMain.on('set-reminder-schedule', (_event, schedule: ReminderSchedule) => {
+  ipcMain.on(IpcChannels.SET_REMINDER_SCHEDULE, (_event, schedule: ReminderSchedule) => {
     log('[reminder] set-reminder-schedule received:', schedule);
     currentSchedule = { ...currentSchedule, ...schedule };
     log('[reminder] merged schedule:', currentSchedule);

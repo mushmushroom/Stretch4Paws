@@ -1,16 +1,17 @@
 import { contextBridge, ipcRenderer } from 'electron';
+import { IpcChannels } from './ipcChannels.js';
 
 contextBridge.exposeInMainWorld('electron', {
   platform: process.platform,
-  openExternal: (url: string) => ipcRenderer.send('open-external', url),
-  openAuthWindow: (url: string) => ipcRenderer.send('open-auth-window', url),
+  openExternal: (url: string) => ipcRenderer.send(IpcChannels.OPEN_EXTERNAL, url),
+  openAuthWindow: (url: string) => ipcRenderer.send(IpcChannels.OPEN_AUTH_WINDOW, url),
   onAuthCallback: (callback: (tokens: { accessToken: string; refreshToken: string }) => void) => {
     const handler = (
       _event: Electron.IpcRendererEvent,
       tokens: { accessToken: string; refreshToken: string },
     ) => callback(tokens);
-    ipcRenderer.on('auth-callback', handler);
-    return () => ipcRenderer.removeListener('auth-callback', handler);
+    ipcRenderer.on(IpcChannels.AUTH_CALLBACK, handler);
+    return () => ipcRenderer.removeListener(IpcChannels.AUTH_CALLBACK, handler);
   },
   setReminderSchedule: (schedule: {
     reminders_enabled?: boolean;
@@ -18,10 +19,10 @@ contextBridge.exposeInMainWorld('electron', {
     quiet_hours_enabled?: boolean;
     quiet_hours_start?: string;
     quiet_hours_end?: string;
-  }) => ipcRenderer.send('set-reminder-schedule', schedule),
+  }) => ipcRenderer.send(IpcChannels.SET_REMINDER_SCHEDULE, schedule),
   onFocusStretches: (callback: () => void) => {
     const handler = () => callback();
-    ipcRenderer.on('focus-stretches', handler);
-    return () => ipcRenderer.removeListener('focus-stretches', handler);
+    ipcRenderer.on(IpcChannels.FOCUS_STRETCHES, handler);
+    return () => ipcRenderer.removeListener(IpcChannels.FOCUS_STRETCHES, handler);
   },
 });
