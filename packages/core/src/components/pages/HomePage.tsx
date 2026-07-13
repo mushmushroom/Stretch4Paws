@@ -3,32 +3,27 @@ import { AppRoutes } from '../../lib/constants';
 import PublicWrapper from '../pageWrappers/PublicWrapper';
 import HeroAppPreview from './HeroAppPreview';
 import CardGrid from '../common/CardGrid';
+import PageHero from '../common/PageHero';
 
 export default function HomePage() {
   return (
     <PublicWrapper>
-      <section className="hero">
-        <div className="hero__info">
-          <h1 className="hero__title">
-            Stretch more. <span>Sit less. Feel pawsome.</span>
-          </h1>
-          <p className="hero__descr">
-            Quick guided desk stretches with a cute companion who keeps you moving. Build a streak,
-            hit daily goals, and end the day feeling loose - not stiff.
-          </p>
-          <div className="hero__actions">
+      <PageHero
+        title={<>Stretch more. <span>Sit less. Feel pawsome.</span></>}
+        description="Quick guided desk stretches with a cute companion who keeps you moving. Build a streak, hit daily goals, and end the day feeling loose - not stiff."
+        actions={
+          <>
             <Link className="btn" to={AppRoutes.STRETCHES}>
               Start stretching
             </Link>
             <Link className="btn btn--outline-basic" to={AppRoutes.DESKTOP_APP}>
               Download desktop app
             </Link>
-          </div>
-        </div>
-        <div className="hero__preview">
-          <HeroAppPreview />
-        </div>
-      </section>
+          </>
+        }
+      >
+        <HeroAppPreview />
+      </PageHero>
 
       <section className="how">
         <div className="how__title-block">

@@ -16,6 +16,11 @@ export const AppRoutes = {
   DESKTOP_APP: '/desktop-app',
 } as const;
 
+export const DownloadLinks = {
+  MAC: 'https://github.com/mushmushroom/Stretch4Paws/releases/download/v1.0.0/Stretch4Paws-1.0.0-mac.dmg',
+  WIN: 'https://github.com/mushmushroom/Stretch4Paws/releases/download/v1.0.0/Stretch4Paws-1.0.0-win.exe',
+} as const;
+
 export const DEFAULT_GOAL = 5;
 export const MIN_GOAL = 1;
 export const MAX_GOAL = 14;
