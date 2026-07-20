@@ -7,7 +7,7 @@ import { zxcvbn } from '../lib/zxcvbn';
 
 export default function useDashboardChangePassword() {
   const [saved, setSaved] = useState(false);
-  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => () => clearTimeout(savedTimerRef.current), []);
 

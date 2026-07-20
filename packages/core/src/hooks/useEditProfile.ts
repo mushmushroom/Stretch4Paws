@@ -9,7 +9,7 @@ import { editProfileSchema, type EditProfileInputs } from '../lib/schemas/editPr
 export default function useEditProfile() {
   const { user, profile, refreshProfile } = useAuth();
   const [saved, setSaved] = useState(false);
-  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => () => clearTimeout(savedTimerRef.current), []);
 
