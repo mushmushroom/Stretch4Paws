@@ -8,7 +8,9 @@ export default function StretchTimer() {
   const minutes = Math.floor((stretchTimeLeft % 3600) / 60);
   const seconds = stretchTimeLeft % 60;
 
-  const progress = ((currentStretch.duration - stretchTimeLeft) / currentStretch.duration) * 100;
+  const progress = currentStretch
+    ? ((currentStretch.duration - stretchTimeLeft) / currentStretch.duration) * 100
+    : 0;
   return (
     <section className="section stretch-timer">
       <div className="stretch-timer__container" style={{ width: 155, height: 155 }}>

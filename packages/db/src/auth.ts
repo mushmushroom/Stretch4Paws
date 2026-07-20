@@ -37,6 +37,10 @@ export function getSession() {
   return supabase.auth.getSession();
 }
 
+export function setSession(accessToken: string, refreshToken: string) {
+  return supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+}
+
 export function onAuthStateChange(
   callback: (event: AuthChangeEvent, session: Session | null) => void,
 ) {

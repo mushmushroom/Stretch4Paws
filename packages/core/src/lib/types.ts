@@ -1,3 +1,5 @@
+export type DesktopView = 'stretches' | 'settings';
+
 export interface Goal {
   goal: number;
   goalLoading: boolean;

@@ -16,6 +16,11 @@
   background-color: $bg-accent;
   transition: opacity 0.3s ease;
 
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
   &--outline {
     background-color: transparent;
     color: $bg-accent;
@@ -30,6 +35,32 @@
     border: 1px solid $text-light;
     background-color: transparent;
     color: $text-light;
+  }
+
+  &--ghost {
+    background-color: transparent;
+    color: $text-dark;
+    border: none;
+
+    &:hover {
+      opacity: 1;
+      background-color: $bg-main;
+    }
+  }
+
+  &--active {
+    background-color: $bg-accent-light;
+    color: $text-accent;
+
+    &.btn--ghost {
+      background-color: $bg-accent-light;
+      color: $text-accent;
+
+      &:hover {
+        opacity: 1;
+        background-color: $bg-accent-light;
+      }
+    }
   }
 
   @media (any-hover: hover) {
@@ -90,6 +121,22 @@
   &__descr {
     @extend %text-muted;
     font-size: 1.2rem;
+  }
+}
+
+.settings-time-input {
+  border: 1px solid $border;
+  border-radius: $radius-xs;
+  padding: 0.6rem 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  background-color: $bg-sec;
+  color: $text-dark;
+  cursor: pointer;
+
+  &:focus {
+    outline: 2px solid $bg-accent;
+    border-color: transparent;
   }
 }
 
@@ -249,6 +296,33 @@
 
   &:before {
     background-color: $success;
+  }
+}
+
+.warning-message {
+  @extend %feedback-message;
+  border: 1px solid $warning;
+  color: $warning;
+
+  &:before {
+    background-color: $warning;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: $radius-xs;
+  background-color: $bg-yellow-light;
+  color: $warning;
+
+  &--warning {
+    background-color: $bg-yellow-light;
+    color: $warning;
   }
 }
 

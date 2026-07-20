@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { AppRoutes } from '../../lib/constants';
 import FormInput from '../common/FormInput';
 import useLogin from '../../hooks/useLogin';
@@ -7,10 +7,13 @@ import { useState } from 'react';
 import OrDivider from './OrDivider';
 import SuccessMessage from '../common/SuccessMessage';
 import ErrorMessage from '../common/ErrorMessage';
-import AuthWrapper from '../pageWrappers/AuthWrapper';
+import AuthWrapper, { useDesktopRoute } from '../pageWrappers/AuthWrapper';
 
 export default function LoginPage() {
   const [loginMode, setLoginMode] = useState<'password' | 'magic-link'>('password');
+  const desktopRoute = useDesktopRoute();
+  const [searchParams] = useSearchParams();
+  const isDesktop = searchParams.get('desktop') === 'true';
   const {
     onPasswordSubmit,
     passwordForm,
@@ -41,7 +44,7 @@ export default function LoginPage() {
             registration={passwordForm.register('password')}
             error={passwordForm.formState.errors.password}
           />
-          <Link to={AppRoutes.RESET_PASSWORD} className="login__forgot">
+          <Link to={desktopRoute(AppRoutes.RESET_PASSWORD)} className="login__forgot">
             Forgot password?
           </Link>
           {passwordForm.formState.errors.root && (
@@ -53,7 +56,7 @@ export default function LoginPage() {
         </form>
       )}
 
-      {loginMode === 'magic-link' && (
+      {loginMode === 'magic-link' && !isDesktop && (
         <form
           className="form-wrapper__form"
           onSubmit={magicLinkForm.handleSubmit(onMagicLinkSubmit)}
@@ -82,12 +85,12 @@ export default function LoginPage() {
 
       <div className="form-wrapper__actions">
         <SignInGoogleButton onClick={signInWithGoogle} />
-        {loginMode === 'magic-link' && (
+        {!isDesktop && loginMode === 'magic-link' && (
           <button className="btn btn--outline" onClick={() => setLoginMode('password')}>
             Use password
           </button>
         )}
-        {loginMode === 'password' && (
+        {!isDesktop && loginMode === 'password' && (
           <button className="btn btn--outline" onClick={() => setLoginMode('magic-link')}>
             Magic link
           </button>
@@ -96,7 +99,7 @@ export default function LoginPage() {
 
       <div className="form-wrapper__footer">
         <span>New here?</span>
-        <Link to={AppRoutes.REGISTER}>Create an account</Link>
+        <Link to={desktopRoute(AppRoutes.REGISTER)}>Create an account</Link>
       </div>
     </AuthWrapper>
   );

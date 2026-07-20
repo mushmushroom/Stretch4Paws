@@ -6,6 +6,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
     "@stretch4paws/db": "workspace:*",
+    "@supabase/supabase-js": "^2.108.1",
     "chart.js": "^4.5.1",
     "lottie-react": "^2.4.1",
     "react-chartjs-2": "^5.3.1",
@@ -34,6 +35,7 @@
   "exports": {
     "./components/*": "./src/components/*",
     "./context/*": "./src/context/*",
-    "./data/*": "./src/data/*"
+    "./data/*": "./src/data/*",
+    "./lib/types": "./src/lib/types.ts"
   }
 }

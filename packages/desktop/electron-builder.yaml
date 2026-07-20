@@ -1,0 +1,49 @@
+appId: com.stretch4paws.desktop
+productName: Stretch4Paws
+copyright: Copyright © 2026 Stretch4Paws
+
+directories:
+  output: build
+  buildResources: resources
+
+files:
+  - dist/*.js
+  - renderer/dist/**/*
+  - package.json
+
+extraResources:
+  - from: splash.html
+    to: splash.html
+  - from: resources/icon.png
+    to: icon.png
+
+mac:
+  target:
+    - target: dmg
+      arch:
+        - arm64
+        - x64
+    - target: zip
+      arch:
+        - arm64
+        - x64
+  icon: resources/icon.icns
+
+dmg:
+  artifactName: Stretch4Paws-${version}-mac.${ext}
+  contents:
+    - x: 130
+      y: 220
+      type: file
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications
+
+win:
+  target:
+    - target: portable
+      arch:
+        - x64
+  icon: resources/icon.ico
+  artifactName: Stretch4Paws-${version}-win.${ext}

@@ -43,6 +43,7 @@ $radius-xs: var(--radius-xs);
   // feedback
   --color-error: #e74c3c;
   --color-success: #5da79f;
+  --color-warning: #f39c12;
 
   // password strength
   --weak-password: #e74c3c;
@@ -80,6 +81,7 @@ $text-light: var(--color-text-light);
 $text-accent: var(--color-text-accent);
 $error: var(--color-error);
 $success: var(--color-success);
+$warning: var(--color-warning);
 $weak-password: var(--weak-password);
 $medium-password: var(--medium-password);
 $strong-password: var(--strong-password);
