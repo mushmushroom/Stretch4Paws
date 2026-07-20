@@ -7,4 +7,5 @@ export const enum IpcChannels {
   // main > renderer
   AUTH_CALLBACK = 'auth-callback',
   FOCUS_STRETCHES = 'focus-stretches',
+  FOCUS_SETTINGS = 'focus-settings',
 }

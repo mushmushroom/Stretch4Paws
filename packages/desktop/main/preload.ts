@@ -25,4 +25,9 @@ contextBridge.exposeInMainWorld('electron', {
     ipcRenderer.on(IpcChannels.FOCUS_STRETCHES, handler);
     return () => ipcRenderer.removeListener(IpcChannels.FOCUS_STRETCHES, handler);
   },
+  onFocusSettings: (callback: () => void) => {
+    const handler = () => callback();
+    ipcRenderer.on(IpcChannels.FOCUS_SETTINGS, handler);
+    return () => ipcRenderer.removeListener(IpcChannels.FOCUS_SETTINGS, handler);
+  },
 });

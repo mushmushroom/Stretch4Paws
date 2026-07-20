@@ -14,5 +14,6 @@ interface Window {
       quiet_hours_end?: string;
     }) => void;
     onFocusStretches: (callback: () => void) => () => void;
+    onFocusSettings: (callback: () => void) => () => void;
   };
 }

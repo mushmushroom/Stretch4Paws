@@ -1,6 +1,7 @@
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, Menu, shell } from 'electron';
 import path from 'path';
 import { registerIpcHandlers } from './ipcHandlers.js';
+import { IpcChannels } from './ipcChannels.js';
 
 const DEV_URL = process.env.DEV_URL ?? 'http://localhost:5174';
 const APP_URL = process.env.APP_URL ?? 'http://localhost:5174';
@@ -102,10 +103,91 @@ function launchWithSplash() {
   });
 }
 
+function buildMenu() {
+  const isMac = process.platform === 'darwin';
+  const webAppUrl = APP_URL;
+
+  const template: Electron.MenuItemConstructorOptions[] = [
+    // macOS app menu
+    ...(isMac
+      ? ([
+          {
+            label: app.name,
+            submenu: [
+              { role: 'about' },
+              { type: 'separator' },
+              { role: 'services' },
+              { type: 'separator' },
+              { role: 'hide' },
+              { role: 'hideOthers' },
+              { role: 'unhide' },
+              { type: 'separator' },
+              { role: 'quit' },
+            ],
+          },
+        ] as Electron.MenuItemConstructorOptions[])
+      : []),
+    {
+      label: 'Stretch4Paws',
+      submenu: [
+        {
+          label: 'Start Stretching',
+          accelerator: 'CmdOrCtrl+Shift+S',
+          click() {
+            const win = mainWindowRef.current;
+            if (!win) return;
+            if (win.isMinimized()) win.restore();
+            win.show();
+            win.focus();
+            win.webContents.send(IpcChannels.FOCUS_STRETCHES);
+          },
+        },
+        {
+          label: 'Settings',
+          accelerator: 'CmdOrCtrl+,',
+          click() {
+            const win = mainWindowRef.current;
+            if (!win) return;
+            if (win.isMinimized()) win.restore();
+            win.show();
+            win.focus();
+            win.webContents.send(IpcChannels.FOCUS_SETTINGS);
+          },
+        },
+        { type: 'separator' },
+        {
+          label: 'Open Dashboard in Browser',
+          accelerator: 'CmdOrCtrl+Shift+D',
+          click() {
+            shell.openExternal(webAppUrl);
+          },
+        },
+        { type: 'separator' },
+        ...(!isMac ? [{ role: 'quit' } as Electron.MenuItemConstructorOptions] : []),
+      ],
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        { role: 'undo' },
+        { role: 'redo' },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+        { role: 'selectAll' },
+      ],
+    },
+  ];
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+}
+
 app
   .whenReady()
   .then(() => {
     launchWithSplash();
+    buildMenu();
     registerIpcHandlers(mainWindowRef, new URL(APP_URL).origin);
   })
   .catch((err) => {

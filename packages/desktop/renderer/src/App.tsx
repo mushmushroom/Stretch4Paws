@@ -41,6 +41,12 @@ function AppInner() {
     });
   }, [reset]);
 
+  useEffect(() => {
+    return window.electron?.onFocusSettings(() => {
+      setView('settings');
+    });
+  }, []);
+
   return (
     <div className="public-wrapper">
       <DesktopHeader view={view} onViewChange={setView} />
