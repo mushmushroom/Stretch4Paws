@@ -1,0 +1,15 @@
+{
+  "name": "@stretch4paws/db",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.108.1"
+  },
+  "peerDependencies": {
+    "react": "^19.1.1"
+  }
+}

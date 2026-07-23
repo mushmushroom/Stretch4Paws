@@ -1,0 +1,10 @@
+packages:
+  - 'packages/*'
+  - 'packages/desktop/renderer'
+allowBuilds:
+  '@parcel/watcher': false
+  electron-winstaller: false
+  esbuild: true
+  macos-notification-state: false
+minimumReleaseAgeExclude:
+  - electron@42.5.1

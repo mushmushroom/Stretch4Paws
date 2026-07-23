@@ -1,0 +1,5 @@
+{
+  "buildCommand": "pnpm --filter @stretch4paws/web build",
+  "outputDirectory": "packages/web/dist",
+  "installCommand": "pnpm install"
+}

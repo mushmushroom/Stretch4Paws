@@ -1,35 +1,19 @@
 {
   "name": "stretch4paws",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "2.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "pnpm -r run build",
+    "dev:web": "pnpm --filter @stretch4paws/web dev",
+    "dev:desktop": "pnpm --filter stretch4paws-app dev",
+    "dev": "pnpm --filter @stretch4paws/web dev & pnpm --filter stretch4paws-app dev"
   },
   "dependencies": {
+    "chart.js": "^4.5.1",
     "lottie-react": "^2.4.1",
-    "react": "^19.1.1",
+    "react-chartjs-2": "^5.3.1",
     "react-circular-progressbar": "^2.2.0",
     "react-confetti": "^6.4.0",
-    "react-dom": "^19.1.1",
-    "react-icons": "^5.5.0"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.36.0",
-    "@types/node": "^24.6.0",
-    "@types/react": "^19.1.16",
-    "@types/react-dom": "^19.1.9",
-    "@vitejs/plugin-react": "^5.0.4",
-    "eslint": "^9.36.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.22",
-    "globals": "^16.4.0",
-    "sass-embedded": "^1.93.3",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.45.0",
-    "vite": "^7.1.7"
+    "use-sound": "^5.0.0"
   }
 }

@@ -1,0 +1,375 @@
+@use 'variables' as *;
+@use 'placeholders' as *;
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  border-radius: $radius-md;
+  padding: 1rem 1.5rem 1.1rem;
+  border: none;
+  color: $bg-sec;
+  cursor: pointer;
+  background-color: $bg-accent;
+  transition: opacity 0.3s ease;
+
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  &--outline {
+    background-color: transparent;
+    color: $bg-accent;
+    border: 2px solid $bg-accent;
+  }
+
+  &--purple {
+    background-color: $bg-accent-sec;
+  }
+
+  &--outline-basic {
+    border: 1px solid $text-light;
+    background-color: transparent;
+    color: $text-light;
+  }
+
+  &--ghost {
+    background-color: transparent;
+    color: $text-dark;
+    border: none;
+
+    &:hover {
+      opacity: 1;
+      background-color: $bg-main;
+    }
+  }
+
+  &--active {
+    background-color: $bg-accent-light;
+    color: $text-accent;
+
+    &.btn--ghost {
+      background-color: $bg-accent-light;
+      color: $text-accent;
+
+      &:hover {
+        opacity: 1;
+        background-color: $bg-accent-light;
+      }
+    }
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+
+  &__icon {
+    background-color: $main-dark;
+    border-radius: $radius-full;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4.3rem;
+    width: 4.3rem;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.9rem;
+  }
+
+  &__descr {
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+}
+
+.app-info {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+
+  &__icon {
+    background-color: $main-dark;
+    border-radius: $radius-full;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4.3rem;
+    width: 4.3rem;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.6rem;
+  }
+
+  &__descr {
+    @extend %text-muted;
+    font-size: 1.2rem;
+  }
+}
+
+.settings-time-input {
+  border: 1px solid $border;
+  border-radius: $radius-xs;
+  padding: 0.6rem 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  background-color: $bg-sec;
+  color: $text-dark;
+  cursor: pointer;
+
+  &:focus {
+    outline: 2px solid $bg-accent;
+    border-color: transparent;
+  }
+}
+
+.theme-toggle-btn {
+  cursor: pointer;
+  border: none;
+  border-radius: $radius-xs;
+  padding: 1.2rem 1.4rem;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  gap: 2rem;
+  background-color: $bg-accent-sec;
+  color: $bg-sec;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--card-grid-columns, 3), 1fr);
+  gap: 22px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: card-grid-counter;
+
+  @media (max-width: #{$bp-tablet}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: #{$bp-mobile}) {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  &__item {
+    border-radius: $radius-xl;
+    padding: 2.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    @media (max-width: #{$bp-mobile}) {
+      padding: 2rem;
+    }
+
+    &::before {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.6rem;
+      height: 3.6rem;
+      border-radius: $radius-xs;
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__item-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+  }
+
+  &__item-text {
+    @extend %text-muted-sm;
+  }
+
+  // ordered: numbered badge with 4-color cycling
+  &--ordered &__item {
+    counter-increment: card-grid-counter;
+
+    &::before {
+      content: counter(card-grid-counter);
+    }
+  }
+
+  &--ordered &__item:nth-child(4n+1)::before {
+    background-color: $bg-accent-light;
+    color: $bg-accent;
+  }
+
+  &--ordered &__item:nth-child(4n+2)::before {
+    background-color: $bg-accent-sec-light;
+    color: $bg-accent-sec;
+  }
+
+  &--ordered &__item:nth-child(4n+3)::before {
+    background-color: $bg-main;
+    color: $main-dark;
+  }
+
+  &--ordered &__item:nth-child(4n+4)::before {
+    background-color: $bg-yellow-light;
+    color: $bg-yellow;
+  }
+
+  // unordered: 4-color cycling badges
+  &--unordered &__item::before {
+    content: '';
+  }
+
+  &--unordered &__item:nth-child(4n+1)::before {
+    background: radial-gradient(circle, $bg-accent 26%, transparent 25%), $bg-accent-light;
+  }
+
+  &--unordered &__item:nth-child(4n+2)::before {
+    background: radial-gradient(circle, $bg-accent-sec 26%, transparent 25%), $bg-accent-sec-light;
+  }
+
+  &--unordered &__item:nth-child(4n+3)::before {
+    background: radial-gradient(circle, $main-dark 26%, transparent 25%), $bg-main;
+  }
+
+  &--unordered &__item:nth-child(4n+4)::before {
+    background: radial-gradient(circle, $bg-yellow 26%, transparent 25%), $bg-yellow-light;
+  }
+
+  // variants
+  &--accent {
+    .card-grid__item {
+      background-color: $bg-card-accent;
+
+      &::before {
+        background-color: $bg-card-accent-badge;
+        color: $success;
+      }
+    }
+  }
+
+  &--white {
+    .card-grid__item {
+      @extend %card;
+
+      &::before {
+        background-color: $bg-main;
+        color: $success;
+      }
+    }
+  }
+}
+
+.error-message {
+  @extend %feedback-message;
+  border: 1px solid $error;
+  color: $error;
+
+  &:before {
+    background-color: $error;
+  }
+}
+
+.success-message {
+  @extend %feedback-message;
+  border: 1px solid $success;
+  color: $success;
+
+  &:before {
+    background-color: $success;
+  }
+}
+
+.warning-message {
+  @extend %feedback-message;
+  border: 1px solid $warning;
+  color: $warning;
+
+  &:before {
+    background-color: $warning;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: $radius-xs;
+  background-color: $bg-yellow-light;
+  color: $warning;
+
+  &--warning {
+    background-color: $bg-yellow-light;
+    color: $warning;
+  }
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid $border;
+  margin: 0;
+}
+
+.toggle {
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  &__track {
+    display: block;
+    width: 46px;
+    height: 26px;
+    border-radius: $radius-pill;
+    background-color: $bg-timer;
+    position: relative;
+    transition: background-color 0.2s ease;
+  }
+
+  &__thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: $radius-full;
+    background-color: $bg-sec;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+
+  &__input:checked + &__track {
+    background-color: $bg-accent;
+  }
+
+  &__input:checked + &__track &__thumb {
+    transform: translateX(20px);
+  }
+}
