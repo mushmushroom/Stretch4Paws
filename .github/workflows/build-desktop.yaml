@@ -50,6 +50,8 @@ jobs:
 
       - name: Build and package (macOS)
         working-directory: packages/desktop
+        env:
+          APP_URL: ${{ secrets.VITE_PUBLIC_URL }}
         run: pnpm run dist:mac
 
       - name: Upload macOS artifacts
@@ -90,6 +92,8 @@ jobs:
 
       - name: Build and package (Windows)
         working-directory: packages/desktop
+        env:
+          APP_URL: ${{ secrets.VITE_PUBLIC_URL }}
         run: pnpm run dist:win
 
       - name: Upload Windows artifacts

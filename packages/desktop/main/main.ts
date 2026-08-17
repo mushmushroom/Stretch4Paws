@@ -1,10 +1,15 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
 import path from 'path';
+import { config } from 'dotenv';
 import { registerIpcHandlers } from './ipcHandlers.js';
 import { IpcChannels } from './ipcChannels.js';
 
+// Load renderer .env so VITE_PUBLIC_URL is available in the main process.
+// In packaged builds, this file is not present, so the existing env vars are used.
+config({ path: path.join(__dirname, '../renderer/.env') });
+
 const DEV_URL = process.env.DEV_URL ?? 'http://localhost:5174';
-const APP_URL = process.env.APP_URL ?? 'http://localhost:5174';
+const APP_URL = process.env.APP_URL ?? process.env.VITE_PUBLIC_URL ?? 'http://localhost:5174';
 
 let mainWindow: BrowserWindow | null = null;
 const mainWindowRef: { current: BrowserWindow | null } = { current: mainWindow };
