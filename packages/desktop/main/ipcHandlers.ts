@@ -139,6 +139,11 @@ export function registerIpcHandlers(
       },
     });
 
+    authWindow.webContents.openDevTools();
+    authWindow.webContents.on('did-fail-load', (_e, code, desc, failedUrl) => {
+      console.error('[auth-window] did-fail-load', { code, desc, failedUrl });
+    });
+
     // parsed.origin is already validated above — reuse it instead of re-parsing
     const webAppOrigin = parsed.origin;
     const loginUrl = new URL(url);
